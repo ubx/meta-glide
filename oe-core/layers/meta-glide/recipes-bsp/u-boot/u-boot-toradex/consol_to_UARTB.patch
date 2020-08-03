@@ -36,3 +36,16 @@ diff --git a/board/toradex/colibri_t30/pinmux-config-colibri_t30.h b/board/torad
 
  	/* LAN_RESET */
 
+
+diff --git a/arch/arm/dts/tegra30.dtsi b/arch/arm/dts/tegra30.dtsi
+--- a/arch/arm/dts/tegra30.dtsi
++++ b/arch/arm/dts/tegra30.dtsi
+@@ -938,7 +938,7 @@
+
+ 	pmu {
+ 		compatible = "arm,cortex-a9-pmu";
+-		interrupts = <GIC_SPI 144 IRQ_TYPE_LEVEL_HIGH>,
++		interrupts = <GIC_SPI 181 IRQ_TYPE_LEVEL_HIGH>,
+ 			     <GIC_SPI 145 IRQ_TYPE_LEVEL_HIGH>,
+ 			     <GIC_SPI 146 IRQ_TYPE_LEVEL_HIGH>,
+ 			     <GIC_SPI 147 IRQ_TYPE_LEVEL_HIGH>;
