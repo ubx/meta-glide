@@ -1,3 +1,7 @@
+DESCRIPTION="Enable CAN"
+
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
 config_script () {
      echo "CONFIG_CAN=y" >> ${B}/.config
      echo "CONFIG_CAN_VCAN=y" >> ${B}/.config
@@ -12,3 +16,7 @@ config_script () {
 do_configure_prepend () {
     config_script
 }
+
+SRC_URI_append += " \
+	file://can_interrupt.patch \
+"
