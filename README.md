@@ -43,7 +43,7 @@ or build only xcsoar:
 
 ``````bitbake angstrom-lxde-image -c populate_sdk``````
 
-You can now also generate the SD Card to deploy onto the board:
+#### You can now also generate the SD Card to deploy onto the board:
 1. unpack the generated image found here (as sudo to maintain the folder structure)
   $BASEDIR/oe-core/deploy/images/colibri-t30/
 2. go to the directory you unpacked it and run the update script:
