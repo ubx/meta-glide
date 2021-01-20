@@ -34,6 +34,7 @@ DEPENDS = "	\
         curlpp \
         libsocketcan \
         libsodium \
+        c-ares \
 "
 
 RDEPENDS_${PN} = "\
