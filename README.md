@@ -1,3 +1,10 @@
+# meta-glide
+This is a layer for OpenEmbedded to support the AIR Glide Display L hardware.
+
+![img.png](documents/images/displayL.png)
+
+### This project aims to ...
+tbs
 #### Build the docker image & run it:
 
  ``````docker build -f Dockerfile . -t toradex-yotco``````
