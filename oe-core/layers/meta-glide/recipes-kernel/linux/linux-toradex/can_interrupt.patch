@@ -1,12 +1,12 @@
-diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board-colibri_t30.c
---- a/arch/arm/mach-tegra/board-colibri_t30.c
-+++ b/arch/arm/mach-tegra/board-colibri_t30.c
-@@ -355,7 +355,7 @@
- /* Colibri EvalBoard V3.1a */
-
- /* active low interrupt (MCP2515 nINT) */
--#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PS0
-+#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PW5
-
- static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
- {
+diff --git a/arch/arm/mach-tegra/gpio-names.h b/arch/arm/mach-tegra/gpio-names.h
+--- a/arch/arm/mach-tegra/gpio-names.h
++++ b/arch/arm/mach-tegra/gpio-names.h
+@@ -164,7 +164,7 @@
+ #define TEGRA_GPIO_PR5		141
+ #define TEGRA_GPIO_PR6		142
+ #define TEGRA_GPIO_PR7		143
+-#define TEGRA_GPIO_PS0		144
++#define TEGRA_GPIO_PS0		181
+ #define TEGRA_GPIO_PS1		145
+ #define TEGRA_GPIO_PS2		146
+ #define TEGRA_GPIO_PS3		147

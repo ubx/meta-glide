@@ -17,6 +17,8 @@ do_configure_prepend () {
     config_script
 }
 
-SRC_URI_append += " \
-	file://can_interrupt.patch \
-"
+## Change CAN interrupt pins on display-L HW
+## todo -- parametrize this !!
+## SRC_URI_append += " \
+## 	file://can_interrupt.patch \
+## "
