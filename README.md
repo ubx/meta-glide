@@ -16,21 +16,21 @@ Features:
 | Feature | Status | Notes |
 --- | --- | ---
 | Embedded Linux | Good |  |
-| CAN | Not workng | works well on Colibri Evaluation Board |
+| CAN | Not working | works well on Colibri Evaluation Board |
 | Rotary knobs | not implemented yet | |
 | Buttons | not implemented yet | |
 | Touch screen | not implemented yet | |
 | Config. menu | not defined yet | |
 
 ## Embedded Linux
-
+The generated Embedded Linux contains also a ready to run XCSoar.
 #### Build the docker image & run it:
 
  ``````docker build -f Dockerfile . -t toradex-yotco``````
  
  ``````./run_dock.sh``````
 
-#### Get the toradex configurations (in the docker 
+#### Get the toradex configurations in the docker 
 image at /home/yocto/oe-core, this is the mounted folder if you run with ``````./run_dock.sh``````):
 
 ``````
@@ -73,10 +73,13 @@ or build only xcsoar:
 1. unpack the generated image found here (as sudo to maintain the folder structure)
   $BASEDIR/oe-core/deploy/images/colibri-t30/
 2. go to the directory you unpacked it and run the update script:
+``````
+./update.sh -o <sdcard>
+``````
 
-``````./update.sh``````
+3. On the target's HW-console do:
 
-Or if your target HW has an Ethernet connection, and you have an TFTP Server on the development machine,
+#### Or if your target HW has an Ethernet connection, and you have an TFTP Server on the development machine:
 you can deploy the generated image via TFTP:
 1. unpack the generated image found here (as sudo to maintain the folder structure)
    $BASEDIR/oe-core/deploy/images/colibri-t30/
@@ -97,6 +100,19 @@ run setupdate
 run update
 ``````
 
+### Example Logs
+[build.log](documents/logs/build.log)
 
+[deployToSDCard.log](deployToSDCard.log)
 
+[deployToTFTP.log](deployToTFTP.log)
 
+> How to put the board in Recovery Mode:
+> 1. Connect the serial port UART_B. (normally it is UART_A, but we use UART_B)
+> 2. Open a terminal on your host computer (115200 baud, 8 data bits, no parity, one stop, no hardware/software flow control).
+> 3. Power cycle the board and immediately press [space] on the terminal
+> for a description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t30)
+
+[flashViaSDCard.log](flashViaSDCard.log)
+
+[flashViaTFTP.log](flashViaTFTP.log)

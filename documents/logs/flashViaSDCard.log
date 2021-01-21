@@ -1,0 +1,1423 @@
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Colibri T30 #  run setupdate
+reading flash_blk.img
+710 bytes read in 15 ms (45.9 KiB/s)
+## Executing script at 81000000
+reading colibri_t30/flash_blk.img
+5083 bytes read in 22 ms (225.6 KiB/s)
+## Executing script at 81000000
+enter "run update" to update the entire module
+Colibri T30 # run update
+switch to partitions #1, OK
+mmc0(part 1) is current device
+
+MMC read: dev # 0, block # 2047, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 4095, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 8191, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 16383, count 1 ... MMC: block number 0x4000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 32767, count 1 ... MMC: block number 0x8000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 65535, count 1 ... MMC: block number 0x10000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 131071, count 1 ... MMC: block number 0x20000 exceeds max(0x2000)
+0 blocks read: ERROR
+Total of 3 byte(s) were the same
+reading colibri_t30/colibri_t30.img
+534016 bytes read in 42 ms (12.1 MiB/s)
+switch to partitions #1, OK
+mmc0(part 1) is current device
+
+MMC write: dev # 0, block # 0, count 1043 ... 1043 blocks written: OK
+reading colibri_t30/mbr.bin
+512 bytes read in 13 ms (38.1 KiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 0, count 1 ... 1 blocks written: OK
+reading colibri_t30/boot.vfat
+16777216 bytes read in 915 ms (17.5 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 8192, count 32768 ... 32768 blocks written: OK
+reading colibri_t30/zImage
+4017072 bytes read in 203 ms (18.9 MiB/s)
+writing zImage
+4017072 bytes written
+reading colibri_t30/tegra30-colibri-eval-v3.dtb
+** Unable to read file colibri_t30/tegra30-colibri-eval-v3.dtb **
+reading colibri_t30/root.ext3-100
+67108864 bytes read in 3085 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 40960, count 131072 ...
+
+....
+....
+....
+
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Booting from internal eMMC chip...
+reading tegra30-colibri-eval-v3.dtb
+** Unable to read file tegra30-colibri-eval-v3.dtb **
+reading zImage
+4017072 bytes read in 112 ms (34.2 MiB/s)
+
+Starting kernel ...
+
+[    0.000000] Linux version 3.1.10-2.8.7+g5e3cb65b1b4b (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #5 SMP PREEMPT Wed Jan 20 10:51:50 UTC 2021
+[    0.000000] CPU: ARMv7 Processor [412fc099] revision 9 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: Toradex Colibri T30
+[    0.000000] Found fbmem: 00c00000@bf400000
+[    0.000000] Tegra reserved memory:
+[    0.000000] LP0:                     00000000 - 00000000
+[    0.000000] Bootloader framebuffer:  bf400000 - bfffffff
+[    0.000000] Bootloader framebuffer2: 00000000 - 00000000
+[    0.000000] Framebuffer:             be700000 - beffffff
+[    0.000000] 2nd Framebuffer:         bf000000 - bfffffff
+[    0.000000] Carveout:                00000000 - 00000000
+[    0.000000] Vpr:                     00000000 - 00000000
+[    0.000000] Memory policy: ECC disabled, Data cache writealloc
+[    0.000000] fuse_speedo_calib: ATE prog ver 4.0
+[    0.000000] Tegra3: CPU Speedo ID 2, Soc Speedo ID 2
+[    0.000000] Tegra Revision: A03 SKU: 0xb1 CPU Process: 3 Core Process: 0
+[    0.000000] tegra: PLLP fixed rate: 408000000
+[    0.000000] Lowering sbus maximum rate from 378000000 to 334000000
+[    0.000000] Lowering vde maximum rate from 600000000 to 520000000
+[    0.000000] Lowering mpe maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 2d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering epp maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d2 maximum rate from 600000000 to 520000000
+[    0.000000] Lowering se maximum rate from 625000000 to 520000000
+[    0.000000] Lowering host1x maximum rate from 300000000 to 267000000
+[    0.000000] Lowering cbus maximum rate from 700000000 to 520000000
+[    0.000000] Lowering pll_c maximum rate from 1400000000 to 1066000000
+[    0.000000] Lowering ndflash maximum rate from 240000000 to 200000000
+[    0.000000] Lowering sbc1 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc2 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc3 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc4 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc5 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc6 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering dsia maximum rate from 500000000 to 432500000
+[    0.000000] Lowering dsib maximum rate from 500000000 to 432500000
+[    0.000000] Lowering cpu_g maximum rate from 1700000000 to 1400000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra dvfs: VDD_CPU nominal 1100mV, scaling enabled
+[    0.000000] tegra dvfs: VDD_CORE nominal 1300mV, scaling enabled
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc1
+[    0.000000] Unable to set clock sdmmc1 to rate 48000000: -22
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc3
+[    0.000000] Unable to set clock sdmmc3 to rate 48000000: -22
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c7, AUX_CTRL 0x7e080001, Cache size: 1048576 B
+[    0.000000] PERCPU: Embedded 8 pages/cpu @c12f6000 s10336 r8192 d14240 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 253211
+[    0.000000] Kernel command line: core_edp_mv=1300 usb_high_speed=1 user_debug=30 ip=off root=/dev/mmcblk0p2 ro rootfstype=ext3 rootwait asix_mac=00:14:2d:29:00:ae consoleblank=0 no_console_suspend=1 console=tty1 console=ttyS0,115200n8 debug_uartport=lsport,3 vmalloc=128M mem=1012M@2048M fbmem=12M@3060M video=tegrafb0:640x480-16@60
+[    0.000000] PID hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Memory: 998MB = 998MB total
+[    0.000000] Memory: 1001600k/1001600k available, 34688k reserved, 235520K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     DMA     : 0xff000000 - 0xffe00000   (  14 MB)
+[    0.000000]     vmalloc : 0xf0800000 - 0xf8000000   ( 120 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xf0000000   ( 768 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc07a3560   (7790 kB)
+[    0.000000]       .init : 0xc07a4000 - 0xc07f4860   ( 323 kB)
+[    0.000000]       .data : 0xc07f6000 - 0xc08836a4   ( 566 kB)
+[    0.000000]        .bss : 0xc08836c8 - 0xc08f9478   ( 472 kB)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:800
+[    0.000000] sched_clock: 32 bits at 1000kHz, resolution 1000ns, wraps every 4294967ms
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [tty1] enabled
+[    0.003255] Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+[    0.090133] pid_max: default: 32768 minimum: 301
+[    0.090512] Mount-cache hash table entries: 512
+[    0.091812] Initializing cgroup subsys blkio
+[    0.091958] CPU: Testing write buffer coherency: ok
+[    0.092064] ftrace: allocating 21968 entries in 65 pages
+[    0.124209] Brought up 4 CPUs
+[    0.124261] SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+[    0.125473] devtmpfs: initialized
+[    0.131159] print_constraints: dummy:
+[    0.131592] NET: Registered protocol family 16
+[    0.133007] host1x bus init
+[    0.133246] Serial: 8250/16550 driver, 9 ports, IRQ sharing disabled
+[    0.401142] Unable to set clock clk_out_2 to rate 24000000: -38
+[    0.406521] colibri_t30_edp_init: CPU regulator 6000 mA
+[    0.406614] Selecting UARTD as the debug console
+[    0.406660] The debug console clock name is uartd_dbg
+[    0.407114] serial8250.0: ttyS0 at MMIO 0x70006300 (irq = 122) is a Tegra
+[    0.971321] console [ttyS0] enabled
+[    1.002592] Registering the device TPS62360
+[    1.007383] Clear bootloader IO dpd settings
+[    1.118502] tegra: validated EMC DFS table
+[    1.124880] tegra_iovmm_register: added iovmm-smmu
+[    1.140329] bio: create slab <bio-0> at 0
+[    1.145211] vgaarb: loaded
+[    1.148029] i2c-core: driver [tps6591x] using legacy suspend method
+[    1.154336] i2c-core: driver [tps6591x] using legacy resume method
+[    1.161026] SCSI subsystem initialized
+[    1.165897] usbcore: registered new interface driver usbfs
+[    1.171557] usbcore: registered new interface driver hub
+[    1.177023] usbcore: registered new device driver usb
+[    1.182254] colibri-otg colibri-otg: otg transceiver registered
+[    1.190320] stmpe 4-0041: stmpe811 detected, chip id: 0x811
+[    1.198329] tps6591x 4-002d: VERNUM is 02
+[    1.206916] print_constraints: tps6591x_VDD_1: 1350 mV normal standby
+[    1.216823] print_constraints: tps6591x_VDD_2: 1050 mV normal standby
+[    1.226704] print_constraints: tps6591x_VDDCTRL: 800 <--> 1300 mV at 1012 mV normal standby
+[    1.236316] print_constraints: tps6591x_VIO: 1800 mV normal standby
+[    1.243833] print_constraints: tps6591x_LDO_1: 1000 <--> 3300 mV at 2850 mV normal standby
+[    1.252165] set_supply: tps6591x_LDO_1: supplied by tps6591x_VIO
+[    1.260388] print_constraints: tps6591x_LDO_2: 1200 mV normal standby
+[    1.266892] set_supply: tps6591x_LDO_2: supplied by tps6591x_VIO
+[    1.273781] print_constraints: tps6591x_LDO_3: 1200 mV normal standby
+[    1.281482] print_constraints: tps6591x_LDO_4: 1000 <--> 1400 mV at 1200 mV normal standby
+[    1.290601] print_constraints: tps6591x_LDO_5: 2800 mV normal standby
+[    1.297911] print_constraints: tps6591x_LDO_6: 1000 <--> 1100 mV at 1000 mV normal standby
+[    1.306247] set_supply: tps6591x_LDO_6: supplied by tps6591x_VIO
+[    1.314893] print_constraints: tps6591x_LDO_7: 1200 mV normal standby
+[    1.321401] set_supply: tps6591x_LDO_7: supplied by tps6591x_VIO
+[    1.329537] print_constraints: tps6591x_LDO_8: 1000 mV normal standby
+[    1.336045] set_supply: tps6591x_LDO_8: supplied by tps6591x_VIO
+[    1.347960] print_constraints: tps62360: 900 <--> 1400 mV at 1200 mV normal standby
+[    1.356222] Advanced Linux Sound Architecture Driver Version 1.0.24.
+[    1.363272] Bluetooth: Core ver 2.16
+[    1.366927] NET: Registered protocol family 31
+[    1.371411] Bluetooth: HCI device and connection manager initialized
+[    1.377789] Bluetooth: HCI socket layer initialized
+[    1.382695] Bluetooth: L2CAP socket layer initialized
+[    1.387811] Bluetooth: SCO socket layer initialized
+[    1.394108] print_constraints: fixed_reg_en_hdmi: 1800 mV normal
+[    1.400545] print_constraints: fixed_reg_v3_3: 3300 mV normal
+[    1.407503] tegra: started io power detection dynamic control
+[    1.413296] tegra: NO_IO_POWER setting 0x200
+[    1.417587] Switching to clocksource timer_us
+[    1.435834] nvmap_page_pool_init: nvmap uc page pool size=31300 pages
+[    1.476190] nvmap_page_pool_init: nvmap pool = uc, highmem=31300, pool_size=31300,totalram=250400, freeram=218358, totalhigh=58880, freehigh=27515
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Booting from internal eMMC chip...
+reading tegra30-colibri-eval-v3.dtb
+** Unable to read file tegra30-colibri-eval-v3.dtb **
+reading zImage
+4017072 bytes read in 112 ms (34.2 MiB/s)
+
+Starting kernel ...
+
+[    0.000000] Linux version 3.1.10-2.8.7+g5e3cb65b1b4b (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #5 SMP PREEMPT Wed Jan 20 10:51:50 UTC 2021
+[    0.000000] CPU: ARMv7 Processor [412fc099] revision 9 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: Toradex Colibri T30
+[    0.000000] Found fbmem: 00c00000@bf400000
+[    0.000000] Tegra reserved memory:
+[    0.000000] LP0:                     00000000 - 00000000
+[    0.000000] Bootloader framebuffer:  bf400000 - bfffffff
+[    0.000000] Bootloader framebuffer2: 00000000 - 00000000
+[    0.000000] Framebuffer:             be700000 - beffffff
+[    0.000000] 2nd Framebuffer:         bf000000 - bfffffff
+[    0.000000] Carveout:                00000000 - 00000000
+[    0.000000] Vpr:                     00000000 - 00000000
+[    0.000000] Memory policy: ECC disabled, Data cache writealloc
+[    0.000000] fuse_speedo_calib: ATE prog ver 4.0
+[    0.000000] Tegra3: CPU Speedo ID 2, Soc Speedo ID 2
+[    0.000000] Tegra Revision: A03 SKU: 0xb1 CPU Process: 3 Core Process: 0
+[    0.000000] tegra: PLLP fixed rate: 408000000
+[    0.000000] Lowering sbus maximum rate from 378000000 to 334000000
+[    0.000000] Lowering vde maximum rate from 600000000 to 520000000
+[    0.000000] Lowering mpe maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 2d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering epp maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d2 maximum rate from 600000000 to 520000000
+[    0.000000] Lowering se maximum rate from 625000000 to 520000000
+[    0.000000] Lowering host1x maximum rate from 300000000 to 267000000
+[    0.000000] Lowering cbus maximum rate from 700000000 to 520000000
+[    0.000000] Lowering pll_c maximum rate from 1400000000 to 1066000000
+[    0.000000] Lowering ndflash maximum rate from 240000000 to 200000000
+[    0.000000] Lowering sbc1 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc2 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc3 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc4 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc5 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc6 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering dsia maximum rate from 500000000 to 432500000
+[    0.000000] Lowering dsib maximum rate from 500000000 to 432500000
+[    0.000000] Lowering cpu_g maximum rate from 1700000000 to 1400000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra dvfs: VDD_CPU nominal 1100mV, scaling enabled
+[    0.000000] tegra dvfs: VDD_CORE nominal 1300mV, scaling enabled
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc1
+[    0.000000] Unable to set clock sdmmc1 to rate 48000000: -22
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc3
+[    0.000000] Unable to set clock sdmmc3 to rate 48000000: -22
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c7, AUX_CTRL 0x7e080001, Cache size: 1048576 B
+[    0.000000] PERCPU: Embedded 8 pages/cpu @c12f6000 s10336 r8192 d14240 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 253211
+[    0.000000] Kernel command line: core_edp_mv=1300 usb_high_speed=1 user_debug=30 ip=off root=/dev/mmcblk0p2 ro rootfstype=ext3 rootwait asix_mac=00:14:2d:29:00:ae consoleblank=0 no_console_suspend=1 console=tty1 console=ttyS0,115200n8 debug_uartport=lsport,3 vmalloc=128M mem=1012M@2048M fbmem=12M@3060M video=tegrafb0:640x480-16@60
+[    0.000000] PID hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Memory: 998MB = 998MB total
+[    0.000000] Memory: 1001600k/1001600k available, 34688k reserved, 235520K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     DMA     : 0xff000000 - 0xffe00000   (  14 MB)
+[    0.000000]     vmalloc : 0xf0800000 - 0xf8000000   ( 120 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xf0000000   ( 768 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc07a3560   (7790 kB)
+[    0.000000]       .init : 0xc07a4000 - 0xc07f4860   ( 323 kB)
+[    0.000000]       .data : 0xc07f6000 - 0xc08836a4   ( 566 kB)
+[    0.000000]        .bss : 0xc08836c8 - 0xc08f9478   ( 472 kB)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:800
+[    0.000000] sched_clock: 32 bits at 1000kHz, resolution 1000ns, wraps every 4294967ms
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [tty1] enabled
+[    0.003258] Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+[    0.090133] pid_max: default: 32768 minimum: 301
+[    0.090508] Mount-cache hash table entries: 512
+[    0.091811] Initializing cgroup subsys blkio
+[    0.091956] CPU: Testing write buffer coherency: ok
+[    0.092062] ftrace: allocating 21968 entries in 65 pages
+[    0.124148] Brought up 4 CPUs
+[    0.124201] SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+[    0.125416] devtmpfs: initialized
+[    0.131109] print_constraints: dummy:
+[    0.131549] NET: Registered protocol family 16
+[    0.132975] host1x bus init
+[    0.133214] Serial: 8250/16550 driver, 9 ports, IRQ sharing disabled
+[    0.401072] Unable to set clock clk_out_2 to rate 24000000: -38
+[    0.406479] colibri_t30_edp_init: CPU regulator 6000 mA
+[    0.406571] Selecting UARTD as the debug console
+[    0.406616] The debug console clock name is uartd_dbg
+[    0.407062] serial8250.0: ttyS0 at MMIO 0x70006300 (irq = 122) is a Tegra
+[    0.971271] console [ttyS0] enabled
+[    1.002513] Registering the device TPS62360
+[    1.007299] Clear bootloader IO dpd settings
+[    1.118308] tegra: validated EMC DFS table
+[    1.124684] tegra_iovmm_register: added iovmm-smmu
+[    1.140144] bio: create slab <bio-0> at 0
+[    1.145029] vgaarb: loaded
+[    1.147844] i2c-core: driver [tps6591x] using legacy suspend method
+[    1.154152] i2c-core: driver [tps6591x] using legacy resume method
+[    1.160843] SCSI subsystem initialized
+[    1.165707] usbcore: registered new interface driver usbfs
+[    1.171367] usbcore: registered new interface driver hub
+[    1.176831] usbcore: registered new device driver usb
+[    1.182062] colibri-otg colibri-otg: otg transceiver registered
+[    1.190137] stmpe 4-0041: stmpe811 detected, chip id: 0x811
+[    1.198151] tps6591x 4-002d: VERNUM is 02
+[    1.206732] print_constraints: tps6591x_VDD_1: 1350 mV normal standby
+[    1.216637] print_constraints: tps6591x_VDD_2: 1050 mV normal standby
+[    1.226523] print_constraints: tps6591x_VDDCTRL: 800 <--> 1300 mV at 1012 mV normal standby
+[    1.236132] print_constraints: tps6591x_VIO: 1800 mV normal standby
+[    1.243649] print_constraints: tps6591x_LDO_1: 1000 <--> 3300 mV at 2850 mV normal standby
+[    1.251981] set_supply: tps6591x_LDO_1: supplied by tps6591x_VIO
+[    1.260203] print_constraints: tps6591x_LDO_2: 1200 mV normal standby
+[    1.266707] set_supply: tps6591x_LDO_2: supplied by tps6591x_VIO
+[    1.273600] print_constraints: tps6591x_LDO_3: 1200 mV normal standby
+[    1.281300] print_constraints: tps6591x_LDO_4: 1000 <--> 1400 mV at 1200 mV normal standby
+[    1.290415] print_constraints: tps6591x_LDO_5: 2800 mV normal standby
+[    1.297728] print_constraints: tps6591x_LDO_6: 1000 <--> 1100 mV at 1000 mV normal standby
+[    1.306064] set_supply: tps6591x_LDO_6: supplied by tps6591x_VIO
+[    1.314714] print_constraints: tps6591x_LDO_7: 1200 mV normal standby
+[    1.321220] set_supply: tps6591x_LDO_7: supplied by tps6591x_VIO
+[    1.329360] print_constraints: tps6591x_LDO_8: 1000 mV normal standby
+[    1.335867] set_supply: tps6591x_LDO_8: supplied by tps6591x_VIO
+[    1.347783] print_constraints: tps62360: 900 <--> 1400 mV at 1200 mV normal standby
+[    1.356046] Advanced Linux Sound Architecture Driver Version 1.0.24.
+[    1.363096] Bluetooth: Core ver 2.16
+[    1.366751] NET: Registered protocol family 31
+[    1.371238] Bluetooth: HCI device and connection manager initialized
+[    1.377616] Bluetooth: HCI socket layer initialized
+[    1.382521] Bluetooth: L2CAP socket layer initialized
+[    1.387635] Bluetooth: SCO socket layer initialized
+[    1.393935] print_constraints: fixed_reg_en_hdmi: 1800 mV normal
+[    1.400368] print_constraints: fixed_reg_v3_3: 3300 mV normal
+[    1.407334] tegra: started io power detection dynamic control
+[    1.413129] tegra: NO_IO_POWER setting 0x200
+[    1.417418] Switching to clocksource timer_us
+[    1.435649] nvmap_page_pool_init: nvmap uc page pool size=31300 pages
+[    1.475958] nvmap_page_pool_init: nvmap pool = uc, highmem=31300, pool_size=31300,totalram=250400, freeram=218358, totalhigh=58880, freehigh=27515
+[    1.630415] nvmap_page_pool_init: nvmap wc page pool size=31300 pages
+[    1.677921] nvmap_page_pool_init: nvmap pool = wc, highmem=27456, pool_size=31300,totalram=250400, freeram=186999, totalhigh=58880, freehigh=0
+[    1.834293] nvmap_page_pool_init: nvmap iwb page pool size=31300 pages
+[    1.931292] nvmap_page_pool_init: nvmap pool = iwb, highmem=0, pool_size=31300,totalram=250400, freeram=155627, totalhigh=58880, freehigh=0
+[    2.105718] tegra-nvmap tegra-nvmap: created carveout iram (255KiB)
+[    2.126787] NET: Registered protocol family 2
+[    2.131455] IP route cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    2.139321] TCP established hash table entries: 131072 (order: 8, 1048576 bytes)
+[    2.149290] TCP bind hash table entries: 65536 (order: 7, 786432 bytes)
+[    2.157755] TCP: Hash tables configured (established 131072 bind 65536)
+[    2.164405] TCP reno registered
+[    2.167570] UDP hash table entries: 512 (order: 2, 16384 bytes)
+[    2.173565] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes)
+[    2.180356] NET: Registered protocol family 1
+[    2.185225] RPC: Registered named UNIX socket transport module.
+[    2.191171] RPC: Registered udp transport module.
+[    2.195919] RPC: Registered tcp transport module.
+[    2.200640] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    2.210056] host1x host1x: initialized
+[    2.213990] PMU: registered new PMU device of type 0
+[    2.219501] Tegra auto-hotplug initialized: disabled
+[    2.224527] cpu-tegra: init EDP limit: 1250 MHz
+[    2.251146] highmem bounce pool size: 64 pages
+[    2.256812] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    2.264040] fuse init (API version 7.17)
+[    2.268495] msgmni has been set to 1496
+[    2.274124] io scheduler noop registered (default)
+[    2.280869] mpe mpe: initialized
+[    2.286747] gr3d gr3d: initialized
+[    2.292668] gr2d gr2d: initialized
+[    2.296743] isp isp: initialized
+[    2.300989] tegradc tegradc.0: probed
+[    2.304906] tegradc tegradc.0: use cmd options for tegrafb0: 640x480-16@60
+[    2.311841] tegradc tegradc.0: switching framebuffer to 640x480
+[    2.317809] tegradc tegradc.0: Calculated sync href=0 vref=1
+[    2.323513] tegradc tegradc.0: using mode 640x480 pclk=25175000 href=0 vref=1
+[    2.336956] tegradc tegradc.0: probed
+[    2.354484] tegradc tegradc.1: probed
+[    2.358498] tegradc tegradc.1: use default mode for tegrafb1: 640x480-16@60
+[    2.365523] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.376881] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.388250] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.399617] tegradc tegradc.1: switching framebuffer to 640x480
+[    2.405576] tegradc tegradc.1: using mode 640x480 pclk=23750000 href=1 vref=1
+[    2.419444] tegradc tegradc.1: hdmi: can't set audio to 44100 at 23750000 pix_clock
+[    2.427380] tegradc tegradc.1: probed
+[    2.483898] tegra_uart.0: ttyHS0 at MMIO 0x70006000 (irq = 68) is a TEGRA_UART
+[    2.611887] Registered UART port ttyHS0
+[    2.615837] tegra_uart.1: ttyHS1 at MMIO 0x70006040 (irq = 69) is a TEGRA_UART
+
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Colibri T30 # run setupdate
+MMC: no card present
+** Bad device mmc 1 **
+starting USB...
+USB0:   USB EHCI 1.00
+USB1:   USB EHCI 1.00
+USB2:   USB EHCI 1.00
+scanning bus 0 for devices... 1 USB Device(s) found
+scanning bus 1 for devices...
+Warning: asix_eth MAC addresses don't match:
+Address in SROM is         00:0e:c6:87:72:01
+Address in environment is  00:14:2d:29:00:ae
+2 USB Device(s) found
+scanning bus 2 for devices... 3 USB Device(s) found
+** Bad device usb 0 **
+Waiting for Ethernet connection... unable to connect.
+Colibri T30 #
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Booting from internal eMMC chip...
+reading tegra30-colibri-eval-v3.dtb
+** Unable to read file tegra30-colibri-eval-v3.dtb **
+reading zImage
+4017072 bytes read in 112 ms (34.2 MiB/s)
+
+Starting kernel ...
+
+[    0.000000] Linux version 3.1.10-2.8.7+g5e3cb65b1b4b (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #5 SMP PREEMPT Wed Jan 20 10:51:50 UTC 2021
+[    0.000000] CPU: ARMv7 Processor [412fc099] revision 9 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: Toradex Colibri T30
+[    0.000000] Found fbmem: 00c00000@bf400000
+[    0.000000] Tegra reserved memory:
+[    0.000000] LP0:                     00000000 - 00000000
+[    0.000000] Bootloader framebuffer:  bf400000 - bfffffff
+[    0.000000] Bootloader framebuffer2: 00000000 - 00000000
+[    0.000000] Framebuffer:             be700000 - beffffff
+[    0.000000] 2nd Framebuffer:         bf000000 - bfffffff
+[    0.000000] Carveout:                00000000 - 00000000
+[    0.000000] Vpr:                     00000000 - 00000000
+[    0.000000] Memory policy: ECC disabled, Data cache writealloc
+[    0.000000] fuse_speedo_calib: ATE prog ver 4.0
+[    0.000000] Tegra3: CPU Speedo ID 2, Soc Speedo ID 2
+[    0.000000] Tegra Revision: A03 SKU: 0xb1 CPU Process: 3 Core Process: 0
+[    0.000000] tegra: PLLP fixed rate: 408000000
+[    0.000000] Lowering sbus maximum rate from 378000000 to 334000000
+[    0.000000] Lowering vde maximum rate from 600000000 to 520000000
+[    0.000000] Lowering mpe maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 2d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering epp maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d2 maximum rate from 600000000 to 520000000
+[    0.000000] Lowering se maximum rate from 625000000 to 520000000
+[    0.000000] Lowering host1x maximum rate from 300000000 to 267000000
+[    0.000000] Lowering cbus maximum rate from 700000000 to 520000000
+[    0.000000] Lowering pll_c maximum rate from 1400000000 to 1066000000
+[    0.000000] Lowering ndflash maximum rate from 240000000 to 200000000
+[    0.000000] Lowering sbc1 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc2 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc3 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc4 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc5 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc6 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering dsia maximum rate from 500000000 to 432500000
+[    0.000000] Lowering dsib maximum rate from 500000000 to 432500000
+[    0.000000] Lowering cpu_g maximum rate from 1700000000 to 1400000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra dvfs: VDD_CPU nominal 1100mV, scaling enabled
+[    0.000000] tegra dvfs: VDD_CORE nominal 1300mV, scaling enabled
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc1
+[    0.000000] Unable to set clock sdmmc1 to rate 48000000: -22
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc3
+[    0.000000] Unable to set clock sdmmc3 to rate 48000000: -22
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c7, AUX_CTRL 0x7e080001, Cache size: 1048576 B
+[    0.000000] PERCPU: Embedded 8 pages/cpu @c12f6000 s10336 r8192 d14240 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 253211
+[    0.000000] Kernel command line: core_edp_mv=1300 usb_high_speed=1 user_debug=30 ip=off root=/dev/mmcblk0p2 ro rootfstype=ext3 rootwait asix_mac=00:14:2d:29:00:ae consoleblank=0 no_console_suspend=1 console=tty1 console=ttyS0,115200n8 debug_uartport=lsport,3 vmalloc=128M mem=1012M@2048M fbmem=12M@3060M video=tegrafb0:640x480-16@60
+[    0.000000] PID hash table entries: 4096 (order: 2, 16
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Booting from internal eMMC chip...
+reading tegra30-colibri-eval-v3.dtb
+** Unable to read file tegra30-colibri-eval-v3.dtb **
+reading zImage
+
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: POR
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Colibri T30 #  run setupdate
+reading flash_blk.img
+710 bytes read in 15 ms (45.9 KiB/s)
+## Executing script at 81000000
+reading colibri_t30/flash_blk.img
+5083 bytes read in 22 ms (225.6 KiB/s)
+## Executing script at 81000000
+enter "run update" to update the entire module
+Colibri T30 # run update
+switch to partitions #1, OK
+mmc0(part 1) is current device
+
+MMC read: dev # 0, block # 2047, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 4095, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 8191, count 1 ... 1 blocks read: OK
+
+MMC read: dev # 0, block # 16383, count 1 ... MMC: block number 0x4000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 32767, count 1 ... MMC: block number 0x8000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 65535, count 1 ... MMC: block number 0x10000 exceeds max(0x2000)
+0 blocks read: ERROR
+
+MMC read: dev # 0, block # 131071, count 1 ... MMC: block number 0x20000 exceeds max(0x2000)
+0 blocks read: ERROR
+Total of 3 byte(s) were the same
+reading colibri_t30/colibri_t30.img
+534016 bytes read in 42 ms (12.1 MiB/s)
+switch to partitions #1, OK
+mmc0(part 1) is current device
+
+MMC write: dev # 0, block # 0, count 1043 ... 1043 blocks written: OK
+reading colibri_t30/mbr.bin
+512 bytes read in 13 ms (38.1 KiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 0, count 1 ... 1 blocks written: OK
+reading colibri_t30/boot.vfat
+16777216 bytes read in 915 ms (17.5 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 8192, count 32768 ... 32768 blocks written: OK
+reading colibri_t30/zImage
+4017072 bytes read in 203 ms (18.9 MiB/s)
+writing zImage
+4017072 bytes written
+reading colibri_t30/tegra30-colibri-eval-v3.dtb
+** Unable to read file colibri_t30/tegra30-colibri-eval-v3.dtb **
+reading colibri_t30/root.ext3-100
+67108864 bytes read in 3085 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 40960, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-101
+67108864 bytes read in 3086 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 172032, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-102
+67108864 bytes read in 3089 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 303104, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-103
+67108864 bytes read in 3215 ms (19.9 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 434176, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-104
+67108864 bytes read in 3086 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 565248, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-105
+67108864 bytes read in 3090 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 696320, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-106
+67108864 bytes read in 3086 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 827392, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-107
+67108864 bytes read in 3086 ms (20.7 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 958464, count 131072 ... 131072 blocks written: OK
+reading colibri_t30/root.ext3-108
+62914560 bytes read in 3024 ms (19.8 MiB/s)
+switch to partitions #0, OK
+mmc0(part 0) is current device
+
+MMC write: dev # 0, block # 1089536, count 122880 ... 122880 blocks written: OK
+resetting ...
+
+
+U-Boot 2016.11-2.8.7+g5c2d46b325 (Jun 25 2020 - 12:07:44 +0000)
+
+SoC: tegra30
+Reset cause: SW_MAIN
+DRAM:  1 GiB
+MMC:   Tegra SD/MMC: 0, Tegra SD/MMC: 1
+In:    serial
+Out:   vidconsole
+Err:   vidconsole
+Model: Toradex Colibri T30 1GB V1.1E, Serial# 02687150
+Net:   No ethernet found.
+Hit any key to stop autoboot:  0
+Booting from internal eMMC chip...
+reading tegra30-colibri-eval-v3.dtb
+** Unable to read file tegra30-colibri-eval-v3.dtb **
+reading zImage
+4017072 bytes read in 112 ms (34.2 MiB/s)
+
+Starting kernel ...
+
+[    0.000000] Linux version 3.1.10-2.8.7+g5e3cb65b1b4b (oe-user@oe-host) (gcc version 7.3.0 (GCC) ) #5 SMP PREEMPT Wed Jan 20 10:51:50 UTC 2021
+[    0.000000] CPU: ARMv7 Processor [412fc099] revision 9 (ARMv7), cr=10c5387d
+[    0.000000] CPU: VIPT nonaliasing data cache, VIPT aliasing instruction cache
+[    0.000000] Machine: Toradex Colibri T30
+[    0.000000] Found fbmem: 00c00000@bf400000
+[    0.000000] Tegra reserved memory:
+[    0.000000] LP0:                     00000000 - 00000000
+[    0.000000] Bootloader framebuffer:  bf400000 - bfffffff
+[    0.000000] Bootloader framebuffer2: 00000000 - 00000000
+[    0.000000] Framebuffer:             be700000 - beffffff
+[    0.000000] 2nd Framebuffer:         bf000000 - bfffffff
+[    0.000000] Carveout:                00000000 - 00000000
+[    0.000000] Vpr:                     00000000 - 00000000
+[    0.000000] Memory policy: ECC disabled, Data cache writealloc
+[    0.000000] fuse_speedo_calib: ATE prog ver 4.0
+[    0.000000] Tegra3: CPU Speedo ID 2, Soc Speedo ID 2
+[    0.000000] Tegra Revision: A03 SKU: 0xb1 CPU Process: 3 Core Process: 0
+[    0.000000] tegra: PLLP fixed rate: 408000000
+[    0.000000] Lowering sbus maximum rate from 378000000 to 334000000
+[    0.000000] Lowering vde maximum rate from 600000000 to 520000000
+[    0.000000] Lowering mpe maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 2d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering epp maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d maximum rate from 600000000 to 520000000
+[    0.000000] Lowering 3d2 maximum rate from 600000000 to 520000000
+[    0.000000] Lowering se maximum rate from 625000000 to 520000000
+[    0.000000] Lowering host1x maximum rate from 300000000 to 267000000
+[    0.000000] Lowering cbus maximum rate from 700000000 to 520000000
+[    0.000000] Lowering pll_c maximum rate from 1400000000 to 1066000000
+[    0.000000] Lowering ndflash maximum rate from 240000000 to 200000000
+[    0.000000] Lowering sbc1 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc2 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc3 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc4 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc5 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering sbc6 maximum rate from 160000000 to 100000000
+[    0.000000] Lowering dsia maximum rate from 500000000 to 432500000
+[    0.000000] Lowering dsib maximum rate from 500000000 to 432500000
+[    0.000000] Lowering cpu_g maximum rate from 1700000000 to 1400000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra3_dvfs: cold offset 50000000 is too high for regular dvfs limit 1000000
+[    0.000000] tegra dvfs: VDD_CPU nominal 1100mV, scaling enabled
+[    0.000000] tegra dvfs: VDD_CORE nominal 1300mV, scaling enabled
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc1
+[    0.000000] Unable to set clock sdmmc1 to rate 48000000: -22
+[    0.000000] tegra_dvfs: rate 408000000 too high for dvfs on sdmmc3
+[    0.000000] Unable to set clock sdmmc3 to rate 48000000: -22
+[    0.000000] L310 cache controller enabled
+[    0.000000] l2x0: 8 ways, CACHE_ID 0x410000c7, AUX_CTRL 0x7e080001, Cache size: 1048576 B
+[    0.000000] PERCPU: Embedded 8 pages/cpu @c12f6000 s10336 r8192 d14240 u32768
+[    0.000000] Built 1 zonelists in Zone order, mobility grouping on.  Total pages: 253211
+[    0.000000] Kernel command line: core_edp_mv=1300 usb_high_speed=1 user_debug=30 ip=off root=/dev/mmcblk0p2 ro rootfstype=ext3 rootwait asix_mac=00:14:2d:29:00:ae consoleblank=0 no_console_suspend=1 console=tty1 console=ttyS0,115200n8 debug_uartport=lsport,3 vmalloc=128M mem=1012M@2048M fbmem=12M@3060M video=tegrafb0:640x480-16@60
+[    0.000000] PID hash table entries: 4096 (order: 2, 16384 bytes)
+[    0.000000] Dentry cache hash table entries: 131072 (order: 7, 524288 bytes)
+[    0.000000] Inode-cache hash table entries: 65536 (order: 6, 262144 bytes)
+[    0.000000] Memory: 998MB = 998MB total
+[    0.000000] Memory: 1001600k/1001600k available, 34688k reserved, 235520K highmem
+[    0.000000] Virtual kernel memory layout:
+[    0.000000]     vector  : 0xffff0000 - 0xffff1000   (   4 kB)
+[    0.000000]     fixmap  : 0xfff00000 - 0xfffe0000   ( 896 kB)
+[    0.000000]     DMA     : 0xff000000 - 0xffe00000   (  14 MB)
+[    0.000000]     vmalloc : 0xf0800000 - 0xf8000000   ( 120 MB)
+[    0.000000]     lowmem  : 0xc0000000 - 0xf0000000   ( 768 MB)
+[    0.000000]     pkmap   : 0xbfe00000 - 0xc0000000   (   2 MB)
+[    0.000000]     modules : 0xbf000000 - 0xbfe00000   (  14 MB)
+[    0.000000]       .text : 0xc0008000 - 0xc07a3560   (7790 kB)
+[    0.000000]       .init : 0xc07a4000 - 0xc07f4860   ( 323 kB)
+[    0.000000]       .data : 0xc07f6000 - 0xc08836a4   ( 566 kB)
+[    0.000000]        .bss : 0xc08836c8 - 0xc08f9478   ( 472 kB)
+[    0.000000] Preemptible hierarchical RCU implementation.
+[    0.000000] NR_IRQS:800
+[    0.000000] sched_clock: 32 bits at 1000kHz, resolution 1000ns, wraps every 4294967ms
+[    0.000000] Console: colour dummy device 80x30
+[    0.000000] console [tty1] enabled
+[    0.003256] Calibrating delay loop... 1196.85 BogoMIPS (lpj=5984256)
+[    0.090132] pid_max: default: 32768 minimum: 301
+[    0.090510] Mount-cache hash table entries: 512
+[    0.091813] Initializing cgroup subsys blkio
+[    0.091962] CPU: Testing write buffer coherency: ok
+[    0.092068] ftrace: allocating 21968 entries in 65 pages
+[    0.124135] Brought up 4 CPUs
+[    0.124191] SMP: Total of 4 processors activated (4787.40 BogoMIPS).
+[    0.125405] devtmpfs: initialized
+[    0.131103] print_constraints: dummy:
+[    0.131535] NET: Registered protocol family 16
+[    0.132955] host1x bus init
+[    0.133194] Serial: 8250/16550 driver, 9 ports, IRQ sharing disabled
+[    0.401054] Unable to set clock clk_out_2 to rate 24000000: -38
+[    0.406450] colibri_t30_edp_init: CPU regulator 6000 mA
+[    0.406544] Selecting UARTD as the debug console
+[    0.406590] The debug console clock name is uartd_dbg
+[    0.407040] serial8250.0: ttyS0 at MMIO 0x70006300 (irq = 122) is a Tegra
+[    0.971243] console [ttyS0] enabled
+[    1.002512] Registering the device TPS62360
+[    1.007300] Clear bootloader IO dpd settings
+[    1.118300] tegra: validated EMC DFS table
+[    1.124673] tegra_iovmm_register: added iovmm-smmu
+[    1.140135] bio: create slab <bio-0> at 0
+[    1.145018] vgaarb: loaded
+[    1.147834] i2c-core: driver [tps6591x] using legacy suspend method
+[    1.154140] i2c-core: driver [tps6591x] using legacy resume method
+[    1.160832] SCSI subsystem initialized
+[    1.165693] usbcore: registered new interface driver usbfs
+[    1.171354] usbcore: registered new interface driver hub
+[    1.176818] usbcore: registered new device driver usb
+[    1.182047] colibri-otg colibri-otg: otg transceiver registered
+[    1.190120] stmpe 4-0041: stmpe811 detected, chip id: 0x811
+[    1.198139] tps6591x 4-002d: VERNUM is 02
+[    1.206727] print_constraints: tps6591x_VDD_1: 1350 mV normal standby
+[    1.216627] print_constraints: tps6591x_VDD_2: 1050 mV normal standby
+[    1.226517] print_constraints: tps6591x_VDDCTRL: 800 <--> 1300 mV at 1012 mV normal standby
+[    1.236131] print_constraints: tps6591x_VIO: 1800 mV normal standby
+[    1.243651] print_constraints: tps6591x_LDO_1: 1000 <--> 3300 mV at 2850 mV normal standby
+[    1.251985] set_supply: tps6591x_LDO_1: supplied by tps6591x_VIO
+[    1.260206] print_constraints: tps6591x_LDO_2: 1200 mV normal standby
+[    1.266711] set_supply: tps6591x_LDO_2: supplied by tps6591x_VIO
+[    1.273604] print_constraints: tps6591x_LDO_3: 1200 mV normal standby
+[    1.281305] print_constraints: tps6591x_LDO_4: 1000 <--> 1400 mV at 1200 mV normal standby
+[    1.290426] print_constraints: tps6591x_LDO_5: 2800 mV normal standby
+[    1.297741] print_constraints: tps6591x_LDO_6: 1000 <--> 1100 mV at 1000 mV normal standby
+[    1.306077] set_supply: tps6591x_LDO_6: supplied by tps6591x_VIO
+[    1.314719] print_constraints: tps6591x_LDO_7: 1200 mV normal standby
+[    1.321224] set_supply: tps6591x_LDO_7: supplied by tps6591x_VIO
+[    1.329361] print_constraints: tps6591x_LDO_8: 1000 mV normal standby
+[    1.335867] set_supply: tps6591x_LDO_8: supplied by tps6591x_VIO
+[    1.347780] print_constraints: tps62360: 900 <--> 1400 mV at 1200 mV normal standby
+[    1.356046] Advanced Linux Sound Architecture Driver Version 1.0.24.
+[    1.363095] Bluetooth: Core ver 2.16
+[    1.366751] NET: Registered protocol family 31
+[    1.371237] Bluetooth: HCI device and connection manager initialized
+[    1.377616] Bluetooth: HCI socket layer initialized
+[    1.382522] Bluetooth: L2CAP socket layer initialized
+[    1.387637] Bluetooth: SCO socket layer initialized
+[    1.393941] print_constraints: fixed_reg_en_hdmi: 1800 mV normal
+[    1.400378] print_constraints: fixed_reg_v3_3: 3300 mV normal
+[    1.407340] tegra: started io power detection dynamic control
+[    1.413133] tegra: NO_IO_POWER setting 0x200
+[    1.417424] Switching to clocksource timer_us
+[    1.435635] nvmap_page_pool_init: nvmap uc page pool size=31300 pages
+[    1.475954] nvmap_page_pool_init: nvmap pool = uc, highmem=31300, pool_size=31300,totalram=250400, freeram=218358, totalhigh=58880, freehigh=27515
+[    1.630435] nvmap_page_pool_init: nvmap wc page pool size=31300 pages
+[    1.677970] nvmap_page_pool_init: nvmap pool = wc, highmem=27456, pool_size=31300,totalram=250400, freeram=186999, totalhigh=58880, freehigh=0
+[    1.834343] nvmap_page_pool_init: nvmap iwb page pool size=31300 pages
+[    1.931323] nvmap_page_pool_init: nvmap pool = iwb, highmem=0, pool_size=31300,totalram=250400, freeram=155627, totalhigh=58880, freehigh=0
+[    2.105757] tegra-nvmap tegra-nvmap: created carveout iram (255KiB)
+[    2.127296] NET: Registered protocol family 2
+[    2.132003] IP route cache hash table entries: 32768 (order: 5, 131072 bytes)
+[    2.139829] TCP established hash table entries: 131072 (order: 8, 1048576 bytes)
+[    2.149803] TCP bind hash table entries: 65536 (order: 7, 786432 bytes)
+[    2.158267] TCP: Hash tables configured (established 131072 bind 65536)
+[    2.164918] TCP reno registered
+[    2.168081] UDP hash table entries: 512 (order: 2, 16384 bytes)
+[    2.174077] UDP-Lite hash table entries: 512 (order: 2, 16384 bytes)
+[    2.180870] NET: Registered protocol family 1
+[    2.185742] RPC: Registered named UNIX socket transport module.
+[    2.191687] RPC: Registered udp transport module.
+[    2.196435] RPC: Registered tcp transport module.
+[    2.201158] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    2.210576] host1x host1x: initialized
+[    2.214506] PMU: registered new PMU device of type 0
+[    2.220027] Tegra auto-hotplug initialized: disabled
+[    2.225052] cpu-tegra: init EDP limit: 1250 MHz
+[    2.251674] highmem bounce pool size: 64 pages
+[    2.257341] nfs4filelayout_init: NFSv4 File Layout Driver Registering...
+[    2.264579] fuse init (API version 7.17)
+[    2.269034] msgmni has been set to 1496
+[    2.274625] io scheduler noop registered (default)
+[    2.281356] mpe mpe: initialized
+[    2.287235] gr3d gr3d: initialized
+[    2.293131] gr2d gr2d: initialized
+[    2.297220] isp isp: initialized
+[    2.301495] tegradc tegradc.0: probed
+[    2.305403] tegradc tegradc.0: use cmd options for tegrafb0: 640x480-16@60
+[    2.312358] tegradc tegradc.0: switching framebuffer to 640x480
+[    2.318303] tegradc tegradc.0: Calculated sync href=0 vref=1
+[    2.324002] tegradc tegradc.0: using mode 640x480 pclk=25175000 href=0 vref=1
+[    2.337412] tegradc tegradc.0: probed
+[    2.354947] tegradc tegradc.1: probed
+[    2.358961] tegradc tegradc.1: use default mode for tegrafb1: 640x480-16@60
+[    2.365986] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.377343] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.388708] tegradc tegradc.1: Unusuall display aspect ratio.                 You may encounter problems with base resolution
+[    2.400072] tegradc tegradc.1: switching framebuffer to 640x480
+[    2.406033] tegradc tegradc.1: using mode 640x480 pclk=23750000 href=1 vref=1
+[    2.419910] tegradc tegradc.1: hdmi: can't set audio to 44100 at 23750000 pix_clock
+[    2.427867] tegradc tegradc.1: probed
+[    2.483902] tegra_uart.0: ttyHS0 at MMIO 0x70006000 (irq = 68) is a TEGRA_UART
+[    2.611892] Registered UART port ttyHS0
+[    2.615841] tegra_uart.1: ttyHS1 at MMIO 0x70006040 (irq = 69) is a TEGRA_UART
+[    2.771879] Registered UART port ttyHS1
+[    2.775833] Initialized tegra uart driver
+[    2.785151] loop: module loaded
+[    2.789152] vcan: Virtual CAN interface driver
+[    2.793652] CAN device driver interface
+[    2.797592] Colibri EvalBoard V3.1a CAN Initialisation
+[    2.803092] spi_tegra spi_tegra.0: Setting clk_src pll_p
+[    2.820068] mcp251x spi0.0: probed
+[    2.823709] PPP generic driver version 2.4.2
+[    2.828266] PPP Deflate Compression module registered
+[    2.833369] PPP BSD Compression module registered
+[    2.838989] PPP MPPE Compression module registered
+[    2.843835] NET: Registered protocol family 24
+[    2.848858] tun: Universal TUN/TAP device driver, 1.6
+[    2.853957] tun: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[    2.860479] usbcore: registered new interface driver asix
+[    2.865992] usbcore: registered new interface driver cdc_ether
+[    2.871928] usbcore: registered new interface driver cdc_subset
+[    2.877899] ehci_hcd: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[    2.884535] tegra USB phy - inst[1] platform info:
+[    2.889344] port_otg: no
+[    2.891907] has_hostpc: yes
+[    2.894713] phy_interface: USB_PHY_INTF_UTMI
+[    2.898996] op_mode: TEGRA_USB_OPMODE_HOST
+[    2.903117] vbus_gpio: -1
+[    2.905747] vbus_gpio_inverted: 0
+[    2.909073] vbus_reg: NULL
+[    2.911788] hot_plug: disabled
+[    2.914867] remote_wakeup: enabled
+[    2.923191] tegra-ehci tegra-ehci.1: Tegra EHCI Host Controller
+[    2.929305] tegra-ehci tegra-ehci.1: new USB bus registered, assigned bus number 1
+[    2.961909] tegra-ehci tegra-ehci.1: irq 53, io mem 0x7d004000
+[    2.981881] tegra-ehci tegra-ehci.1: USB 2.0 started, EHCI 1.00
+[    2.987910] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002
+[    2.994745] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.002005] usb usb1: Product: Tegra EHCI Host Controller
+[    3.007420] usb usb1: Manufacturer: Linux 3.1.10-2.8.7+g5e3cb65b1b4b ehci_hcd
+[    3.014619] usb usb1: SerialNumber: tegra-ehci.1
+[    3.019851] hub 1-0:1.0: USB hub found
+[    3.023665] hub 1-0:1.0: 1 port detected
+[    3.028028] tegra USB phy - inst[2] platform info:
+[    3.032869] port_otg: no
+[    3.035414] has_hostpc: yes
+[    3.038217] phy_interface: USB_PHY_INTF_UTMI
+[    3.042513] op_mode: TEGRA_USB_OPMODE_HOST
+[    3.046619] vbus_gpio: 178
+[    3.049333] vbus_gpio_inverted: 1
+[    3.052670] vbus_reg: NULL
+[    3.055387] hot_plug: enabled
+[    3.058362] remote_wakeup: enabled
+[    3.063083] tegra-ehci tegra-ehci.2: Tegra EHCI Host Controller
+[    3.069064] tegra-ehci tegra-ehci.2: new USB bus registered, assigned bus number 2
+[    3.101907] tegra-ehci tegra-ehci.2: irq 129, io mem 0x7d008000
+[    3.121988] tegra-ehci tegra-ehci.2: USB 2.0 started, EHCI 1.00
+[    3.128039] usb usb2: New USB device found, idVendor=1d6b, idProduct=0002
+[    3.134882] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.142146] usb usb2: Product: Tegra EHCI Host Controller
+[    3.147560] usb usb2: Manufacturer: Linux 3.1.10-2.8.7+g5e3cb65b1b4b ehci_hcd
+[    3.154728] usb usb2: SerialNumber: tegra-ehci.2
+[    3.159984] hub 2-0:1.0: USB hub found
+[    3.163797] hub 2-0:1.0: 1 port detected
+[    3.168324] Initializing USB Mass Storage driver...
+[    3.173399] usbcore: registered new interface driver usb-storage
+[    3.179423] USB Mass Storage support registered.
+[    3.184203] usbcore: registered new interface driver libusual
+[    3.190138] usbcore: registered new interface driver usbserial
+[    3.196067] USB Serial support registered for generic
+[    3.201220] usbcore: registered new interface driver usbserial_generic
+[    3.207789] usbserial: USB Serial Driver core
+[    3.212240] USB Serial support registered for pl2303
+[    3.217305] usbcore: registered new interface driver pl2303
+[    3.222916] pl2303: Prolific PL2303 USB to serial adaptor driver
+[    3.228940] Nvidia Tegra High-Speed USB SOC Device Controller driver (Apr 30, 2012)
+[    3.236739] tegra USB phy - inst[0] platform info:
+[    3.241546] port_otg: yes
+[    3.244197] has_hostpc: yes
+[    3.246998] phy_interface: USB_PHY_INTF_UTMI
+[    3.251276] op_mode: TEGRA_USB_OPMODE_DEVICE
+[    3.255577] vbus_pmu_irq: 0
+[    3.258381] vbus_gpio: -1
+[    3.261008] charging: disabled
+[    3.264145] remote_wakeup: disabled
+[    3.270183] tegra-udc tegra-udc.0: usb_bat_chg regulator not registered: USB charging will not be enabled
+[    3.380457] colibri-otg colibri-otg: SUSPEND --> HOST
+[    3.381911] usb 1-1: new high speed USB device number 2 using tegra-ehci
+[    3.394019] tegra USB phy - inst[0] platform info:
+[    3.398849] android_usb gadget: Mass Storage Function, version: 2009/09/11
+[    3.405783] android_usb gadget: Number of LUNs=1
+[    3.410419]  lun0: LUN: removable file: (no medium)
+[    3.415342] port_otg: yes
+[    3.417971] has_hostpc: yes
+[    3.420773] phy_interface: USB_PHY_INTF_UTMI
+[    3.422301] android_usb gadget: android_usb ready
+[    3.422314] tegra-udc: bind to driver android_usb
+[    3.430222] input: stmpe-ts as /devices/virtual/input/input0
+[    3.440151] op_mode: TEGRA_USB_OPMODE_HOST
+[    3.440485] using rtc device, m41t00, for alarms
+[    3.440528] rtc-ds1307 0-0068: rtc core: registered m41t00 as rtc0
+[    3.440959] tegra_rtc tegra_rtc: rtc core: registered tegra_rtc as rtc1
+[    3.440998] tegra_rtc tegra_rtc: Tegra internal Real Time Clock
+[    3.444324] rtc_tps6591x rtc_tps6591x.0: RTC Time : 1/1/2000 0:0:0
+[    3.447061] tps6591x 4-002d:
+[    3.447067]  getting alarm time::
+[    3.447082] rtc_tps6591x rtc_tps6591x.0: RTC Time : 1/1/2000 0:0:0
+[    3.447349] rtc_tps6591x rtc_tps6591x.0: rtc core: registered rtc_tps6591x as rtc2
+[    3.455304] rtc_tps6591x rtc_tps6591x.0: RTC Time : 1/1/2000 0:0:0
+[    3.500009] vbus_gpio: -1
+[    3.502658] vbus_gpio_inverted: 0
+[    3.505982] vbus_reg: NULL
+[    3.508697] hot_plug: enabled
+[    3.511672] remote_wakeup: enabled
+[    3.516359] tegra-ehci tegra-ehci.0: Tegra EHCI Host Controller
+[    3.522380] tegra-ehci tegra-ehci.0: new USB bus registered, assigned bus number 3
+[    3.551881] tegra-ehci tegra-ehci.0: irq 52, io mem 0x7d000000
+[    3.571878] tegra-ehci tegra-ehci.0: USB 2.0 started, EHCI 1.00
+[    3.577840] usb usb3: New USB device found, idVendor=1d6b, idProduct=0002
+[    3.583319] usb 1-1: New USB device found, idVendor=0b95, idProduct=772b
+[    3.583328] usb 1-1: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[    3.583335] usb 1-1: Product: AX88772B
+[    3.583340] usb 1-1: Manufacturer: ASIX Elec. Corp.
+[    3.583346] usb 1-1: SerialNumber: 000001
+[    3.584145] ASIX USB Ethernet Adapter:v4.17.0 10:50:35 Jan 20 2021
+[    3.584150]     http://www.asix.com.tw
+[    3.620968] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.628198] usb usb3: Product: Tegra EHCI Host Controller
+[    3.633602] usb usb3: Manufacturer: Linux 3.1.10-2.8.7+g5e3cb65b1b4b ehci_hcd
+[    3.640733] usb usb3: SerialNumber: tegra-ehci.0
+[    3.645668] hub 3-0:1.0: USB hub found
+[    3.649427] hub 3-0:1.0: 1 port detected
+[    3.691894] i2c /dev entries driver
+[    3.695803] lirc_dev: IR Remote Control driver registered, major 244
+[    3.702258] IR NEC protocol handler initialized
+[    3.706786] IR RC5(x) protocol handler initialized
+[    3.711572] IR RC6 protocol handler initialized
+[    3.716107] IR JVC protocol handler initialized
+[    3.720635] IR Sony protocol handler initialized
+[    3.725307] IR RC5 (streamzap) protocol handler initialized
+[    3.730878] IR MCE Keyboard/mouse protocol handler initialized
+[    3.736717] IR LIRC bridge handler initialized
+[    3.741156] Linux video capture interface: v2.00
+[    3.745855] usbcore: registered new interface driver uvcvideo
+[    3.751599] USB Video Class driver (1.1.1)
+[    3.756027] trpc_sema_init: registered misc dev 10:54
+[    3.761286] trpc_node_register: Adding 'local' to node list
+[    3.768417] nvavp nvavp: allocated IOVM at ff00000 for AVP os
+[    3.791414] tegra_wdt tegra_wdt.0: tegra_wdt_probe done
+[    3.796919] tegra_wdt tegra_wdt.1: tegra_wdt_probe done
+[    3.802434] tegra_wdt tegra_wdt.2: tegra_wdt_probe done
+[    3.807751] Bluetooth: HCI UART driver ver 2.2
+[    3.812240] Bluetooth: HCI H4 protocol initialized
+[    3.817045] Bluetooth: HCILL protocol initialized
+[    3.821763] Bluetooth: BlueSleep Mode Driver Ver 1.1
+[    3.827383] cpuidle: using governor ladder
+[    3.832092] cpuidle: using governor menu
+[    3.836080] sdhci: Secure Digital Host Controller Interface driver
+[    3.842299] sdhci: Copyright(c) Pierre Ossman
+[    3.846668] sdhci-pltfm: SDHCI platform and OF driver helper
+[    3.852362] sdhci_tegra_init+ #####
+[    3.856036] sdhci-tegra sdhci-tegra.3: Error: tegra3 io dpd not supported for sdhci-tegra.3
+[    3.865467] mmc0: Invalid maximum block size, assuming 512 bytes
+[    3.871526] mmc0: no vmmc regulator found
+[    3.880149] mmc0: SDHCI controller on sdhci-tegra.3 [sdhci-tegra.3] using ADMA
+[    3.887717] sdhci-tegra sdhci-tegra.1: vddio_sdmmc regulator not found: -19.Assuming vddio_sdmmc is not required.
+[    3.898257] sdhci-tegra sdhci-tegra.1: Error: tegra3 io dpd not supported for sdhci-tegra.1
+[    3.907682] mmc1: Invalid maximum block size, assuming 512 bytes
+[    3.913793] mmc1: no vmmc regulator found
+[    3.930880] mmc1: SDHCI controller on sdhci-tegra.1 [sdhci-tegra.1] using ADMA
+[    3.940236] sdhci_tegra_init- #####
+[    3.961713] tegra-se tegra-se: tegra_se_probe: complete
+[    3.967586] usbcore: registered new interface driver usbhid
+[    3.973390] usbhid: USB HID core driver
+[    3.981337] stmpe-adc stmpe-adc.1: Initialized
+[    3.993697] [mmc]:mmc_decode_cid:123 cid.prv 0x5
+[    4.009665] [mmc]:mmc_read_ext_csd:297 ext_csd.sectors 0x748000 prod_name H4G1d BOOT_MULTI 0x20
+[    4.021541] mmc0: new high speed DDR MMC card at address 0001
+[    4.028048] mmcblk0: mmc0:0001 H4G1d 3.64 GiB
+[    4.032910] mmcblk0boot0: mmc0:0001 H4G1d partition 1 4.00 MiB
+[    4.039113] mmcblk0boot1: mmc0:0001 H4G1d partition 2 4.00 MiB
+[    4.047291]  mmcblk0: p1 p2
+[    4.054373]  mmcblk0boot1: unknown partition table
+[    4.062638]  mmcblk0boot0: unknown partition table
+[    4.067714] [mmc]:mmc_rescan_try_freq:2119 mmc0: eMMC completed
+[    4.173412] mmc1: host does not support reading read-only switch. assuming write-enable.
+[    4.184441] mmc1: new high speed SDHC card at address aaaa
+[    4.190487] mmcblk1: mmc1:aaaa SL08G 7.40 GiB
+[    4.196431]  mmcblk1: p1
+[    4.522905] usbcore: registered new interface driver snd-usb-audio
+[    4.554058] sgtl5000 4-000a: Failed to get supply 'VDDD': -19
+[    4.560060] print_constraints: 4-000a: 850 <--> 1600 mV at 1200 mV normal
+[    4.567214] sgtl5000 4-000a: Using internal LDO instead of VDDD
+[    4.575711] sgtl5000 4-000a: sgtl5000 revision 17
+[    4.589096] asoc: sgtl5000 <-> tegra30-i2s.2 mapping ok
+[    4.595285] ALSA device list:
+[    4.598269]   #0: colibri_t30-sgtl5000
+[    4.602062]   #1: HDA NVIDIA Tegra at 0x70038000 irq 113
+[    4.607389] oprofile: hardware counters not available
+[    4.612474] oprofile: using timer interrupt.
+[    4.616972] GACT probability NOT on
+[    4.620483] Mirror/redirect action on
+[    4.624312] u32 classifier
+[    4.627034]     Actions configured
+[    4.630446] Netfilter messages via NETLINK v0.30.
+[    4.635266] nf_conntrack version 0.5.0 (15650 buckets, 62600 max)
+[    4.641931] NF_TPROXY: Transparent proxy support initialized, version 4.1.0
+[    4.648915] NF_TPROXY: Copyright (c) 2006-2007 BalaBit IT Ltd.
+[    4.655056] ip_tables: (C) 2000-2006 Netfilter Core Team
+[    4.660647] arp_tables: (C) 2002 David S. Miller
+[    4.665394] TCP cubic registered
+[    4.668821] NET: Registered protocol family 10
+[    4.674556] Mobile IPv6
+[    4.677063] ip6_tables: (C) 2000-2006 Netfilter Core Team
+[    4.683343] NET: Registered protocol family 17
+[    4.687843] NET: Registered protocol family 15
+[    4.692332] can: controller area network core (rev 20090105 abi 8)
+[    4.698633] NET: Registered protocol family 29
+[    4.703131] can: raw protocol (rev 20090105)
+[    4.707417] can: broadcast manager protocol (rev 20090105 t)
+[    4.713322] Bluetooth: RFCOMM TTY layer initialized
+[    4.718238] Bluetooth: RFCOMM socket layer initialized
+[    4.723423] Bluetooth: RFCOMM ver 1.11
+[    4.727186] Bluetooth: BNEP (Ethernet Emulation) ver 1.3
+[    4.732542] Bluetooth: HIDP (Human Interface Emulation) ver 1.2
+[    4.738623] 8021q: 802.1Q VLAN Support v1.8
+[    4.742881] Registering the dns_resolver key type
+[    4.747650] VFP support v0.3: implementor 41 architecture 3 part 30 variant 9 rev 4
+[    4.755395] Registering SWP/SWPB emulation handler
+[    4.776243] Disabling clocks left on by bootloader:
+[    4.781161]    audio_2x
+[    4.783655]    audio4_2x
+[    4.786202]    audio3_2x
+[    4.788745]    audio2_2x
+[    4.791288]    audio1_2x
+[    4.793852]    audio0_2x
+[    4.796397]    audio
+[    4.798588]    audio4
+[    4.800868]    audio3
+[    4.803166]    audio2
+[    4.805449]    audio1
+[    4.807729]    audio0
+[    4.810050]    dsi2-fixed
+[    4.812694]    dsi1-fixed
+[    4.815338]    uartd
+[    4.817533]    i2c3-fast
+[    4.820072]    i2c2-fast
+[    4.822636]    bsev
+[    4.824748]    bsea
+[    4.826875]    fuse_burn
+[    4.829425]    cclk_lp
+[    4.831794]    pll_x_out0
+[    4.834460]    pll_p_out2
+[    4.837098]    pll_c_out1
+[    4.839728]    pll_m_out1
+[    4.842477] CPU rate: 620 MHz
+[    4.845755] tegra_fuse_program_init: no vdd_fuse. fuse write disabled
+[    4.852340] DVFS: Got RTC device name:rtc0
+[    4.856949] DVFS: Can't read RTC time
+[    4.860692] tegra_dvfs: vdd_cpu: stats above 1237 mV will be squashed
+[    4.870700] tegra3_dvfs: minimum cap.emc rate 400000000 requires 1000 mV
+[    4.877314] tegra dvfs: tegra sysfs cap interface is initialized
+[    4.886102] tegra_actmon.emc: Completed initialization (0)
+[    4.891903] tegra_actmon.avp: Completed initialization (0)
+[    4.899430] registered taskstats version 1
+[    4.903829] regulator_init_complete: tps6591x_VDD_2: disabling
+[    4.911127] input: gpio-keys as /devices/platform/gpio-keys.0/input/input1
+[    4.918961] rtc-ds1307 0-0068: hctosys: unable to read the hardware clock
+[    9.312206] eth%d: status ep1in, 8 bytes period 11
+[    9.317874] eth0: register 'asix' at usb-tegra-ehci.1-1, ASIX AX88772B USB 2.0 Ethernet, 00:14:2d:29:00:ae
+[    9.336545] kjournald starting.  Commit interval 5 seconds
+[    9.336684] EXT3-fs (mmcblk0p2): mounted filesystem with writeback data mode
+[    9.336741] VFS: Mounted root (ext3 filesystem) readonly on device 179:2.
+[    9.338470] devtmpfs: mounted
+[    9.441987] usb 2-1: new high speed USB device number 2 using tegra-ehci
+[    9.568443] systemd[1]: System time before build time, advancing clock.
+[    9.592632] usb 2-1: New USB device found, idVendor=0424, idProduct=2514
+[    9.599564] usb 2-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
+[    9.608484] hub 2-1:1.0: USB hub found
+[    9.613023] hub 2-1:1.0: 4 ports detected
+[    9.892205] usb 2-1.2: new full speed USB device number 3 using tegra-ehci
+[    9.972374] systemd[1]: systemd 234 running in system mode. (+PAM -AUDIT -SELINUX +IMA -APPARMOR +SMACK +SYSVINIT +UTMP -LIBCRYPTSETUP -GCRYPT -GNUTLS -ACL +XZ +LZ4 -SECCOMP +BLKID -ELFUTILS +KMOD -IDN2 +IDN default-hierarchy=hybrid)
+[    9.993684] systemd[1]: Detected architecture arm.
+
+Welcome to The Ångström Distribution v2017.12!
+
+[   10.024513] systemd[1]: Set hostname to <colibri-t30>.
+[   10.026139] usb 2-1.2: New USB device found, idVendor=046d, idProduct=c52b
+[   10.026162] usb 2-1.2: New USB device strings: Mfr=1, Product=2, SerialNumber=0
+[   10.026181] usb 2-1.2: Product: USB Receiver
+[   10.026195] usb 2-1.2: Manufacturer: Logitech
+[   10.030983] input: Logitech USB Receiver as /devices/platform/tegra-ehci.2/usb2/2-1/2-1.2/2-1.2:1.0/input/input2
+[   10.031810] generic-usb 0003:046D:C52B.0001: input,hidraw0: USB HID v1.11 Keyboard [Logitech USB Receiver] on usb-tegra-ehci.2-1.2/input0
+[   10.036667] input: Logitech USB Receiver as /devices/platform/tegra-ehci.2/usb2/2-1/2-1.2/2-1.2:1.1/input/input3
+[   10.038099] generic-usb 0003:046D:C52B.0002: input,hiddev0,hidraw1: USB HID v1.11 Mouse [Logitech USB Receiver] on usb-tegra-ehci.2-1.2/input1
+[   10.043241] generic-usb 0003:046D:C52B.0003: hiddev0,hidraw2: USB HID v1.11 Device [Logitech USB Receiver] on usb-tegra-ehci.2-1.2/input2
+[   10.115677] systemd[1]: Initializing machine ID from random generator.
+[   10.122544] systemd[1]: Installed transient /etc/machine-id file.
+[   10.587227] systemd[1]: Reached target Swap.
+[  OK  ] Reached target Swap.
+[   10.613404] systemd[1]: system.slice: Failed to set invocation ID on control group /system.slice, ignoring: Operation not supported
+[   10.625550] systemd[1]: Created slice System Slice.
+[  OK  ] Created slice System Slice.
+[   10.660303] systemd[1]: Listening on Journal Socket (/dev/log).
+[  OK  ] Listening on Journal Socket (/dev/log).
+[   10.682796] systemd[1]: system-getty.slice: Failed to set invocation ID on control group /system.slice/system-getty.slice, ignoring: Operation not supported
+[   10.696952] systemd[1]: Created slice system-getty.slice.
+[  OK  ] Created slice system-getty.slice.
+[   10.722220] systemd[1]: Reached target Remote File Systems.
+[  OK  ] Reached target Remote File Systems.
+[   10.742678] systemd[1]: Started Forward Password Requests to Wall Directory Watch.
+[  OK  ] Started Forward Password Requests to Wall Directory Watch.
+[   10.773436] systemd[1]: sys-kernel-debug.mount: Failed to set invocation ID on control group /system.slice/sys-kernel-debug.mount, ignoring: Operation not supported
+[   10.790903] systemd[1]: Mounting Kernel Debug File System...
+         Mounting Kernel Debug File System...
+[   10.812956] systemd[1]: Listening on Network Service Netlink Socket.
+[  OK  ] Listening on Network Service Netlink Socket.
+[   10.842865] systemd[1]: system-serial\x2dgetty.slice: Failed to set invocation ID on control group /system.slice/system-serial\x2dgetty.slice, ignoring: Operation not supported
+[   10.858923] systemd[1]: Created slice system-serial\x2dgetty.slice.
+[  OK  ] Created slice system-serial\x2dgetty.slice.
+[   10.882565] systemd[1]: Listening on udev Control Socket.
+[  OK  ] Listening on udev Control Socket.
+[   10.902340] systemd[1]: Reached target Host and Network Name Lookups.
+[  OK  ] Reached target Host and Network Name Lookups.
+[   10.922700] systemd[1]: Listening on udev Kernel Socket.
+[  OK  ] Listening on udev Kernel Socket.
+[   10.943103] systemd[1]: user.slice: Failed to set invocation ID on control group /user.slice, ignoring: Operation not supported
+[   10.955046] systemd[1]: Created slice User and Session Slice.
+[  OK  ] Created slice User and Session Slice.
+[   10.982239] systemd[1]: Reached target Slices.
+[  OK  ] Reached target Slices.
+[   11.005042] systemd[1]: tmp.mount: Failed to set invocation ID on control group /system.slice/tmp.mount, ignoring: Operation not supported
+[   11.019590] systemd[1]: Mounting Temporary Directory (/tmp)...
+         Mounting Temporary Directory (/tmp)...
+[   11.032336] usb 2-1.3: new high speed USB device number 4 using tegra-ehci
+[   11.042721] systemd[1]: Started Dispatch Password Requests to Console Directory Watch.
+[  OK  ] Started Dispatch Password Requests to Console Directory Watch.
+[   11.072489] systemd[1]: Reached target Paths.
+[  OK  ] Reached target Paths.
+[   11.092599] systemd[1]: Listening on /dev/initctl Compatibility Named Pipe.
+[  OK  ] Listening on /dev/initctl Compatibility Named Pipe.
+[   11.122557] systemd[1]: Listening on Journal Socket.
+[  OK  ] Listening on Journal Socket.
+[   11.148300] systemd[1]: systemd-journald.service: Failed to set invocation ID on control group /system.slice/systemd-journald.service, ignoring: Operation not supported
+[   11.165400] usb 2-1.3: New USB device found, idVendor=0781, idProduct=5567
+[   11.172390] usb 2-1.3: New USB device strings: Mfr=1, Product=2, SerialNumber=3
+[   11.173395] systemd[1]: Starting Journal Service...
+[   11.184927] usb 2-1.3: Product: Cruzer Blade
+         Starting Journal Servic[   11.189581] usb 2-1.3: Manufacturer: SanDisk
+e...
+[   11.196949] usb 2-1.3: SerialNumber: 4C530001130304108341
+[   11.205105] scsi0 : usb-storage 2-1.3:1.0
+[   11.213408] systemd[1]: systemd-fsck-root.service: Failed to set invocation ID on control group /system.slice/systemd-fsck-root.service, ignoring: Operation not supported
+[   11.228118] systemd-journald[112]: Failed to register hostname fd in event loop, ignoring: Operation not permitted
+[   11.243081] systemd[1]: Starting File System Check on Root Device...
+         Starting File System Check on Root Device...
+[   11.274385] systemd[1]: systemd-sysctl.service: Failed to set invocation ID on control group /system.slice/systemd-sysctl.service, ignoring: Operation not supported
+[   11.296246] systemd[1]: Starting Apply Kernel Variables...
+         Starting Apply Kernel Variables...
+[   11.306787] systemd[1]: sys-fs-fuse-connections.mount: Failed to set invocation ID on control group /system.slice/sys-fs-fuse-connections.mount, ignoring: Operation not supported
+[   11.330548] systemd[1]: Mounting FUSE Control File System...
+         Mounting FUSE Control File System...
+[   11.370762] systemd[1]: Mounted Kernel Debug File System.
+[  OK  ] Mounted Kernel Debug Fil[   11.379842] systemd[1]: Mounted FUSE Control File System.
+e System.
+[  OK  ] Mounted FUSE Control Fil[   11.395853] systemd[1]: Mounted Temporary Directory (/tmp).
+e System.
+[  OK  ] Mounted Temporary Directory (/tmp).
+[   11.492295] systemd[1]: Started Apply Kernel Variables.
+[  OK  ] Started Apply Kernel Variables.
+[   11.602196] systemd[1]: Started File System Check on Root Device.
+[  OK  ] Started File System Check on Root Device.
+[   11.623868] systemd[1]: Started Journal Service.
+[  OK  ] Started Journal Service.
+         Starting Remount Root and Kernel File Systems...
+[   11.696535] EXT3-fs (mmcblk0p2): using internal journal
+[  OK  ] Started Remount Root and Kernel File Systems.
+         Starting Flush Journal to Persistent Storage...
+         Starting Create System Users...
+         Starting Rebuild Hardware Database...
+[  OK  ] Started Create System Users.
+         Starting Create Static Device Nodes in /dev...
+[   11.956824] systemd-journald[112]: Received request to flush runtime journal from PID 1
+[  OK  ] Started Create Static Device Nodes in /dev.
+         Starting udev Kernel Device Manager...
+[  OK  ] Reached target Local File Systems (Pre).
+         Mounting /var/volatile...
+[  OK  ] Mounted /var/volatile.
+         Starting Load/Save Random Seed...
+[  OK  ] Reached target Local File Systems.
+[   12.203171] scsi 0:0:0:0: Direct-Access     SanDisk  Cruzer Blade     1.00 PQ: 0 ANSI: 6
+[   12.212739] sd 0:0:0:0: [sda] 30031872 512-byte logical blocks: (15.3 GB/14.3 GiB)
+[   12.221733] sd 0:0:0:0: Attached scsi generic sg0 type 0
+[   12.223391] sd 0:0:0:0: [sda] Write Protect is off
+[   12.224121] sd 0:0:0:0: [sda] Write cache: disabled, read cache: enabled, doesn't support DPO or FUA
+[   12.237484]  sda: sda1
+         Starting Rebuild Dynamic Linker Cache...
+[   12.246229] sd 0:0:0:0: [sda] Attached SCSI removable disk
+         Starting Commit a transient machine-id on disk...
+         Starting Rebuild Journal Catalog...
+[  OK  ] Started Flush Journal to Persistent Storage.
+[  OK  ] Started Load/Save Random Seed.
+[FAILED] Failed to start Commit a transient machine-id on disk.
+See 'systemctl status systemd-machine-id-commit.service' for details.
+[  OK  ] Started Rebuild Journal Catalog.
+[  OK  ] Started udev Kernel Device Manager.
+         Starting Create Volatile Files and Directories...
+[  OK  ] Started Create Volatile Files and Directories.
+         Starting Run pending postinsts...
+         Starting Update UTMP about System Boot/Shutdown...
+         Starting Opkg first boot configure...
+         Starting Network Time Synchronization...
+[  OK  ] Started Update UTMP about System Boot/Shutdown.
+[  OK  ] Started Network Time Synchronization.
+[  OK  ] Reached target System Time Synchronized.
+[  OK  ] Started Run pending postinsts.
+[  OK  ] Started Rebuild Dynamic Linker Cache.
+[  OK  ] Started Opkg first boot configure.
+[  OK  ] Started Rebuild Hardware Database.
+         Starting Update is Completed...
+         Starting udev Coldplug all Devices...
+[  OK  ] Started Update is Completed.
+[  OK  ] Started udev Coldplug all Devices.
+[  OK  ] Found device /dev/ttyS0.
+[  OK  ] Created slice system-systemd\x2dbacklight.slice.
+         Starting Load/Save Screen Backlight…ness of backlight:pwm-backlight...
+[  OK  ] Started Load/Save Screen Backlight …htness of backlight:pwm-backlight.
+[   15.472568] tegra-i2c tegra-i2c.0: I2c error status 0x00000008
+[   15.478434] tegra-i2c tegra-i2c.0: no acknowledge from address 0x4a
+[   15.484725] tegra-i2c tegra-i2c.0: Packet status 0x00010009
+[   15.490580] atmel_mxt_ts 0-004a: __mxt_read_reg: i2c transfer failed (-121)
+[   15.497746] tegra-i2c tegra-i2c.0: I2c error status 0x0000000a
+[   15.503583] tegra-i2c tegra-i2c.0: no acknowledge from address 0x24
+[   15.509848] tegra-i2c tegra-i2c.0: Packet status 0x00010009
+[   15.515741] atmel_mxt_ts 0-004a: mxt_bootloader_read: i2c recv failed (-121)
+[   15.523015] atmel_mxt_ts 0-004a: Trying alternate bootloader address
+[   15.529686] tegra-i2c tegra-i2c.0: I2c error status 0x0000000a
+[   15.535557] tegra-i2c tegra-i2c.0: no acknowledge from address 0x26
+[   15.541851] tegra-i2c tegra-i2c.0: Packet status 0x00010009
+[   15.550017] atmel_mxt_ts 0-004a: mxt_bootloader_read: i2c recv failed (-121)
+[   15.559817] atmel_mxt_ts: probe of 0-004a failed with error -121
+[  OK  ] Reached target Sound Card.
+[  OK  ] Reached target System Initialization.
+         Starting sshd.socket.
+[  OK  ] Listening on D-Bus System Message Bus Socket.
+[  OK  ] Listening on Avahi mDNS/DNS-SD Stack Activation Socket.
+[  OK  ] Started Daily Cleanup of Temporary Directories.
+[  OK  ] Reached target Timers.
+         Starting Network Service...
+[  OK  ] Listening on RPCbind Server Activation Socket.
+         Starting Enable NVIDIA T30 CPU Hot-Plugging...
+[   15.905987] Tegra auto-hotplug enabled
+[  OK  ] Listening on sshd.socket.
+[  OK  ] Started Enable NVIDIA T30 CPU Hot-Plugging.
+[  OK  ] Reached target Sockets.
+[  OK  ] Reached target Basic System.
+         Starting Login Service...
+[  OK  ] Reached target Containers.
+[  OK  ] Started Timestamping service.
+         Starting Avahi mDNS/DNS-SD Stack...
+[  OK  ] Started D-Bus System Message Bus.
+[  OK  ] Started Avahi mDNS/DNS-SD Stack.
+         Starting Connection service...
+[  OK  ] Started Hardware RNG Entropy Gatherer Daemon.
+         Starting RPC Bind Service...
+[  OK  ] Started start resize script to incr…ootfs to its partitions full size.
+         Starting Telephony service...
+         Starting Save/Restore Sound Card State...
+[  OK  ] Started RPC Bind Service.
+[   16.504641] eth0: rxqlen 0 --> 5
+[  OK  ] Started Save/Restore Sound Card State.
+[   16.537980] eth0: ax88772b - Link status is: 0
+[  OK  ] Started Connection service.
+[  OK  ] Started Telephony service.
+[   16.603166] ADDRCONF(NETDEV_UP): eth0: link is not ready
+[  OK  ] Started Login Service.
+         Starting Hostname Service...
+         Starting WPA supplicant...
+[  OK  ] Started WPA supplicant.
+[  OK  ] Started Hostname Service.
+[  OK  ] Started Network Service.
+[  OK  ] Reached target Network.
+[  OK  ] Started NFS status monitor for NFSv2/3 locking..
+         Starting Permit User Sessions...
+         Starting Load/Configure the kernel …iver providing the RNDIS gadget...
+[   17.571143] android_usb: already disabled
+[   17.575855] rndis_function_bind_config MAC: 00:00:00:00:00:00
+[   17.581749] android_usb gadget: using random self ethernet address
+[   17.588360] android_usb gadget: using random host ethernet address
+[   17.603973] rndis0: MAC 46:e5:0a:e6:3c:0d
+[   17.608049] rndis0: HOST MAC 5a:d5:3a:59:5b:c8
+[   17.643049] ADDRCONF(NETDEV_UP): rndis0: link is not ready
+[  OK  ] Started Permit User Sessions.
+[  OK  ] Started Load/Configure the kernel driver providing the RNDIS gadget.
+[  OK  ] Started Getty on tty1.
+[  OK  ] Started Serial Getty on ttyS0.
+
+.---O---.
+|       |                  .-.           o o
+|   |   |-----.-----.-----.| |   .----..-----.-----.
+|       |     | __  |  ---'| '--.|  .-'|     |     |
+|   |   |  |  |     |---  ||  --'|  |  |  '  | | | |
+'---'---'--'--'--.  |-----''----''--'  '-----'-'-'-'
+                -'  |
+                '---'
+
+The Angstrom Distribution colibri-t30 ttyS0
+
+Angstrom v2017.12 - Kernel
+
+Colibri-T30_Console-Image 2.8b7 20210120
+
+colibri-t30 login: root
+root@colibri-t30:~#
