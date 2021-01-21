@@ -3,8 +3,27 @@ This is a layer for OpenEmbedded to support the AIR Glide Display L hardware.
 
 ![img.png](documents/images/displayL.png)
 
-### This project aims to ...
-tbs
+Features:
+* Run Embedded Linux (Colibri-T30_Console-Image 2.8b7)
+* Support for CAN Bus
+* Run XCSoar with CANaerospce Device (https://github.com/ubx/XCSoar/tree/can-bus)
+* Support for rotary knobs and buttons. 
+* Support backlight adjustment.
+* Support for touch screen.
+* Configuration menu.
+
+## Project status
+| Feature | Status | Notes |
+--- | --- | ---
+| Embedded Linux | Good |  |
+| CAN | Not workng | works well on Colibri Evaluation Board |
+| Rotary knobs | not implemented yet | |
+| Buttons | not implemented yet | |
+| Touch screen | not implemented yet | |
+| Config. menu | not defined yet | |
+
+## Embedded Linux
+
 #### Build the docker image & run it:
 
  ``````docker build -f Dockerfile . -t toradex-yotco``````
