@@ -111,8 +111,11 @@ run update
 > 1. Connect the serial port UART_B. (normally it is UART_A, but we use UART_B)
 > 2. Open a terminal on your host computer (115200 baud, 8 data bits, no parity, one stop, no hardware/software flow control).
 > 3. Power cycle the board and immediately press [space] on the terminal
-> for a description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t30)
+> 
+>For a detailed description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t30)
 
 [flashViaSDCard.log](documents/logs/flashViaSDCard.log)
+
+> For flashing via TFTP be sure the board is connected with an ethernet cable.
 
 [flashViaTFTP.log](documents/logs/flashViaTFTP.log)
