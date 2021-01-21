@@ -103,9 +103,9 @@ run update
 ### Example Logs
 [build.log](documents/logs/build.log)
 
-[deployToSDCard.log](deployToSDCard.log)
+[deployToSDCard.log](documents/logs/deployToSDCard.log)
 
-[deployToTFTP.log](deployToTFTP.log)
+[deployToTFTP.log](documents/logs/deployToTFTP.log)
 
 > How to put the board in Recovery Mode:
 > 1. Connect the serial port UART_B. (normally it is UART_A, but we use UART_B)
@@ -113,6 +113,6 @@ run update
 > 3. Power cycle the board and immediately press [space] on the terminal
 > for a description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t30)
 
-[flashViaSDCard.log](flashViaSDCard.log)
+[flashViaSDCard.log](documents/logs/flashViaSDCard.log)
 
-[flashViaTFTP.log](flashViaTFTP.log)
+[flashViaTFTP.log](documents/logs/flashViaTFTP.log)
