@@ -119,3 +119,7 @@ run update
 > For flashing via TFTP be sure the board is connected with an ethernet cable.
 
 [flashViaTFTP.log](documents/logs/flashViaTFTP.log)
+
+## Problems
+### CAN on Display-L Board
+
