@@ -1,0 +1,124 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board-colibri_t30.c
+--- a/arch/arm/mach-tegra/board-colibri_t30.c
++++ b/arch/arm/mach-tegra/board-colibri_t30.c
+@@ -42,6 +42,9 @@
+ #include <media/soc_camera.h>
+ #include <media/tegra_v4l2_camera.h>
+ 
++ ////#include <linux/input.h>
++ ////#include <linux/rotary_encoder.h>
++
+ #include "board-colibri_t30.h"
+ #include "board.h"
+ #include "clock.h"
+@@ -575,6 +578,79 @@ static struct gpio colibri_t30_gpios[] = {
+ 
+ };
+ 
++/* Rotary encoder 
++#define GPIO_ROTARY_A TEGRA_GPIO_PK4
++#define GPIO_ROTARY_B TEGRA_GPIO_PX7
++
++static struct rotary_encoder_platform_data my_rotary_encoder_info = {
++        .steps         = 24,
++        .axis          = ABS_X,
++        .relative_axis = false,
++        .rollover      = false,
++        .gpio_a                = GPIO_ROTARY_A,
++        .gpio_b                = GPIO_ROTARY_B,
++        .inverted_a    = 0,
++        .inverted_b    = 0,
++        .half_period   = false,
++};
++
++static struct platform_device rotary_encoder_device = {
++        .name          = "rotary-encoder",
++        .id            = 0,
++        .dev           = {
++                .platform_data = &my_rotary_encoder_info,
++        }
++}; */
++
++/* GPIO buttons */
++#define GPIO_KEY_F1  TEGRA_GPIO_PK7
++#define GPIO_KEY_F2  TEGRA_GPIO_PK2
++#define GPIO_KEY_ESC TEGRA_GPIO_PB6
++
++static struct gpio_keys_button gpio_keys_button[] = {
++        {
++                .code			= KEY_F1,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_F1,
++                .active_low		= 1,
++                .wakeup			= 0,
++                .debounce_interval	= 5, /* ms */
++                .desc			= "Button F1",
++        },
++        {
++                .code			= KEY_F2,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_F2,
++                .active_low		= 1,
++                .wakeup			= 0,
++                .debounce_interval	= 5, /* ms */
++                .desc			= "Button F2",
++        },
++        {
++                .code			= KEY_ESC,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_ESC,
++                .active_low		= 1,
++                .wakeup			= 0,
++                .debounce_interval	= 5, /* ms */
++                .desc			= "Button ESC",
++        },
++};
++
++static struct gpio_keys_platform_data gpio_keys_platform_data = {
++        .buttons	= gpio_keys_button,
++        .nbuttons	= ARRAY_SIZE(gpio_keys_button),
++        .rep		= 0,
++};
++
++static struct platform_device displayl_gpio_keys_device = {
++        .name	= "gpio-keys",
++        .id	= -1,
++        .dev 	= {
++                .platform_data	= &gpio_keys_platform_data,
++        }
++};
++
+ static void colibri_t30_gpio_init(void)
+ {
+ 	int i = 0;
+@@ -1649,6 +1725,13 @@ static void colibri_t30_usb_init(void)
+ 	/* EHCI instance 2: USB3_DP/N -> USBH_P/N */
+ 	tegra_ehci3_device.dev.platform_data = &tegra_ehci3_utmi_pdata;
+ 	platform_device_register(&tegra_ehci3_device);
++
++	/* Rotary instance 0 */
++   //// platform_device_register(&rotary_encoder_device);
++    
++
++   /* Button instances 0..? */
++   //// platform_device_register(&displayl_gpio_keys_device);
+ }
+ 
+ /* W1, aka OWR, aka OneWire */
+@@ -1718,6 +1801,8 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
+ #ifdef CONFIG_W1_MASTER_TEGRA
+ 	&tegra_w1_device,
+ #endif
++    //// &rotary_encoder_device,
++    &displayl_gpio_keys_device,
+ };
+ 
+ static void __init colibri_t30_init(void)
+@@ -1818,6 +1903,7 @@ static const char *colibri_t30_dt_board_compat[] = {
+ 	NULL
+ };
+ 
++
+ #ifdef CONFIG_ANDROID
+ MACHINE_START(COLIBRI_T30, "cardhu")
+ #else
