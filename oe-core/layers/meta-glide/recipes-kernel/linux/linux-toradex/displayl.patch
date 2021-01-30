@@ -5,8 +5,8 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #include <media/soc_camera.h>
  #include <media/tegra_v4l2_camera.h>
  
-+ ////#include <linux/input.h>
-+ ////#include <linux/rotary_encoder.h>
++ #include <linux/input.h>
++ #include <linux/rotary_encoder.h>
 +
  #include "board-colibri_t30.h"
  #include "board.h"
@@ -15,7 +15,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  
  };
  
-+/* Rotary encoder 
++/* Rotary encoder */ 
 +#define GPIO_ROTARY_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY_B TEGRA_GPIO_PX7
 +
@@ -37,7 +37,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +        .dev           = {
 +                .platform_data = &my_rotary_encoder_info,
 +        }
-+}; */
++};
 +
 +/* GPIO buttons */
 +#define GPIO_KEY_F1  TEGRA_GPIO_PK7
@@ -109,7 +109,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
-+    //// &rotary_encoder_device,
++    &rotary_encoder_device,
 +    &displayl_gpio_keys_device,
  };
  
