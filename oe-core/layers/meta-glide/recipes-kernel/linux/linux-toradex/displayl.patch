@@ -11,6 +11,15 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #include "board-colibri_t30.h"
  #include "board.h"
  #include "clock.h"
+@@ -543,7 +546,7 @@ static struct gpio colibri_t30_gpios[] = {
+ //	{TEGRA_GPIO_PX3,	GPIOF_IN,	"SODIMM pin 136"},
+ 	{TEGRA_GPIO_PX4,	GPIOF_IN,	"SODIMM pin 134"},
+ 	{TEGRA_GPIO_PX6,	GPIOF_IN,	"102, I X13 ForceOFF#"},
+-	{TEGRA_GPIO_PX7,	GPIOF_IN,	"104, I X14 ForceOFF#"},
++//	{TEGRA_GPIO_PX7,	GPIOF_IN,	"104, I X14 ForceOFF#"},
+ #ifndef COLIBRI_T30_VI
+ //	{TEGRA_GPIO_PY4,	GPIOF_IN,	"SODI-97, Iris X16-17"},
+ //	{TEGRA_GPIO_PY5,	GPIOF_IN,	"SODI-79, Iris X16-19"},
 @@ -575,6 +578,79 @@ static struct gpio colibri_t30_gpios[] = {
  
  };
@@ -91,21 +100,16 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  static void colibri_t30_gpio_init(void)
  {
  	int i = 0;
-@@ -1649,6 +1725,13 @@ static void colibri_t30_usb_init(void)
- 	/* EHCI instance 2: USB3_DP/N -> USBH_P/N */
- 	tegra_ehci3_device.dev.platform_data = &tegra_ehci3_utmi_pdata;
- 	platform_device_register(&tegra_ehci3_device);
-+
-+	/* Rotary instance 0 */
-+   //// platform_device_register(&rotary_encoder_device);
-+    
-+
-+   /* Button instances 0..? */
-+   //// platform_device_register(&displayl_gpio_keys_device);
- }
+@@ -620,7 +696,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
+ #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+ 	.gpio_reset = TEGRA_GPIO_PA6,
+ #else
+-	.gpio_reset = TEGRA_GPIO_PK4,
++//	.gpio_reset = TEGRA_GPIO_PK4,
+ #endif
+ };
  
- /* W1, aka OWR, aka OneWire */
-@@ -1718,6 +1801,8 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
+@@ -1718,6 +1794,8 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -114,7 +118,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  };
  
  static void __init colibri_t30_init(void)
-@@ -1818,6 +1903,7 @@ static const char *colibri_t30_dt_board_compat[] = {
+@@ -1818,6 +1896,7 @@ static const char *colibri_t30_dt_board_compat[] = {
  	NULL
  };
  
