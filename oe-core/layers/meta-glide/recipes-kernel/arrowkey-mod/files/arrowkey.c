@@ -1,5 +1,5 @@
 /*
- * This is all inspired inspired / copy and pasted from:
+ * This is all inspired / copy and pasted from:
  *      https://github.com/JamesGKent/rotary_volume/blob/master/module/rotary_volume.c
  */
 
