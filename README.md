@@ -100,7 +100,7 @@ run setupdate
 run update
 ``````
 
-### Example Logs
+#### Example Logs
 [build.log](documents/logs/build.log)
 
 [deployToSDCard.log](documents/logs/deployToSDCard.log)
@@ -119,6 +119,14 @@ run update
 > For flashing via TFTP be sure the board is connected with an ethernet cable.
 
 [flashViaTFTP.log](documents/logs/flashViaTFTP.log)
+
+### Test a specific Layer (here the Kernel Module *arrowkey-mod*)
+``````
+devtool modify arrowkey-mod
+bitbake arrowkey-mod
+devtool deploy-target -s arrowkey-mod root@192.168.1.116
+devtool reset arrowkey-mod
+``````
 
 ## Problems
 ### CAN on Display-L Board
