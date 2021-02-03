@@ -1,0 +1,38 @@
+diff --git a/include/configs/colibri_t30.h b/include/configs/colibri_t30.h
+--- a/include/configs/colibri_t30.h
++++ b/include/configs/colibri_t30.h
+@@ -24,8 +24,8 @@
+ #define CONFIG_DISPLAY_BOARDINFO_LATE	/* Calls show_board_info() */
+
+ /* Board-specific serial config */
+-#define CONFIG_TEGRA_ENABLE_UARTA
+-#define CONFIG_SYS_NS16550_COM1		NV_PA_APB_UARTA_BASE
++#define CONFIG_TEGRA_ENABLE_UARTD
++#define CONFIG_SYS_NS16550_COM1		NV_PA_APB_UARTD_BASE
+
+ #define CONFIG_MACH_TYPE		MACH_TYPE_COLIBRI_T30
+
+@@ -150,7 +150,7 @@
+ 		"source ${loadaddr}\0" \
+ 	"setup=setenv setupargs asix_mac=${ethaddr} " \
+ 		"consoleblank=0 no_console_suspend=1 console=tty1 " \
+-		"console=${console},${baudrate}n8 debug_uartport=lsport,0 " \
++		"console=${console},${baudrate}n8 debug_uartport=lsport,3 " \
+ 		"vmalloc=128M mem=1012M@2048M fbmem=12M@3060M\0" \
+ 	"setupdate=run setsdupdate || run setusbupdate || run setethupdate\0" \
+ 	"setusbupdate=usb start && setenv interface usb; setenv drive 0; " \
+
+
+diff --git a/board/toradex/colibri_t30/pinmux-config-colibri_t30.h b/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
+--- a/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
++++ b/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
+@@ -281,7 +281,7 @@
+ 	DEFAULT_PINMUX(SPI1_MOSI_PX4, SPI1, NORMAL, NORMAL, INPUT),
+ 	DEFAULT_PINMUX(SPI1_SCK_PX5, SPI1, NORMAL, NORMAL, INPUT),
+ 	DEFAULT_PINMUX(SPI1_CS0_N_PX6, SPI1, NORMAL, NORMAL, INPUT),
+-	DEFAULT_PINMUX(SPI1_MISO_PX7, SPI1, NORMAL, NORMAL, INPUT),
++	DEFAULT_PINMUX(SPI1_MISO_PX7, RSVD4, NORMAL, NORMAL, INPUT),
+
+
+ 	/* LAN_RESET */
+

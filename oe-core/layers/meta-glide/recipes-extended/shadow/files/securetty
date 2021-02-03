@@ -1,0 +1,9 @@
+# /etc/securetty: list of terminals on which root is allowed to login.
+# See securetty(5) and login(1).
+console
+
+# Standard serial ports
+ttyS0
+ttyS1
+ttyS2
+ttyHS3

@@ -1,0 +1,124 @@
+host:~/ClionProjects/meta-glide$ ./run_dock.sh
+[sudo] password for andreas:
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+yocto@c9ccc5556ac0:~/oe-core$ git config --global user.email "you@example.com"
+yocto@c9ccc5556ac0:~/oe-core$ git config --global user.name "Your Name"
+yocto@c9ccc5556ac0:~/oe-core$ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
+
+... A new version of repo (2.11) is available.
+... You should upgrade soon:
+    cp /home/yocto/oe-core/.repo/repo/repo /home/yocto/bin/repo
+
+
+Your identity is: Your Name <you@example.com>
+If you want to change this, please re-run 'repo init' with --config-name
+
+Testing colorized output (for 'repo diff', 'repo status'):
+  black    red      green    yellow   blue     magenta   cyan     white
+  bold     dim      ul       reverse
+Enable color display in this user account (y/N)? y
+
+repo has been initialized in /home/yocto/oe-core
+yocto@c9ccc5556ac0:~/oe-core$     cp /home/yocto/oe-core/.repo/repo/repo /home/yocto/bin/repo
+yocto@c9ccc5556ac0:~/oe-core$ repo sync
+Fetching projects:   5% (1/18) reporemote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 3 (delta 2), reused 3 (delta 2), pack-reused 0
+Fetching projects:  11% (2/18) meta-qt5-extra.gitremote: Enumerating objects: 232, done.
+remote: Counting objects: 100% (232/232), done.
+remote: Compressing objects: 100% (66/66), done.
+remote: Total 267 (delta 167), reused 228 (delta 165), pack-reused 35
+Receiving objects: 100% (267/267), 61.24 KiB | 764.00 KiB/s, done.
+Resolving deltas: 100% (170/170), completed with 45 local objects.
+Fetching projects:  22% (4/18) meta-qt4remote: Enumerating objects: 2, done.
+remote: Counting objects: 100% (2/2), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 2 (delta 0), reused 2 (delta 0), pack-reused 0
+Fetching projects:  33% (6/18) meta-openembedded.gitremote: Enumerating objects: 221, done.
+remote: Counting objects: 100% (221/221), done.
+remote: Compressing objects: 100% (41/41), done.
+remote: Total 221 (delta 178), reused 221 (delta 178), pack-reused 0
+Receiving objects: 100% (221/221), 38.07 KiB | 493.00 KiB/s, done.
+Resolving deltas: 100% (178/178), completed with 28 local objects.
+Fetching projects:  55% (10/18) meta-angstrom.gitremote: Enumerating objects: 15, done.
+remote: Counting objects: 100% (15/15), done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 8 (delta 6), reused 6 (delta 5), pack-reused 0
+Fetching projects: 100% (18/18), done.
+repo sync has finished successfully.
+yocto@c9ccc5556ac0:~/oe-core$
+yocto@c9ccc5556ac0:~/oe-core$ . export
+
+### Shell environment set up for builds. ###
+
+You can now run 'bitbake <target>'
+
+Common targets are:
+    core-image-minimal
+    core-image-sato
+    meta-toolchain
+    meta-ide-support
+
+You can also run generated qemu images with a command like 'runqemu qemux86'
+
+Toradex targets are:
+    angstrom-lxde-image
+    console-tdx-image
+    angstrom-qt-x11-image
+yocto@c9ccc5556ac0:~/oe-core/build$
+yocto@c9ccc5556ac0:~/oe-core/build$ bitbake console-tdx-image
+Loading cache: 100% |#############################################################################################################################################################################################################| Time: 0:00:02
+Loaded 3918 entries from dependency cache.
+WARNING: No recipes available for:
+  /home/yocto/oe-core/build/../layers/meta-freescale/dynamic-layers/browser-layer/recipes-browser/chromium/chromium-wayland_48.0.2548.0.bbappend
+  /home/yocto/oe-core/build/../layers/meta-freescale/dynamic-layers/browser-layer/recipes-browser/chromium/chromium_52.0.2743.76.bbappend
+  /home/yocto/oe-core/build/../layers/meta-toradex-tegra/recipes-graphics/wayland/weston_1.%.bbappend
+  /home/yocto/oe-core/build/../layers/meta-toradex-tegra/jetson-tk1/recipes-graphics/xorg-xserver/xserver-xorg_1.17.2.bbappend
+NOTE: Resolving any missing task queue dependencies
+
+Build Configuration:
+BB_VERSION           = "1.36.0"
+BUILD_SYS            = "x86_64-linux"
+NATIVELSBSTRING      = "ubuntu-18.04"
+TARGET_SYS           = "arm-angstrom-linux-gnueabi"
+MACHINE              = "colibri-t30"
+DISTRO               = "angstrom"
+DISTRO_VERSION       = "v2017.12"
+TUNE_FEATURES        = "arm armv7a vfp thumb neon callconvention-hard"
+TARGET_FPU           = "hard"
+meta-angstrom        = "HEAD:4318892e08ea9102d29bdd92af83539bea985e4b"
+meta-toradex-nxp     = "HEAD:dcb75200b15086bcd69f7ff396da7caf413ffb93"
+meta-freescale       = "HEAD:1d40ea34fc2c06af79fc59f6ea54f2e9335d61d6"
+meta-freescale-3rdparty = "HEAD:9056f60d81abacc2d8ee0f83ef0f70dfeedc76c7"
+meta-toradex-tegra   = "HEAD:16b6bd18785a7cc8d9024a071d3fbc968ff63e83"
+meta-jetson-tk1      = "HEAD:b430756e711b6b29381c8467185f475f5a505f96"
+meta-toradex-bsp-common = "HEAD:362865913ed40f6cadeaf9111cf83269dc111248"
+meta-oe
+meta-filesystems
+meta-gnome
+meta-xfce
+meta-initramfs
+meta-networking
+meta-multimedia
+meta-python          = "HEAD:eae996301d9c097bcbeb8046f08041dc82bb62f8"
+meta-lxde            = "HEAD:f436137fcc4ac700dc5c1b5e31e5b3c27568fc3e"
+meta-browser         = "HEAD:75640e14e325479c076b6272b646be7a239c18aa"
+meta-qt4             = "HEAD:e290738759ef3f39c9e079eaa9b606a62107e5ba"
+meta-qt5             = "HEAD:180edd66444db330301f22266cac7d588fd48c6a"
+meta-qt5-extra       = "HEAD:c16ba209a93c3e55f5aef07fbb1d584e228765b3"
+meta-freescale-distro = "HEAD:51756d1c2058139c8a21f89b86cfd8007b71b7f0"
+meta-toradex-demos   = "HEAD:c73893a3377ebb557b0fb41f75b26dff40da4442"
+meta                 = "HEAD:3638cb32ba9ba32b4d498fc31ab7fdf82f0d2495"
+meta-glide           = "<unknown>:<unknown>"
+
+Initialising tasks: 100% |########################################################################################################################################################################################################| Time: 0:00:18
+NOTE: Executing SetScene Tasks
+NOTE: Executing RunQueue Tasks
+NOTE: Tasks Summary: Attempted 6790 tasks of which 6790 didn't need to be rerun and all succeeded.
+NOTE: Writing buildhistory
+
+Summary: There was 1 WARNING message shown.
+yocto@c9ccc5556ac0:~/oe-core/build$
