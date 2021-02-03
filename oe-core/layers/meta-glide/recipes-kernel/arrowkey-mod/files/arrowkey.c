@@ -25,7 +25,7 @@ module_param(reltype_x, int, 0);
 MODULE_PARM_DESC(reltype_x, "type of relative event to listen for");  //TODO: Better description
 
 static int count_per_press_x = 10;
-module_param(count_per_press_y, int, 0);
+module_param(count_per_press_x, int, 0);
 MODULE_PARM_DESC(count_per_press_x, "event count before a press is generated"); //TODO: Better description
 
 static int reltype_y = ABS_Y; // 0x01
@@ -65,7 +65,7 @@ static void rotary_event(struct input_handle *handle, unsigned int type, unsigne
                 }
             }
         }
-	else if (code == reltype_y) {
+        else if (code == reltype_y) {
             int i;
             int inc = (value > 0) ? 1 : -1;
             if ((inc > 0 && count < 0) || (inc < 0 && count > 0)) { // if change of direction reset count
@@ -193,8 +193,10 @@ static int __init button_init(void) {
 
 static int __init rotary_arrowkey_init(void) {
     int error = button_init();
-    if (count_per_press < 1) // sanitise input
-        count_per_press = 1;
+    if (count_per_press_x < 1) // sanitise input
+        count_per_press_x = 1;
+    if (count_per_press_y < 1) // sanitise input
+        count_per_press_y = 1;
     if (error == 0) {
         if (input_register_handler(&rotary_handler)==0) {
             printk(KERN_INFO pr_fmt("loaded.\n"));
