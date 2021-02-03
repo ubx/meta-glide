@@ -121,6 +121,7 @@ run update
 [flashViaTFTP.log](documents/logs/flashViaTFTP.log)
 
 ### Test a specific Layer (here the Kernel Module *arrowkey-mod*)
+[See also yocto documentation](https://wiki.yoctoproject.org/wiki/index.php?title=TipsAndTricks/Patching_the_source_for_a_recipe&oldid=61374)
 ``````
 devtool modify arrowkey-mod
 bitbake arrowkey-mod
