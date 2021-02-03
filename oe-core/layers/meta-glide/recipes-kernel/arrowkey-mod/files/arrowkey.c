@@ -20,13 +20,22 @@ static char *devicename = "rotary";
 module_param(devicename, charp, 0);
 MODULE_PARM_DESC(devicename, "name of rotary input device");
 
-static int reltype = REL_X; // 0x00
-module_param(reltype, int, 0);
-MODULE_PARM_DESC(reltype, "type of relative event to listen for");
+static int reltype_x = ABS_X; // 0x00
+module_param(reltype_x, int, 0);
+MODULE_PARM_DESC(reltype_x, "type of relative event to listen for");  //TODO: Better description
 
-static int count_per_press = 10;
-module_param(count_per_press, int, 0);
-MODULE_PARM_DESC(count_per_press, "event count before a press is generated");
+static int count_per_press_x = 10;
+module_param(count_per_press_y, int, 0);
+MODULE_PARM_DESC(count_per_press_x, "event count before a press is generated"); //TODO: Better description
+
+static int reltype_y = ABS_Y; // 0x01
+module_param(reltype_y, int, 0);
+MODULE_PARM_DESC(reltype_y, "type of relative event to listen for");  //TODO: Better description
+
+static int count_per_press_y = 10;
+module_param(count_per_press_y, int, 0);
+MODULE_PARM_DESC(count_per_press_y, "event count before a press is generated"); //TODO: Better description
+
 
 static struct input_dev *button_dev;
 
@@ -42,7 +51,7 @@ int count = 0;
 static void rotary_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
     printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
     if (type == EV_ABS) {
-        if (code == reltype) {
+        if (code == reltype_x) {
             int i;
             int inc = (value > 0) ? 1 : -1;
             if ((inc > 0 && count < 0) || (inc < 0 && count > 0)) { // if change of direction reset count
@@ -50,8 +59,22 @@ static void rotary_event(struct input_handle *handle, unsigned int type, unsigne
             }
             for (i=0; i!=value; i+=inc) {
                 count += inc;
-                if (abs(count) >= count_per_press) {
+                if (abs(count) >= count_per_press_x) {
                     send_key( (inc > 0) ? KEY_RIGHT : KEY_LEFT);
+                    count = 0;
+                }
+            }
+        }
+	else if (code == reltype_y) {
+            int i;
+            int inc = (value > 0) ? 1 : -1;
+            if ((inc > 0 && count < 0) || (inc < 0 && count > 0)) { // if change of direction reset count
+                count = 0;
+            }
+            for (i=0; i!=value; i+=inc) {
+                count += inc;
+                if (abs(count) >= count_per_press_y) {
+                    send_key( (inc > 0) ? KEY_UP : KEY_DOWN);
                     count = 0;
                 }
             }
@@ -150,6 +173,8 @@ static int __init button_init(void) {
     button_dev->evbit[0] = BIT_MASK(EV_KEY);// | BIT_MASK(EV_REP);
     set_bit(KEY_LEFT, button_dev->keybit);
     set_bit(KEY_RIGHT, button_dev->keybit);
+    set_bit(KEY_UP, button_dev->keybit);
+    set_bit(KEY_DOWN, button_dev->keybit);
 
     for (i=KEY_ESC; i<=KEY_KPDOT; i++) { // add a load of extra keys
         set_bit(i, button_dev->keybit);
