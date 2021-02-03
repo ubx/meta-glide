@@ -34,7 +34,7 @@ MODULE_PARM_DESC(reltype_y, "type of relative event to listen for");  //TODO: Be
 
 static int count_per_press_y = 10;
 module_param(count_per_press_y, int, 0);
-MODULE_PARM_DESC(count_per_press_y, "event count before a press is generated"); //TODO: Better description
+MODULE_PARM_DESC(count_per_press_y, "event count before a press is generated in y"); //TODO: Better description
 
 
 static struct input_dev *button_dev;
