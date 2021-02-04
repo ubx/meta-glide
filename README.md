@@ -16,9 +16,9 @@ Features:
 | Feature | Status | Notes |
 --- | --- | ---
 | Embedded Linux | Good |  |
-| CAN | Not working | works well on Colibri Evaluation Board |
-| Rotary knobs | not implemented yet | |
-| Buttons | not implemented yet | |
+| CAN | Not working | works well on Colibri Eval Board |
+| Rotary knobs | Good | missing: KEY.RETURN, KEY.F4, KEY.F5|
+| Buttons | Good | |
 | Touch screen | not implemented yet | |
 | Config. menu | not defined yet | |
 
