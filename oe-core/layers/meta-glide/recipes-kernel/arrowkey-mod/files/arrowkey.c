@@ -17,26 +17,6 @@ MODULE_ALIAS("rotary-arrowkey");
 MODULE_LICENSE("GPL");
 
 static char *devicename = "rotary-encoder";
-module_param(devicename, charp, 0);
-MODULE_PARM_DESC(devicename, "name of rotary input device");
-
-static int reltype_x = ABS_X; // 0x00
-module_param(reltype_x, int, 0);
-MODULE_PARM_DESC(reltype_x, "type of relative event to listen for");  //TODO: Better description
-
-static int count_per_press_x = 10;
-module_param(count_per_press_x, int, 0);
-MODULE_PARM_DESC(count_per_press_x, "event count before a press is generated"); //TODO: Better description
-
-static int reltype_y = ABS_Y; // 0x01
-module_param(reltype_y, int, 0);
-MODULE_PARM_DESC(reltype_y, "type of relative event to listen for");  //TODO: Better description
-
-static int count_per_press_y = 10;
-module_param(count_per_press_y, int, 0);
-MODULE_PARM_DESC(count_per_press_y, "event count before a press is generated in y"); //TODO: Better description
-
-
 static struct input_dev *button_dev;
 
 static void send_key(int key) {
@@ -46,38 +26,13 @@ static void send_key(int key) {
     input_sync(button_dev);
 }
 
-int count = 0;
-
 static void rotary_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
-    printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
-    if (type == EV_ABS) {
-        if (code == reltype_x) {
-            int i;
-            int inc = (value > 0) ? 1 : -1;
-            if ((inc > 0 && count < 0) || (inc < 0 && count > 0)) { // if change of direction reset count
-                count = 0;
-            }
-            for (i=0; i!=value; i+=inc) {
-                count += inc;
-                if (abs(count) >= count_per_press_x) {
-                    send_key( (inc > 0) ? KEY_RIGHT : KEY_LEFT);
-                    count = 0;
-                }
-            }
-        }
-        else if (code == reltype_y) {
-            int i;
-            int inc = (value > 0) ? 1 : -1;
-            if ((inc > 0 && count < 0) || (inc < 0 && count > 0)) { // if change of direction reset count
-                count = 0;
-            }
-            for (i=0; i!=value; i+=inc) {
-                count += inc;
-                if (abs(count) >= count_per_press_y) {
-                    send_key( (inc > 0) ? KEY_UP : KEY_DOWN);
-                    count = 0;
-                }
-            }
+    // printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
+    if (type == EV_REL) {
+        if (code == REL_X) {
+            send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
+        } else if (code == REL_Y) {
+            send_key((value > 0) ? KEY_UP : KEY_DOWN);
         }
     }
 }
@@ -135,7 +90,7 @@ static void rotary_disconnect(struct input_handle *handle) {
 
 static const struct input_device_id rotary_ids[] = {
         { .driver_info = 1 },	/* Matches all devices */
-        { },			/* Terminating zero entry */
+        { },			        /* Terminating zero entry */
 };
 
 MODULE_DEVICE_TABLE(input, rotary_ids);
@@ -184,10 +139,6 @@ static int __init button_init(void) {
 
 static int __init rotary_arrowkey_init(void) {
     int error = button_init();
-    if (count_per_press_x < 1) // sanitise input
-        count_per_press_x = 1;
-    if (count_per_press_y < 1) // sanitise input
-        count_per_press_y = 1;
     if (error == 0) {
         if (input_register_handler(&rotary_handler)==0) {
             printk(KERN_INFO pr_fmt("loaded.\n"));
