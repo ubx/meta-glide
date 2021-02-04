@@ -125,7 +125,7 @@ run update
 ``````
 devtool modify arrowkey-mod
 ``````
-edit file(s) in */home/yocto/oe-core/build/workspace/sources/*
+edit file(s) in *oe-core/build/workspace/sources/arrowkey-mod/*
 ``````
 bitbake arrowkey-mod
 devtool deploy-target -s arrowkey-mod root@192.168.1.116
