@@ -33,7 +33,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +#define GPIO_ROTARY1_B TEGRA_GPIO_PY2
 +
 +static struct rotary_encoder_platform_data my_rotary_encoder_info0 = {
-+        .steps         = 24,
++        .steps         = 15,
 +        .axis          = ABS_X,
 +        .relative_axis = false,
 +        .rollover      = false,
@@ -53,7 +53,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +};
 +
 +static struct rotary_encoder_platform_data my_rotary_encoder_info1 = {
-+        .steps         = 24,
++        .steps         = 15,
 +        .axis          = ABS_Y,
 +        .relative_axis = false,
 +        .rollover      = false,
