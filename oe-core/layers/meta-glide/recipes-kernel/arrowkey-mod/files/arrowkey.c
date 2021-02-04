@@ -11,12 +11,12 @@
 #include <linux/init.h>
 #include <linux/device.h>
 
-MODULE_AUTHOR("James Kent");
+MODULE_AUTHOR("Andreas Lüthi");
 MODULE_DESCRIPTION("rotary encoder as arrow key module");
 MODULE_ALIAS("rotary-arrowkey");
 MODULE_LICENSE("GPL");
 
-static char *devicename = "rotary";
+static char *devicename = "rotary-encoder";
 module_param(devicename, charp, 0);
 MODULE_PARM_DESC(devicename, "name of rotary input device");
 
@@ -122,24 +122,15 @@ bool startsWith(const char *pre, const char *str) {
     return lenstr < lenpre ? false : strncmp(pre, str, lenpre) == 0;
 }
 
-// keep record of match and remove record is disconnect
-bool matched = false;
-
 static bool rotary_match(struct input_handler *handler, struct input_dev *dev) {
-    if (matched)
-        return false;
-    matched = startsWith(devicename, dev->name);
-    printk(KERN_ERR pr_fmt("**** matched\n")); // DEBUG
-    return matched;
+    return startsWith(devicename, dev->name);
 }
 
 static void rotary_disconnect(struct input_handle *handle) {
     printk(KERN_DEBUG pr_fmt("Disconnected device: %s\n"), dev_name(&handle->dev->dev));
-
     input_close_device(handle);
     input_unregister_handle(handle);
     kfree(handle);
-    matched = false;
 }
 
 static const struct input_device_id rotary_ids[] = {
