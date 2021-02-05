@@ -131,7 +131,7 @@ bitbake arrowkey-mod
 devtool deploy-target -s arrowkey-mod root@192.168.1.116
 devtool reset arrowkey-mod
 ``````
-
+> After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.comf
 ## Problems
 ### CAN on Display-L Board
 
