@@ -30,7 +30,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
 +#define GPIO_ROTARY1_A TEGRA_GPIO_PX6
-+#define GPIO_ROTARY1_B TEGRA_GPIO_PY2
++#define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
 + 
 +static struct rotary_encoder_platform_data my_rotary_encoder_info0 = {
 +        .steps         = 15,
