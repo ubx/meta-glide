@@ -20,6 +20,7 @@ USER yocto
 RUN mkdir ~/bin
 RUN curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
 RUN chmod a+x ~/bin/repo
+## todo -- why not just "apt-get install -y repo"
 
 ENV LC_ALL=en_US.UTF-8
 ENV LANG=en_US.UTF-8
