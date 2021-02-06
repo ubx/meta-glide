@@ -22,7 +22,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #ifndef COLIBRI_T30_VI
  //	{TEGRA_GPIO_PY4,	GPIOF_IN,	"SODI-97, Iris X16-17"},
  //	{TEGRA_GPIO_PY5,	GPIOF_IN,	"SODI-79, Iris X16-19"},
-@@ -575,6 +578,101 @@ static struct gpio colibri_t30_gpios[] = {
+@@ -575,6 +578,104 @@ static struct gpio colibri_t30_gpios[] = {
  
  };
  
@@ -30,8 +30,11 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
 +#define GPIO_ROTARY1_A TEGRA_GPIO_PX6
-+#define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
-+ 
++#ifdef TEST_ON_EVAL_BOARD // todo -- where to set this variable ???
++#define GPIO_ROTARY1_B TEGRA_GPIO_PCC2
++#else
++#define GPIO_ROTARY1_B TEGRA_GPIO_PCC2 ////// #define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
++#endif
 +static struct rotary_encoder_platform_data my_rotary_encoder_info0 = {
 +        .steps         = 15,
 +        .axis          = REL_X,
@@ -124,7 +127,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  static void colibri_t30_gpio_init(void)
  {
  	int i = 0;
-@@ -620,7 +718,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
+@@ -620,7 +721,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
  #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
  	.gpio_reset = TEGRA_GPIO_PA6,
  #else
@@ -133,7 +136,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #endif
  };
  
-@@ -1718,6 +1816,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
+@@ -1718,6 +1819,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -143,7 +146,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  };
  
  static void __init colibri_t30_init(void)
-@@ -1818,6 +1919,7 @@ static const char *colibri_t30_dt_board_compat[] = {
+@@ -1818,6 +1922,7 @@ static const char *colibri_t30_dt_board_compat[] = {
  	NULL
  };
  
