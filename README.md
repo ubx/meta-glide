@@ -41,15 +41,15 @@ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 
 #### Update/fetch the repos:
 
-``````repo sync``````
+`repo sync`
 
 #### Setup the bitbake environemnt:
 
-``````. export``````
+`. export`
 
 #### Now one can build the toradex colibri t30 image:
 
-``````bitbake console-tdx-image``````
+`bitbake console-tdx-image`
 
 or for colibri t20 image:
 
@@ -57,7 +57,7 @@ or for colibri t20 image:
 
 or build only xcsoar:
 
-``````bitbake xcsoar-7.0``````
+`bitbake xcsoar-7.0`
  
 >This is all heavily inspired / copy and pasted from:
 > 1. <https://developer.toradex.com/knowledge-base/board-support-package/openembedded-(core)>
