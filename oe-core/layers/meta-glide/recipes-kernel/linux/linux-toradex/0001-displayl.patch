@@ -15,7 +15,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #include "gpio-names.h"
  #include "pm.h"
  
-+#define TEST_ON_EVAL_BOARD // todo -- where to set this variable ?
++//#define EVAL_BOARD
 +
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
@@ -24,7 +24,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  /* Colibri EvalBoard V3.1a */
  
  /* active low interrupt (MCP2515 nINT) */
-+#ifdef TEST_ON_EVAL_BOARD
++#ifdef EVAL_BOARD
  #define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PS0
 +//
 +//
@@ -55,7 +55,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
 +#define GPIO_ROTARY1_A TEGRA_GPIO_PX6
-+#ifdef TEST_ON_EVAL_BOARD
++#ifdef EVAL_BOARD
 +#define GPIO_ROTARY1_B TEGRA_GPIO_PCC2
 +#else
 +#define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
