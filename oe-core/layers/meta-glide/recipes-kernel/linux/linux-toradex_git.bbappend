@@ -12,9 +12,17 @@ config_script () {
      echo "CONFIG_FRAMEBUFFER_CONSOLE=n"  >> ${B}/.config
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
+     ### NO backlight support
+     echo "CONFIG_BACKLIGHT_LCD_SUPPORT=n" >> ${B}/.config
+     echo "CONFIG_LCD_CLASS_DEVICE=n" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_CLASS_DEVICE=n" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_GENERIC=n" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_PWM=n" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_GPIO=n" >> ${B}/.config
+
      echo "dummy" > /dev/null
      if [$EVAL_BOARD = "y"]; then
-        bbdebug "*** Build is for Colibri Evaluation Board."
+        bbnote "*** Build is for Colibri Evaluation Board."
         sed -i 's\+//#define EVAL_BOARD\+#define EVAL_BOARD\' ${THISDIR}/${PN}/0001-displayl.patch
      fi
 }
