@@ -32,7 +32,7 @@ static void rotary_event(struct input_handle *handle, unsigned int type, unsigne
         if (code == REL_X) {
             send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
         } else if (code == REL_Y) {
-            send_key((value > 0) ? KEY_UP : KEY_DOWN);
+            send_key((value > 0) ? KEY_DOWN : KEY_UP);
         }
     }
 }
