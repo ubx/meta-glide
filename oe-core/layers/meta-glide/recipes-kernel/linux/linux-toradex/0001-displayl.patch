@@ -16,7 +16,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #include "gpio-names.h"
  #include "pm.h"
  
-+#define EVAL_BOARD
++// #define EVAL_BOARD
 +
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
@@ -37,8 +37,12 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  
  static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
  {
-@@ -526,10 +536,10 @@ static struct gpio colibri_t30_gpios[] = {
- 	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
+@@ -523,13 +533,13 @@ static struct gpio colibri_t30_gpios[] = {
+ //conflicts with home key
+ 	{TEGRA_GPIO_PT6,	GPIOF_IN,	"SODIMM pin 127"},
+ //conflicts with power key (WAKE1)
+-	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
++///	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
  #endif
  #ifndef COLIBRI_T30_VI
 -	{TEGRA_GPIO_PW5,	GPIOF_IN,	"SODIMM pin 75"},
@@ -149,15 +153,15 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +                .debounce_interval	= 0, /* ms */
 +                .desc			= "Button ESC",
 +        },
-+//        {
-+//                .code			= KEY_ENTER,
-+//                .type			= EV_KEY,
-+//                .gpio			= GPIO_KEY_ENTER,
-+//                .active_low		= 1,
-+//                .wakeup			= 0,
-+//                .debounce_interval	= 0, /* ms */
-+//                .desc			= "Button Enter (rotary)",
-+//        },
++        {
++                .code			= KEY_ENTER,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_ENTER,
++                .active_low		= 1,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button Enter (rotary)",
++        },
 +};
 +
 +static struct gpio_keys_platform_data gpio_keys_platform_data = {
@@ -186,6 +190,19 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #endif
  };
  
+@@ -798,9 +917,9 @@ static struct gpio_keys_button colibri_t30_keys[] = {
+ 						   Iris X16-14 */
+ 	GPIO_KEY(KEY_VOLUMEUP, PDD7, 1, 0),	/* SODIMM pin 22 */
+ 	GPIO_KEY(KEY_VOLUMEDOWN, PCC6, 1, 0),	/* SODIMM pin 24 */
+-	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
+-						   Iris X16-20 */
+-	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
++///	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
++///						   Iris X16-20 */
++///	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
+ };
+ 
+ static struct gpio_keys_platform_data colibri_t30_keys_platform_data = {
 @@ -1718,6 +1837,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
