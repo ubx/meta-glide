@@ -55,6 +55,7 @@ SRC_URI = " \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
+	file://0007-Disable-touch-screen-auto-detection.patch \
 	https://www.flarmnet.org/static/files/wfn/data.fln \
 	file://run_xcsoar.sh \
 	file://xcsoar.service \
@@ -76,13 +77,11 @@ do_compile() {
 	echo '${PATH}'
 	export PATH=$PATH:/usr/bin
 	echo '${PATH}'
-	#ln -s ${STAGING_DIR_TARGET}/usr/bin/convert.im7 ${STAGING_DIR_TARGET}/usr/bin/convert
 	export FONTCONFIG_PATH=/etc/fonts
 	echo "Making .."
 	echo '${WORKDIR}'
 	cd ${WORKDIR}/git
-	make -j$(nproc) DEBUG=y DEBUG_GLIBCXX=n USE_LIBINPUT=y GEOTIFF=n USE_FB=y OPENGL=n
-	##  *** USE_FB and EGL are mutually exclusive
+	make -j$(nproc) DEBUG=n DEBUG_GLIBCXX=n USE_LIBINPUT=n GEOTIFF=n GLES=y
 }
 
 
