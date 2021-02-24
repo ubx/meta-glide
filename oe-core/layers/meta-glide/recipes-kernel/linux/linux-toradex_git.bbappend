@@ -3,6 +3,7 @@ DESCRIPTION="Enable CAN"
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 config_script () {
+     bbdebug 1 "EVAL_BOARD=$EVAL_BOARD"
      echo "CONFIG_CAN=m" >> ${B}/.config
      echo "CONFIG_CAN_VCAN=m" >> ${B}/.config
      echo "CONFIG_CAN_RAW=m" >> ${B}/.config
@@ -12,19 +13,21 @@ config_script () {
      echo "CONFIG_FRAMEBUFFER_CONSOLE=n"  >> ${B}/.config
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
-     ### NO backlight support
-     echo "CONFIG_BACKLIGHT_LCD_SUPPORT=n" >> ${B}/.config
-     echo "CONFIG_LCD_CLASS_DEVICE=n" >> ${B}/.config
-     echo "CONFIG_BACKLIGHT_CLASS_DEVICE=n" >> ${B}/.config
-     echo "CONFIG_BACKLIGHT_GENERIC=n" >> ${B}/.config
-     echo "CONFIG_BACKLIGHT_PWM=n" >> ${B}/.config
-     echo "CONFIG_BACKLIGHT_GPIO=n" >> ${B}/.config
-     ### For rotate LCD
-     echo "CONFIG_LCD_ROTATION=y" >> ${B}/.config
-     echo "CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y" >> ${B}/.config
-
+     if [$EVAL_BOARD == "n"]; then
+         echo "### NO backlight support"
+         echo "CONFIG_BACKLIGHT_LCD_SUPPORT=n" >> ${B}/.config
+         echo "CONFIG_LCD_CLASS_DEVICE=n" >> ${B}/.config
+         echo "CONFIG_BACKLIGHT_CLASS_DEVICE=n" >> ${B}/.config
+         echo "CONFIG_BACKLIGHT_GENERIC=n" >> ${B}/.config
+         echo "CONFIG_BACKLIGHT_PWM=n" >> ${B}/.config
+         echo "CONFIG_BACKLIGHT_GPIO=n" >> ${B}/.config
+         ### For rotate LCD
+         echo "CONFIG_LCD_ROTATION=y" >> ${B}/.config
+         echo "CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y" >> ${B}/.config
+     fi
      echo "dummy" > /dev/null
-     if [$EVAL_BOARD = "y"]; then
+
+     if [$EVAL_BOARD == "y"]; then
         bbnote "*** Build is for Colibri Evaluation Board."
         sed -i 's\+//#define EVAL_BOARD\+#define EVAL_BOARD\' ${THISDIR}/${PN}/0001-displayl.patch
      fi
