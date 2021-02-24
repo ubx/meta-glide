@@ -49,7 +49,7 @@ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 
 #### Now one can build the toradex colibri t30 image:
 
-`bitbake console-tdx-image`
+`bitbake angstrom-lxde-image`
 
 or for colibri t20 image:
 
