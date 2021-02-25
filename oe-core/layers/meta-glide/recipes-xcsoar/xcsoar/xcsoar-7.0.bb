@@ -35,7 +35,6 @@ DEPENDS = "	\
         libsocketcan \
         libsodium \
         c-ares \
-        libpng \
 "
 
 RDEPENDS_${PN} = "\
@@ -79,9 +78,7 @@ do_compile() {
 	echo "Making .."
 	echo '${WORKDIR}'
 	cd ${WORKDIR}/git
-	##make -j$(nproc) DEBUG=n DEBUG_GLIBCXX=n USE_LIBINPUT=n GEOTIFF=n ENABLE_SDL=y
 	make -j$(nproc) TARGET=UNIX OPENGL=n ENABLE_SDL=y USE_SDL2=y GEOTIFF=n
-
 }
 
 
@@ -91,8 +88,8 @@ do_install() {
 	install -m 0755 ${S}/output/UNIX/bin/xcsoar ${D}/opt/XCSoar/bin
 	install -m 0755 ${S}/output/UNIX/bin/vali-xcs ${D}/opt/XCSoar/bin
 
-##	install -d ${D}/home/root
-##	install -m u+x ${WORKDIR}/run_xcsoar.sh ${D}/home/root/run_xcsoar.sh
+	install -d ${D}/home/root
+	install -m u+x ${WORKDIR}/run_xcsoar.sh ${D}/home/root/run_xcsoar.sh
 ##	install -d ${D}${systemd_system_unitdir}
 ##	install -m 644 ${WORKDIR}/xcsoar.service ${D}${systemd_system_unitdir}/xcsoar.service
 
@@ -190,6 +187,10 @@ FILES_${PN} = " \
 ##	/home/root/run_xcsoar.sh \
 ##	${systemd_system_unitdir}/xcsoar.service \
 ##"
+
+FILES_${PN} += " \
+	/home/root/run_xcsoar.sh \
+"
 
 FILES_${PN} += " \
 	/home/root/.xcsoar/data.fln \
