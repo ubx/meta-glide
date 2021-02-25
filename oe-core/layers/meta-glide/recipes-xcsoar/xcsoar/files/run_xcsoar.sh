@@ -9,4 +9,4 @@ ip link set can0 up
 insmod /media/sda1/arrowkey.ko
 
 ### run xcsoar
-/opt/XCSoar/bin/xcsoar -fly -datapath=/media/sda1/xcsoar/ -profile=/media/sda1/xcsoar/default.prf
+/opt/XCSoar/bin/xcsoar -portrait -fly -datapath=/media/sda1/xcsoar/ -profile=/media/sda1/xcsoar/default.prf
