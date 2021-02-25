@@ -19,12 +19,12 @@ DEPENDS = "	\
 		imagemagick-native \
 		libinput \
 		libsdl \
+		libsdl2 \
 		lua \
 		udev \
 		ttf-dejavu \
 		jpeg \
 		freetype \
-		libpng \
         glm \
         virtual/egl \
         virtual/mesa \
@@ -35,7 +35,7 @@ DEPENDS = "	\
         libsocketcan \
         libsodium \
         c-ares \
-        libsdl2 \
+        libpng \
 "
 
 RDEPENDS_${PN} = "\
@@ -55,9 +55,6 @@ SRC_URI = " \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
-	file://0001-glx.patch \
-	file://0001-sdl.patch \
-	file://0001-opengl.patch \
 	https://www.flarmnet.org/static/files/wfn/data.fln \
 	file://run_xcsoar.sh \
 "
@@ -82,7 +79,8 @@ do_compile() {
 	echo "Making .."
 	echo '${WORKDIR}'
 	cd ${WORKDIR}/git
-	make -j$(nproc) DEBUG=n DEBUG_GLIBCXX=n USE_LIBINPUT=n GEOTIFF=n
+	##make -j$(nproc) DEBUG=n DEBUG_GLIBCXX=n USE_LIBINPUT=n GEOTIFF=n ENABLE_SDL=y
+	make -j$(nproc) TARGET=UNIX OPENGL=n ENABLE_SDL=y USE_SDL2=y GEOTIFF=n
 
 }
 
