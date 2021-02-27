@@ -1,6 +1,6 @@
 [Unit]
 Description=Run XCSoar
-After=multi-user.target
+##After=???
 
 [Service]
 Type=simple
