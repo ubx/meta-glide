@@ -40,4 +40,5 @@ do_configure_prepend () {
 ## Change/add pins for Display-L board
 SRC_URI_append += " \
 	file://0001-displayl.patch \
+	file://0001-Logo.patch \
 "
