@@ -10,7 +10,7 @@ config_script () {
      echo "CONFIG_CAN_BCM=m"  >> ${B}/.config
      echo "CONFIG_CAN_DEV=m" >> ${B}/.config
      echo "CONFIG_CAN_MCP251X=m"  >> ${B}/.config
-     echo "CONFIG_FRAMEBUFFER_CONSOLE=n"  >> ${B}/.config
+     echo "CONFIG_FRAMEBUFFER_CONSOLE=y"  >> ${B}/.config
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
      if [$EVAL_BOARD == "n"]; then
@@ -25,6 +25,7 @@ config_script () {
          echo "CONFIG_LCD_ROTATION=y" >> ${B}/.config
          echo "CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y" >> ${B}/.config
      fi
+     echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
      echo "dummy" > /dev/null
 
      if [$EVAL_BOARD == "y"]; then
@@ -40,5 +41,5 @@ do_configure_prepend () {
 ## Change/add pins for Display-L board
 SRC_URI_append += " \
 	file://0001-displayl.patch \
-	file://0001-Logo.patch \
+	file://0001-logo.patch \
 "
