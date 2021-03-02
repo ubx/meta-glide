@@ -19,4 +19,9 @@ export DISPLAY=:0
 xrandr -o left
 
 ### run xcsoar
-/opt/XCSoar/bin/xcsoar -portrait -fly -datapath=/media/sda1/xcsoar/ -profile=/media/sda1/xcsoar/default.prf
+while true
+do
+    /opt/XCSoar/bin/xcsoar -portrait -fly -datapath=/media/sda1/xcsoar/ -profile=/media/sda1/xcsoar/default.prf
+    ### echo Keep running
+    sleep 1
+done
