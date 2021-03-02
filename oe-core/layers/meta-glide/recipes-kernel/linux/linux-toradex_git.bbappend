@@ -27,15 +27,10 @@ config_script () {
      fi
      echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
      echo "dummy" > /dev/null
-
-     if [$EVAL_BOARD == "y"]; then
-        bbnote "*** Build is for Colibri Evaluation Board."
-        sed -i 's\+//#define EVAL_BOARD\+#define EVAL_BOARD\' ${THISDIR}/${PN}/0001-displayl.patch
-     fi
 }
 
 do_configure_prepend () {
-    config_script
+     config_script
 }
 
 ## Change/add pins for Display-L board
@@ -43,3 +38,5 @@ SRC_URI_append += " \
 	file://0001-displayl.patch \
 	file://0001-logo.patch \
 "
+
+SRC_URI_append += "${@'file://0002-no-eval_board.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"

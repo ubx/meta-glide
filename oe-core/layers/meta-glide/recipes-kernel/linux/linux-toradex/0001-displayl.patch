@@ -16,7 +16,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #include "gpio-names.h"
  #include "pm.h"
  
-+// #define EVAL_BOARD
++#define EVAL_BOARD
 +
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
