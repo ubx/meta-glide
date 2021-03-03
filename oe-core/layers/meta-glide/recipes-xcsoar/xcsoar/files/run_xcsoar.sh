@@ -8,6 +8,8 @@ ip link set can0 up
 ### TEMP install kernel module
 cd /media/sda1/
 insmod arrowkey.ko
+insmod shutdown.ko
+
 cp xrandr /usr/bin/
 cp libXrandr.so.2 /usr/lib/
 
