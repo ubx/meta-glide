@@ -17,8 +17,9 @@ Features:
 --- | --- | ---
 | Embedded Linux | Good |  |
 | CAN | Not working | works well on Colibri Eval Board |
-| Rotary knobs | Good | missing: KEY.RETURN, KEY.F4, KEY.F5|
+| Rotary knobs | Good | |
 | Buttons | Good | |
+| XCSoar | Need Improvements | Key assignment, proper shutdown |
 | Touch screen | not implemented yet | |
 | Config. menu | not defined yet | |
 
