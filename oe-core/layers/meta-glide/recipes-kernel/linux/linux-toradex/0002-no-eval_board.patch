@@ -16,7 +16,7 @@ index 269a083e221e..119b15ea41d6 100644
  #include "pm.h"
  
 -#define EVAL_BOARD
-+// This build is NOT for the Evaluation Board
++// This build is NOT for the Evaluation Board !!
 +//#define EVAL_BOARD
  
  //from former drivers/mtd/maps/tegra_nor.h
