@@ -54,6 +54,7 @@ SRC_URI = " \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
+	file://0001-Workaround-for-Shutdown-bug.patch \
 	file://xcsoar.service \
 	https://www.flarmnet.org/static/files/wfn/data.fln \
 	file://run_xcsoar.sh \
