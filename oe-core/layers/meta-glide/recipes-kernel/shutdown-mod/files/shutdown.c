@@ -19,7 +19,6 @@ static int key = KEY_ENTER;
 module_param(key, int, S_IRUGO);
 
 static char *devicename = "gpio-keys";
-static struct input_dev *button_dev;
 
 static struct timer_list timer;
 
@@ -35,12 +34,12 @@ void timer_callback( unsigned long data ) {
 
 
 static void gpio_keys_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
-    printk(KERN_INFO pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
+    printk(KERN_INFO
+    pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
     if (type == EV_KEY) {
         if (code == key) {
             if (value == 0) {
                 printk(KERN_INFO pr_fmt("setup_timer"));
-                setup_timer(&timer, timer_callback, 0);
                 mod_timer(&timer, jiffies + msecs_to_jiffies(delay));
             } else if (value == 1) {
                 printk(KERN_INFO pr_fmt("del_timer"));
@@ -120,17 +119,16 @@ static struct input_handler gpio_keys_handler = {
 static int __init shutdown_keyhold_init(void) {
     if (input_register_handler(&gpio_keys_handler) == 0) {
         printk(KERN_INFO pr_fmt("loaded.\n"));
+        setup_timer(&timer, timer_callback, 0);
         return 0;
-    } else {
-        input_unregister_device(button_dev);
-        input_free_device(button_dev);
     }
     return 1;
 }
 
 static void __exit shutdown_keyhold_exit(void) {
-    input_unregister_device(button_dev);
-    input_free_device(button_dev);
+    del_timer(&timer);
+    input_unregister_handler(&gpio_keys_handler);
+    input_free_device(&gpio_keys_handler);
 }
 
 module_init(shutdown_keyhold_init);
