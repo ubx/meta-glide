@@ -55,10 +55,11 @@ SRC_URI = " \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
-	file://0001-Workaround-for-Shutdown-bug.patch \
 	file://xcsoar.service \
 	https://www.flarmnet.org/static/files/wfn/data.fln \
 	file://run_xcsoar.sh \
+	file://shutdown.service \
+	file://run_shutdown.sh \
 "
 
 inherit pkgconfig update-alternatives
@@ -93,8 +94,10 @@ do_install() {
 
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/run_xcsoar.sh ${D}/home/root/run_xcsoar.sh
+	install -m u+x ${WORKDIR}/run_shutdown.sh ${D}/home/root/run_shutdown.sh
 	install -d ${D}${systemd_system_unitdir}
 	install -m 644 ${WORKDIR}/xcsoar.service ${D}${systemd_system_unitdir}/xcsoar.service
+	install -m 644 ${WORKDIR}/shutdown.service ${D}${systemd_system_unitdir}/shutdown.service
 
 	install -d ${D}/home/root/.xcsoar/
 	install -m 0755 ${WORKDIR}/data.fln ${D}/home/root/.xcsoar/data.fln
@@ -189,6 +192,8 @@ FILES_${PN} = " \
 FILES_${PN} += " \
 	/home/root/run_xcsoar.sh \
 	${systemd_system_unitdir}/xcsoar.service \
+	/home/root/run_shutdown.sh \
+	${systemd_system_unitdir}/shutdown.service \
 "
 
 FILES_${PN} += " \

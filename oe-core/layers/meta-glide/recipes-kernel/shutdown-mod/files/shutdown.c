@@ -19,16 +19,26 @@ static int key = KEY_ENTER;
 module_param(key, int, S_IRUGO);
 
 static char *devicename = "gpio-keys";
+static struct input_dev *key_dev;
 
 static struct timer_list timer;
 
-static const char *const shutdown_argv[] =
-        {"/sbin/shutdown", "-h", "-P", "now", NULL};
+//static const char *const shutdown_argv[] =
+//        {"/sbin/shutdown", "-h", "-P", "now", NULL};
+
+
+static void send_key(int key) {
+    input_report_key(key_dev, key, 1);
+    input_sync(key_dev);
+    input_report_key(key_dev, key, 0);
+    input_sync(key_dev);
+}
 
 void timer_callback( unsigned long data ) {
     printk(KERN_INFO pr_fmt("kernel timer callback executing, data is %ld\n"), data);
     //kernel_power_off(); // not allowed !!!
-    call_usermodehelper(shutdown_argv[0], shutdown_argv, NULL, UMH_NO_WAIT);
+    //call_usermodehelper(shutdown_argv[0], shutdown_argv, NULL, UMH_NO_WAIT);
+    send_key(KEY_Q);
     printk(KERN_INFO pr_fmt("Still alive ?????"));
 }
 
@@ -117,6 +127,11 @@ static struct input_handler gpio_keys_handler = {
 };
 
 static int __init shutdown_keyhold_init(void) {
+    key_dev = input_allocate_device();
+    if (!key_dev) {
+        printk(KERN_ERR pr_fmt("Not enough memory\n"));
+        return  -ENOMEM;
+    }
     if (input_register_handler(&gpio_keys_handler) == 0) {
         printk(KERN_INFO pr_fmt("loaded.\n"));
         setup_timer(&timer, timer_callback, 0);
@@ -127,6 +142,8 @@ static int __init shutdown_keyhold_init(void) {
 
 static void __exit shutdown_keyhold_exit(void) {
     del_timer(&timer);
+    input_unregister_device(key_dev);
+    input_free_device(key_dev);
     input_unregister_handler(&gpio_keys_handler);
     input_free_device(&gpio_keys_handler);
 }
