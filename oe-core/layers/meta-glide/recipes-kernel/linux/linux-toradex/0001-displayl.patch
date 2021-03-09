@@ -37,7 +37,12 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  
  static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
  {
-@@ -523,13 +533,13 @@ static struct gpio colibri_t30_gpios[] = {
+@@ -519,17 +529,17 @@ static struct gpio colibri_t30_gpios[] = {
+ #endif
+ #ifndef CONFIG_KEYBOARD_GPIO
+ //conflicts with back key
+-	{TEGRA_GPIO_PT5,	GPIOF_IN,	"SOD-133, Iris X16-14"},
++//	{TEGRA_GPIO_PT5,	GPIOF_IN,	"SOD-133, Iris X16-14"},
  //conflicts with home key
  	{TEGRA_GPIO_PT6,	GPIOF_IN,	"SODIMM pin 127"},
  //conflicts with power key (WAKE1)
@@ -65,7 +70,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #ifndef COLIBRI_T30_VI
  //	{TEGRA_GPIO_PY4,	GPIOF_IN,	"SODI-97, Iris X16-17"},
  //	{TEGRA_GPIO_PY5,	GPIOF_IN,	"SODI-79, Iris X16-19"},
-@@ -575,6 +585,115 @@ static struct gpio colibri_t30_gpios[] = {
+@@ -575,6 +585,124 @@ static struct gpio colibri_t30_gpios[] = {
  
  };
  
@@ -119,48 +124,57 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +};
 +
 +/* GPIO buttons */
-+#define GPIO_KEY_F1  TEGRA_GPIO_PK7
-+#define GPIO_KEY_F2  TEGRA_GPIO_PK2
-+#define GPIO_KEY_ESC TEGRA_GPIO_PB6
-+#define GPIO_KEY_ENTER TEGRA_GPIO_PV1
-+
++#define GPIO_KEY_0  TEGRA_GPIO_PB6
++#define GPIO_KEY_1  TEGRA_GPIO_PV1
++#define GPIO_KEY_2  TEGRA_GPIO_PK7
++#define GPIO_KEY_3  TEGRA_GPIO_PK2
++#define GPIO_KEY_4  TEGRA_GPIO_PT5
 +
 +static struct gpio_keys_button gpio_keys_button[] = {
 +        {
-+                .code			= KEY_F1,
++                .code			= KEY_0,
 +                .type			= EV_KEY,
-+                .gpio			= GPIO_KEY_F1,
++                .gpio			= GPIO_KEY_0,
 +                .active_low		= 1,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button F1",
++                .desc			= "Button 0",
 +        },
 +        {
-+                .code			= KEY_F2,
++                .code			= KEY_1,
 +                .type			= EV_KEY,
-+                .gpio			= GPIO_KEY_F2,
++                .gpio			= GPIO_KEY_1,
 +                .active_low		= 1,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button F2",
++                .desc			= "Button 1 (rotary right)",
 +        },
 +        {
-+                .code			= KEY_ESC,
++                .code			= KEY_2,
 +                .type			= EV_KEY,
-+                .gpio			= GPIO_KEY_ESC,
++                .gpio			= GPIO_KEY_2,
 +                .active_low		= 1,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button ESC",
++                .desc			= "Button 2",
 +        },
 +        {
-+                .code			= KEY_ENTER,
++                .code			= KEY_3,
 +                .type			= EV_KEY,
-+                .gpio			= GPIO_KEY_ENTER,
++                .gpio			= GPIO_KEY_3,
 +                .active_low		= 1,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button Enter (rotary)",
++                .desc			= "Button 3",
++        },
++        {
++                .code			= KEY_4,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_4,
++                .active_low		= 1,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 4 (rotary left)",
 +        },
 +};
 +
@@ -181,7 +195,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  static void colibri_t30_gpio_init(void)
  {
  	int i = 0;
-@@ -620,7 +739,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
+@@ -620,7 +748,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
  #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
  	.gpio_reset = TEGRA_GPIO_PA6,
  #else
@@ -190,7 +204,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #endif
  };
  
-@@ -798,9 +917,9 @@ static struct gpio_keys_button colibri_t30_keys[] = {
+@@ -798,9 +926,9 @@ static struct gpio_keys_button colibri_t30_keys[] = {
  						   Iris X16-14 */
  	GPIO_KEY(KEY_VOLUMEUP, PDD7, 1, 0),	/* SODIMM pin 22 */
  	GPIO_KEY(KEY_VOLUMEDOWN, PCC6, 1, 0),	/* SODIMM pin 24 */
@@ -203,7 +217,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  };
  
  static struct gpio_keys_platform_data colibri_t30_keys_platform_data = {
-@@ -1718,6 +1837,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
+@@ -1718,6 +1846,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -213,7 +227,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  };
  
  static void __init colibri_t30_init(void)
-@@ -1818,6 +1940,7 @@ static const char *colibri_t30_dt_board_compat[] = {
+@@ -1818,6 +1949,7 @@ static const char *colibri_t30_dt_board_compat[] = {
  	NULL
  };
  
