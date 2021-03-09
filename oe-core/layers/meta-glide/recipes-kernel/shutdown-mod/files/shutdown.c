@@ -15,7 +15,7 @@ MODULE_LICENSE("GPL");
 static int delay = 3000;
 module_param(delay, int, S_IRUGO);
 
-static int key = KEY_E;
+static int key = KEY_1;
 module_param(key, int, S_IRUGO);
 
 static char *devicename = "gpio-keys";
