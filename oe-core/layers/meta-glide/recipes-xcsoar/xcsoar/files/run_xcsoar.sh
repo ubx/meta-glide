@@ -17,7 +17,7 @@ xrandr -o left
 sts=-1
 while [ $sts -ne 0 ]
 do
-    /opt/XCSoar/bin/xcsoar -portrait -fly -profile=default.prf
+    /opt/XCSoar/bin/xcsoar -portrait -fly -datapath=/home/root/.xcsoar/ -profile=default.prf
     echo $?
     sts=$?
     ### echo Keep running on crash
