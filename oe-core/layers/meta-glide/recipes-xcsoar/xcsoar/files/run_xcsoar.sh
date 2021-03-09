@@ -6,16 +6,25 @@ ip link set can0 txqueuelen 1000
 ip link set can0 up
 
 echo "Run X, rotate -90 and start XCSoar"
-X -nocursor &
+X &
 sleep 1
 
 export DISPLAY=:0
 xrandr -o left
 
+
 ### run xcsoar
-while true
+sts=-1
+while [ $sts -ne 0 ]
 do
-    /opt/XCSoar/bin/xcsoar -portrait -fly -datapath=/media/sda1/xcsoar/ -profile=/media/sda1/xcsoar/default.prf
-    ### echo Keep running
+    /opt/XCSoar/bin/xcsoar -portrait -fly -profile=default.prf
+    echo $?
+    sts=$?
+    ### echo Keep running on crash
     sleep 1
 done
+
+### shutdown and power off
+fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
+sleep 3
+shutdown now
