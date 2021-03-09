@@ -40,6 +40,7 @@ DEPENDS = "	\
 RDEPENDS_${PN} = "\
 		ttf-dejavu-sans-condensed \
 		xrandr \
+		fbida \
 "
 
 S = "${WORKDIR}/git"
@@ -56,10 +57,15 @@ SRC_URI = " \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
 	file://xcsoar.service \
-	https://www.flarmnet.org/static/files/wfn/data.fln \
 	file://run_xcsoar.sh \
-	file://shutdown.service \
-	file://run_shutdown.sh \
+	file://xcsoar-640x480-shutdown.ppm \
+    file://init.lua \
+    file://keys.lua \
+    https://www.flarmnet.org/static/files/wfn/data.fln \
+    file://default.prf \
+    file://Switzerland.cup \
+    file://Switzerland_Airspace.txt \
+    file://ALPS_HighRes.xcm \
 "
 
 inherit pkgconfig update-alternatives
@@ -94,13 +100,20 @@ do_install() {
 
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/run_xcsoar.sh ${D}/home/root/run_xcsoar.sh
-	install -m u+x ${WORKDIR}/run_shutdown.sh ${D}/home/root/run_shutdown.sh
+	install -m u+x ${WORKDIR}/xcsoar-640x480-shutdown.ppm ${D}/home/root/xcsoar-640x480-shutdown.ppm
 	install -d ${D}${systemd_system_unitdir}
 	install -m 644 ${WORKDIR}/xcsoar.service ${D}${systemd_system_unitdir}/xcsoar.service
-	install -m 644 ${WORKDIR}/shutdown.service ${D}${systemd_system_unitdir}/shutdown.service
 
+    ## todo -- move to another layer
 	install -d ${D}/home/root/.xcsoar/
 	install -m 0755 ${WORKDIR}/data.fln ${D}/home/root/.xcsoar/data.fln
+	install -m 0755 ${WORKDIR}/default.prf ${D}/home/root/.xcsoar/default.prf
+	install -m 0755 ${WORKDIR}/Switzerland.cup ${D}/home/root/.xcsoar/Switzerland.cup
+	install -m 0755 ${WORKDIR}/Switzerland_Airspace.txt ${D}/home/root/.xcsoar/Switzerland_Airspace.txt
+	install -m 0755 ${WORKDIR}/ALPS_HighRes.xcm ${D}/home/root/.xcsoar/ALPS_HighRes.xcm
+	install -d ${D}/home/root/.xcsoar/lua/
+	install -m 0755 ${WORKDIR}/init.lua ${D}/home/root/.xcsoar/lua/init.lua
+	install -m 0755 ${WORKDIR}/keys.lua ${D}/home/root/.xcsoar/lua/keys.lua
 
 	install -d ${D}${LC_LOCALE_PATH}/de/LC_MESSAGES
 	install -m 0755 ${S}/output/po/de.mo ${D}${LC_LOCALE_PATH}/de/LC_MESSAGES/xcsoar.mo
@@ -192,10 +205,17 @@ FILES_${PN} = " \
 FILES_${PN} += " \
 	/home/root/run_xcsoar.sh \
 	${systemd_system_unitdir}/xcsoar.service \
-	/home/root/run_shutdown.sh \
-	${systemd_system_unitdir}/shutdown.service \
+	/home/root/xcsoar-640x480-shutdown.ppm \
 "
 
 FILES_${PN} += " \
+	/home/root/.xcsoar/lua/init.lua \
+	/home/root/.xcsoar/lua/keys.lua \
+"
+FILES_${PN} += " \
 	/home/root/.xcsoar/data.fln \
+	/home/root/.xcsoar/default.prf \
+	/home/root/.xcsoar/Switzerland.cup \
+	/home/root/.xcsoar/Switzerland_Airspace.txt \
+	/home/root/.xcsoar/ALPS_HighRes.xcm \
 "
