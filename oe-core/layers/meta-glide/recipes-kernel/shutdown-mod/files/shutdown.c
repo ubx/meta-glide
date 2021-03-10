@@ -12,7 +12,7 @@ MODULE_DESCRIPTION("Shutdown after holding <key> pressed for <delay> seconds");
 MODULE_ALIAS("shutdown-keyhold");
 MODULE_LICENSE("GPL");
 
-static int delay = 3000;
+static int delay = 2000;
 module_param(delay, int, S_IRUGO);
 
 static int key = KEY_1;
