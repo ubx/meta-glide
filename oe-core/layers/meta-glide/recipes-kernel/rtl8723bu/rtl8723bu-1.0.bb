@@ -1,17 +1,24 @@
-SUMMARY = "arrowkey-mod_0.1.bb"
+SUMMARY = "Add the rtl8723bu driver from Larry Finger as an out-of-tree module"
 LICENSE = "GPLv2"
-LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6425610833a22dbe6"
+LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/GPL-2.0;md5=801f80980d171dd6425610833a22dbe6"
 
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}-${PV}:"
-SRCREV = "${AUTOREV}"
-BB_STRICT_CHECKSUM = "0"
+SRC_URI = " \
+    gitsm://github.com/lwfinger/rtl8723bu.git;protocol=https;rev=b5bad435151c7fa6fa1ef9c1923b6d7679df2430 \
+    file://0001-fix-makefile-for-openembedded.patch \
+    file://0001-disable-proc-debug.patch \
+    file://0001-disable-roaming.patch \
+    file://be-less-verbose.patch \
+"
+
+S = "${WORKDIR}/git"
 
 inherit module
 
-SRC_URI = " \
-  git://github.com/lwfinger/rtl8723bu.git;protocol=git;branch=master \
-  "
-S = "${WORKDIR}/git"
+# The inherit of module.bbclass will automatically name module packages with
+# "kernel-module-" prefix as required by the oe-core build environment.
 
-export KERNELDIR="${KERNEL_SRC}"
-
+do_install() {
+    # Module
+    install -d ${D}/lib/modules/${KERNEL_VERSION}/kernel/net/wireless
+    install -m 0644 8723bu.ko ${D}/lib/modules/${KERNEL_VERSION}/kernel/net/wireless/8723bu.ko
+}
