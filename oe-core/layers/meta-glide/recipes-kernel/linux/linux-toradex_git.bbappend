@@ -26,6 +26,10 @@ config_script () {
          echo "CONFIG_FRAMEBUFFER_CONSOLE_ROTATION=y" >> ${B}/.config
      fi
      echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
+     echo "CONFIG_R8188EU=m" >> ${B}/.config
+     echo "CONFIG_USB_SERIAL_CH34x=y" >> ${B}/.config
+     echo "CONFIG_USB_SERIAL_CP210X=y" >> ${B}/.config
+     echo "CONFIG_USB_SERIAL_FTDI_SIO=y" >> ${B}/.config
      echo "dummy" > /dev/null
 }
 
