@@ -125,10 +125,10 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +
 +/* GPIO buttons */
 +#define GPIO_KEY_0  TEGRA_GPIO_PB6
-+#define GPIO_KEY_1  TEGRA_GPIO_PV1
-+#define GPIO_KEY_2  TEGRA_GPIO_PK7
-+#define GPIO_KEY_3  TEGRA_GPIO_PK2
-+#define GPIO_KEY_4  TEGRA_GPIO_PK3
++#define GPIO_KEY_1  TEGRA_GPIO_PK3
++#define GPIO_KEY_2  TEGRA_GPIO_PK2
++#define GPIO_KEY_3  TEGRA_GPIO_PK7
++#define GPIO_KEY_4  TEGRA_GPIO_PV1
 +#ifdef EVAL_BOARD
 +#define ACTIVE_LOW 1
 +#else
@@ -143,7 +143,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +                .active_low		= ACTIVE_LOW,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button 0",
++                .desc			= "Button 0 (rotary left)",
 +        },
 +        {
 +                .code			= KEY_1,
@@ -152,7 +152,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +                .active_low		= ACTIVE_LOW,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button 1 (rotary right)",
++                .desc			= "Button 1",
 +        },
 +        {
 +                .code			= KEY_2,
@@ -179,7 +179,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +                .active_low		= ACTIVE_LOW,
 +                .wakeup			= 0,
 +                .debounce_interval	= 0, /* ms */
-+                .desc			= "Button 4 (rotary left)",
++                .desc			= "Button 4 (rotary right)",
 +        },
 +};
 +
