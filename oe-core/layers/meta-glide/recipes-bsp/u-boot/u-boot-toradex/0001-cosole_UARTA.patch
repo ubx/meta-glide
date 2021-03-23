@@ -1,0 +1,13 @@
+diff --git a/board/toradex/colibri_t30/pinmux-config-colibri_t30.h b/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
+--- a/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
++++ b/board/toradex/colibri_t30/pinmux-config-colibri_t30.h
+@@ -281,7 +281,7 @@
+ 	DEFAULT_PINMUX(SPI1_MOSI_PX4, SPI1, NORMAL, NORMAL, INPUT),
+ 	DEFAULT_PINMUX(SPI1_SCK_PX5, SPI1, NORMAL, NORMAL, INPUT),
+ 	DEFAULT_PINMUX(SPI1_CS0_N_PX6, SPI1, NORMAL, NORMAL, INPUT),
+-	DEFAULT_PINMUX(SPI1_MISO_PX7, SPI1, NORMAL, NORMAL, INPUT),
++	DEFAULT_PINMUX(SPI1_MISO_PX7, RSVD4, NORMAL, NORMAL, INPUT),
+
+
+ 	/* LAN_RESET */
+
