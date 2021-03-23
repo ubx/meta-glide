@@ -18,7 +18,6 @@ DEPENDS = "	\
 		imagemagick \
 		imagemagick-native \
 		libinput \
-		libsdl \
 		libsdl2 \
 		lua \
 		udev \
@@ -50,7 +49,7 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-30 \
+	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-32 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
     file://0001-Disable-warnings-as-errors.patch \
 	file://0001_no_version_lua.patch \
