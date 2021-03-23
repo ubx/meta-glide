@@ -15,8 +15,11 @@ MODULE_LICENSE("GPL");
 static int delay = 2000;
 module_param(delay, int, S_IRUGO);
 
-static int key = KEY_1;
+static int key = KEY_4;
 module_param(key, int, S_IRUGO);
+
+static int shutdown_key = KEY_9;
+module_param(shutdown_key, int, S_IRUGO);
 
 static char *devicename = "gpio-keys";
 static struct input_dev *button_dev;
@@ -24,7 +27,7 @@ static struct input_dev *button_dev;
 static struct timer_list timer;
 
 static void send_key(int key) {
-    printk(KERN_INFO pr_fmt("send_key: %d"), key);
+    printk(KERN_INFO pr_fmt("shutdown_key: %d"), key);
     input_report_key(button_dev, key, 1);
     input_sync(button_dev);
     input_report_key(button_dev, key, 0);
@@ -33,7 +36,7 @@ static void send_key(int key) {
 
 void timer_callback( unsigned long data ) {
     printk(KERN_INFO pr_fmt("kernel timer callback executing, data is %ld\n"), data);
-    send_key(KEY_9);
+    send_key(shutdown_key);
 }
 
 static void gpio_keys_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
@@ -138,7 +141,7 @@ static int __init shutdown_keyhold_init(void) {
 
     button_dev->name = "Shutdown Key";
     button_dev->evbit[0] = BIT_MASK(EV_KEY); // | BIT_MASK(EV_MSC);
-    set_bit(KEY_9, button_dev->keybit);
+    set_bit(shutdown_key, button_dev->keybit);
 
     error = input_register_device(button_dev);
     if (error) {
