@@ -23,6 +23,8 @@ Features:
 | Touch screen | not implemented yet | |
 | Config. menu | not defined yet | |
 
+[Here a short video (with NMEA input via serial port)](https://youtu.be/IahGqsdgllc)
+
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
 #### Build the docker image & run it:
