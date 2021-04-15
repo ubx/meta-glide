@@ -5,7 +5,7 @@
 #include <linux/input.h>
 #include <linux/init.h>
 #include <linux/device.h>
-#include <linux/reboot.h>
+#include <linux/gpio.h>
 
 MODULE_AUTHOR("andreas.luethi@gmx.net");
 MODULE_DESCRIPTION("Shutdown after holding <key> pressed for <delay> seconds");
@@ -20,6 +20,11 @@ module_param(key, int, S_IRUGO);
 
 static int shutdown_key = KEY_9;
 module_param(shutdown_key, int, S_IRUGO);
+
+static int after_shutdown_key = KEY_ENTER;
+module_param(after_shutdown_key, int, S_IRUGO);
+
+static bool shutdown_key_sent = false;
 
 static char *devicename = "gpio-keys";
 static struct input_dev *button_dev;
@@ -37,6 +42,7 @@ static void send_key(int key) {
 void timer_callback( unsigned long data ) {
     printk(KERN_INFO pr_fmt("kernel timer callback executing, data is %ld\n"), data);
     send_key(shutdown_key);
+    shutdown_key_sent = true;
 }
 
 static void gpio_keys_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
@@ -45,8 +51,14 @@ static void gpio_keys_event(struct input_handle *handle, unsigned int type, unsi
     if (type == EV_KEY) {
         if (code == key) {
             if (value == 0) {
-                printk(KERN_INFO pr_fmt("setup_timer"));
-                mod_timer(&timer, jiffies + msecs_to_jiffies(delay));
+                if (shutdown_key_sent) {
+                    printk(KERN_INFO pr_fmt("after_shutdown_key"));
+                    send_key(after_shutdown_key);
+                    shutdown_key_sent = false;
+                } else {
+                    printk(KERN_INFO pr_fmt("setup_timer"));
+                    mod_timer(&timer, jiffies + msecs_to_jiffies(delay));
+                }
             } else if (value == 1) {
                 printk(KERN_INFO pr_fmt("del_timer"));
                 del_timer(&timer);
@@ -148,7 +160,13 @@ static int __init shutdown_keyhold_init(void) {
         printk(KERN_ERR pr_fmt("Failed to register device\n"));
         goto err_free_dev;
     }
+
+//    printk("Display-L LED.GREEN value 1\n");
+//    gpio_request(13, "LED.GREEN");  //TEGRA_GPIO_PB5
+//    gpio_direction_output(13, 1);
+
     return 0;
+
     err_free_dev:
     input_free_device(button_dev);
     return error;
