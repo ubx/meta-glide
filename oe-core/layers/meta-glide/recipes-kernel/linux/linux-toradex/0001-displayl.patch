@@ -47,7 +47,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  	{TEGRA_GPIO_PT6,	GPIOF_IN,	"SODIMM pin 127"},
  //conflicts with power key (WAKE1)
 -	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
-+///	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
++	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
  #endif
  #ifndef COLIBRI_T30_VI
 -	{TEGRA_GPIO_PW5,	GPIOF_IN,	"SODIMM pin 75"},
@@ -216,9 +216,9 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 -	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
 -						   Iris X16-20 */
 -	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
-+///	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
-+///						   Iris X16-20 */
-+///	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
++//	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
++//						   Iris X16-20 */
++	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
  };
  
  static struct gpio_keys_platform_data colibri_t30_keys_platform_data = {
