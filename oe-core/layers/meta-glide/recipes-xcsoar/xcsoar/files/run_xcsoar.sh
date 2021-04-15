@@ -1,5 +1,8 @@
 #!/bin/sh
 
+cpufreq-set -g userspace
+cpufreq-set -f 760
+
 ### start can device
 ip link set can0 type can bitrate 500000
 ip link set can0 txqueuelen 1000
