@@ -1,0 +1,48 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board-colibri_t30.c
+index 320e5e590ae6..6d69a44b8291 100644
+--- a/arch/arm/mach-tegra/board-colibri_t30.c
++++ b/arch/arm/mach-tegra/board-colibri_t30.c
+@@ -368,6 +368,7 @@ static struct platform_device soc_camera_s2d13p04 = {
+ //
+ #endif
+ 
++#ifdef EVAL_BOARD
+ static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
+ {
+ 	printk("Colibri EvalBoard V3.1a CAN Initialisation\n");
+@@ -377,6 +378,32 @@ static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
+ 
+ 	return 0;
+ }
++#else
++#define CAN_RESET_GPIO		TEGRA_GPIO_PV2
++static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
++{
++	int gpio_status;
++	printk("Display-L CAN Initialisation\n");
++
++	/* configure MCP2515 reset line as output and pull high into reset */
++	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO");
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO FAILED\n");
++	gpio_status = gpio_direction_output(CAN_RESET_GPIO, 0);
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO DIRECTION FAILED\n");
++
++	udelay(2);
++
++	/* pull out of reset */
++	gpio_set_value(CAN_RESET_GPIO, 1);
++
++	printk("Display-L CAN STB set\n");
++   gpio_request(TEGRA_GPIO_PS0, "CAN_STB_GPIO");
++   gpio_direction_output(TEGRA_GPIO_PS0, 1);
++	return 0;
++}
++#endif
+ 
+ static struct tegra_spi_device_controller_data mcp251x_controller_data = {
+ 	.cs_hold_clk_count	= 1,	/* at least 50 ns */
+-- 
+2.17.1
+
