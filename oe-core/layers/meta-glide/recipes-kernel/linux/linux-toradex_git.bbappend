@@ -51,3 +51,4 @@ SRC_URI_append += "${@'file://0005-rtc-isl12022.patch' if d.getVar('EVAL_BOARD')
 SRC_URI_append += "${@'file://0006-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append += "${@'file://0007-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append += "${@'file://0008-lp3943.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
+SRC_URI_append += "${@'file://0009-mcp2515_oscillator_frequency-displayl.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"

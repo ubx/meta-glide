@@ -16,7 +16,7 @@ Features:
 | Feature | Status | Notes |
 --- | --- | ---
 | Embedded Linux | Good |  |
-| CAN | Not working | works well on Colibri Eval Board |
+| CAN | Working |  |
 | Rotary knobs | Good | |
 | Buttons | Good | |
 | XCSoar | Need Improvements | Key assignment, proper shutdown |
