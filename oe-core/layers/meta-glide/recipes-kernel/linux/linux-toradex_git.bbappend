@@ -41,8 +41,8 @@ do_configure_prepend () {
 
 ## Change/add pins for Display-L board
 SRC_URI_append_${MACHINE} += " \
-	file://0001-button-and-rotary_encoder.patch \
 	file://0001-logo.patch \
+	file://0001-button-and-rotary_encoder.patch \
 	file://0004-mcp2515_setup-displayl.patch \
 "
 

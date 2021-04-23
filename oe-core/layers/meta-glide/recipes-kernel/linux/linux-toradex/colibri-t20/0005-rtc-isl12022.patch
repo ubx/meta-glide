@@ -1,0 +1,16 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -818,9 +818,9 @@
+ /* GEN1_I2C: I2C_SDA/SCL on SODIMM pin 194/196 (e.g. RTC on carrier board) */
+ static struct i2c_board_info colibri_t20_i2c_bus1_board_info[] __initdata = {
+ 	{
+-		/* M41T0M6 real time clock on Iris carrier board */
+-		I2C_BOARD_INFO("rtc-ds1307", 0x68),
+-			.type = "m41t00",
++		/* ISL12022 real time clock on Display-L board */
++		I2C_BOARD_INFO("rtc-isl12022", 0x6f),
++			.type = "isl12022",
+ 	},
+ 	{
+ 		/* TouchRevolution Fusion 7 and 10 multi-touch controller */

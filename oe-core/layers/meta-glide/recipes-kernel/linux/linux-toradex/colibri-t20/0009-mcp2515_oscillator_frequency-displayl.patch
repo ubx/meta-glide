@@ -1,0 +1,12 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -420,7 +420,7 @@
+
+ static struct mcp251x_platform_data mcp251x_pdata = {
+ 	.board_specific_setup	= colibri_t20_mcp2515_setup,
+-	.oscillator_frequency	= 16000000,
++	.oscillator_frequency	= 20000000,
+ 	.power_enable		= NULL,
+ 	.transceiver_enable	= NULL
+ };

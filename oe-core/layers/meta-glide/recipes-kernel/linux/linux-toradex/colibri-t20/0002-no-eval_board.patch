@@ -1,0 +1,13 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -56,7 +56,8 @@
+ #include "pm.h"
+ #include "wakeups-t2.h"
+ 
+-#define EVAL_BOARD
++// This build is NOT for the Evaluation Board !!
++//#define EVAL_BOARD
+ 
+ //from former drivers/mtd/maps/tegra_nor.h
+ #define TEGRA_GMI_PHYS			0x70009000
