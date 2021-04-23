@@ -1,0 +1,206 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -44,8 +44,8 @@
+ #include <mach/usb_phy.h>
+ #include <mach/w1.h>
+
+-#include <media/soc_camera.h>
+-#include <media/tegra_v4l2_camera.h>
++#include <linux/input.h>
++#include <linux/rotary_encoder.h>
+
+ #include "board-colibri_t20.h"
+ #include "board.h"
+@@ -56,6 +56,9 @@
+ #include "pm.h"
+ #include "wakeups-t2.h"
+
++#define EVAL_BOARD
++
++
+ //from former drivers/mtd/maps/tegra_nor.h
+ #define TEGRA_GMI_PHYS			0x70009000
+ #define TEGRA_GMI_BASE			IO_TO_VIRT(TEGRA_GMI_PHYS)
+@@ -584,8 +587,8 @@
+ #endif
+
+ 	{TEGRA_GPIO_PX4,	GPIOF_IN,	"SODIMM pin 134"},
+-	{TEGRA_GPIO_PX6,	GPIOF_IN,	"102, I X13 ForceOFF#"},
+-	{TEGRA_GPIO_PX7,	GPIOF_IN,	"104, I X14 ForceOFF#"},
++//	{TEGRA_GPIO_PX6,	GPIOF_IN,	"102, I X13 ForceOFF#"},
++//	{TEGRA_GPIO_PX7,	GPIOF_IN,	"104, I X14 ForceOFF#"},
+ 	{TEGRA_GPIO_PZ2,	GPIOF_IN,	"SODIMM pin 156"},
+ 	{TEGRA_GPIO_PZ4,	GPIOF_IN,	"SODIMM pin 164"},
+ #if !defined(GMI_32BIT) && !defined SDHCI_8BIT
+@@ -596,7 +599,7 @@
+ #endif
+ #ifndef CONFIG_KEYBOARD_GPIO
+ //conflicts with back key
+-	{TEGRA_GPIO_PBB2,	GPIOF_IN,	"SOD-133, Iris X16-14"},
++//	{TEGRA_GPIO_PBB2,	GPIOF_IN,	"SOD-133, Iris X16-14"},
+ //conflicts with home key
+ 	{TEGRA_GPIO_PBB3,	GPIOF_IN,	"SODIMM pin 127"},
+ //conflicts with volume up key
+@@ -605,6 +608,129 @@
+ 	{TEGRA_GPIO_PBB5,	GPIOF_IN,	"SODIMM pin 24"},
+ #endif
+ };
++/* Rotary encoder */
++#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
++#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
++#define GPIO_ROTARY1_A TEGRA_GPIO_PX6
++#ifdef EVAL_BOARD
++#define GPIO_ROTARY1_B TEGRA_GPIO_PCC2
++#else
++#define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
++#endif
++static struct rotary_encoder_platform_data my_rotary_encoder_info0 = {
++        .steps         = 16,
++        .axis          = REL_X,
++        .relative_axis = true,
++        .rollover      = true,
++        .gpio_a                = GPIO_ROTARY0_A,
++        .gpio_b                = GPIO_ROTARY0_B,
++        .inverted_a    = 0,
++        .inverted_b    = 0,
++        .half_period   = true,
++};
++
++static struct platform_device rotary_encoder_device0 = {
++        .name          = "rotary-encoder",
++        .id            = 0,
++        .dev           = {
++                .platform_data = &my_rotary_encoder_info0,
++        }
++};
++
++static struct rotary_encoder_platform_data my_rotary_encoder_info1 = {
++        .steps         = 16,
++        .axis          = REL_Y,
++        .relative_axis = true,
++        .rollover      = true,
++        .gpio_a                = GPIO_ROTARY1_A,
++        .gpio_b                = GPIO_ROTARY1_B,
++        .inverted_a    = 0,
++        .inverted_b    = 0,
++        .half_period   = true,
++};
++
++static struct platform_device rotary_encoder_device1 = {
++        .name          = "rotary-encoder",
++        .id            = 1,
++        .dev           = {
++                .platform_data = &my_rotary_encoder_info1,
++        }
++};
++
++/* GPIO buttons */
++#define GPIO_KEY_0  TEGRA_GPIO_PB6
++#define GPIO_KEY_1  TEGRA_GPIO_PK3
++#define GPIO_KEY_2  TEGRA_GPIO_PK2
++#define GPIO_KEY_3  TEGRA_GPIO_PK7
++#define GPIO_KEY_4  TEGRA_GPIO_PV1
++#ifdef EVAL_BOARD
++#define ACTIVE_LOW 1
++#else
++#define ACTIVE_LOW 0
++#endif
++
++static struct gpio_keys_button gpio_keys_button[] = {
++        {
++                .code			= KEY_0,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_0,
++                .active_low		= ACTIVE_LOW,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 0 (rotary left)",
++        },
++        {
++                .code			= KEY_1,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_1,
++                .active_low		= ACTIVE_LOW,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 1",
++        },
++        {
++                .code			= KEY_2,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_2,
++                .active_low		= ACTIVE_LOW,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 2",
++        },
++        {
++                .code			= KEY_3,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_3,
++                .active_low		= ACTIVE_LOW,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 3",
++        },
++        {
++                .code			= KEY_4,
++                .type			= EV_KEY,
++                .gpio			= GPIO_KEY_4,
++                .active_low		= ACTIVE_LOW,
++                .wakeup			= 0,
++                .debounce_interval	= 0, /* ms */
++                .desc			= "Button 4 (rotary right)",
++        },
++};
++
++static struct gpio_keys_platform_data gpio_keys_platform_data = {
++        .buttons	= gpio_keys_button,
++        .nbuttons	= ARRAY_SIZE(gpio_keys_button),
++        .rep		= 0,
++};
++
++static struct platform_device displayl_gpio_keys_device = {
++        .name	= "gpio-keys",
++        .id	= -1,
++        .dev 	= {
++                .platform_data	= &gpio_keys_platform_data,
++        }
++};
++
+
+ static void colibri_t20_gpio_init(void)
+ {
+@@ -651,7 +777,7 @@
+ #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+ 	.gpio_reset = TEGRA_GPIO_PA6,
+ #else
+-	.gpio_reset = TEGRA_GPIO_PK4,
++//	.gpio_reset = TEGRA_GPIO_PK4,
+ #endif
+ };
+
+@@ -774,9 +900,9 @@
+ 						   Iris X16-14 */
+ 	GPIO_KEY(KEY_VOLUMEUP, PBB4, 1, 0),	/* SODIMM pin 22 */
+ 	GPIO_KEY(KEY_VOLUMEDOWN, PBB5, 1, 0),	/* SODIMM pin 24 */
+-	GPIO_KEY(KEY_POWER, PV3, 0, 1),		/* SODIMM pin 45,
+-						   Iris X16-20 */
+-	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
++//	GPIO_KEY(KEY_POWER, PV3, 0, 1),		/* SODIMM pin 45,
++//						   Iris X16-20 */
++//	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
+ };
+
+ #define PMC_WAKE_STATUS 0x14
+@@ -794,6 +920,9 @@
+ 	.buttons	= colibri_t20_keys,
+ 	.nbuttons	= ARRAY_SIZE(colibri_t20_keys),
+ 	.wakeup_key	= colibri_t20_wakeup_key,
++	&rotary_encoder_device0,
++   &rotary_encoder_device1,
++   &displayl_gpio_keys_device,
+ };
+
+ static struct platform_device colibri_t20_keys_device = {

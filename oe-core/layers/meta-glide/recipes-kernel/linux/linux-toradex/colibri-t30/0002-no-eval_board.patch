@@ -1,12 +1,3 @@
-From d02a6f19a39bc4221dd84233bb5c9a5f16725a7d Mon Sep 17 00:00:00 2001
-From: =?UTF-8?q?Andreas=20L=C3=BCthi?= <andreas.luethi@gmx.net>
-Date: Tue, 2 Mar 2021 19:06:39 +0100
-Subject: [PATCH] displayl-eval_board
-
----
- arch/arm/mach-tegra/board-colibri_t30.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
 diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board-colibri_t30.c
 index 269a083e221e..119b15ea41d6 100644
 --- a/arch/arm/mach-tegra/board-colibri_t30.c
