@@ -27,10 +27,14 @@ Features:
 
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
-#### Build the docker image & run it:
+#### Build the docker image:
 
- ``````docker build -f Dockerfile . -t toradex-yotco``````
- 
+ ``````
+ cd docker
+ docker build -f Dockerfile . -t toradex-yotco
+ ``````
+#### Run docker:
+
  ``````./run_dock.sh``````
 
 #### Get the toradex configurations in the docker 
