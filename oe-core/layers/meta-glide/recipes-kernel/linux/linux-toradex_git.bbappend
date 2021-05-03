@@ -24,8 +24,6 @@ config_script () {
 
               echo "CONFIG_RTC_DRV_ISL12022=y" >> ${B}/.config
               echo "CONFIG_TOUCHSCREEN_ATMEL_MXT=m" >> ${B}/.config
-              echo "CONFIG_GPIO_LP3943=m" >> ${B}/.config
-              echo "CONFIG_PWM_LP3943=m" >> ${B}/.config
 
      echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
      echo "CONFIG_R8188EU=m" >> ${B}/.config
@@ -50,6 +48,5 @@ SRC_URI_append_${MACHINE} += "${@'file://0002-no-eval_board.patch' if d.getVar('
 SRC_URI_append_${MACHINE} += "${@'file://0005-rtc-isl12022.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append_${MACHINE} += "${@'file://0006-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append_${MACHINE} += "${@'file://0007-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-SRC_URI_append_${MACHINE} += "${@'file://0008-lp3943.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append_${MACHINE} += "${@'file://0009-mcp2515_oscillator_frequency-displayl.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 

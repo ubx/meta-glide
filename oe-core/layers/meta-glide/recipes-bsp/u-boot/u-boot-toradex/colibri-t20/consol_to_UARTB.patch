@@ -7,7 +7,7 @@ diff --git a/include/configs/colibri_t20.h b/include/configs/colibri_t20.h
  /* Board-specific serial config */
 -#define CONFIG_TEGRA_ENABLE_UARTA
 -#define CONFIG_TEGRA_UARTA_SDIO1
-+#define CONFIG_TEGRA_ENABLE_UARTD
++#define CONFIG_TEGRA_ENABLE_UARTA
 +#define CONFIG_TEGRA_UARTA_SDIO1  // todo -- ???
  #define CONFIG_SYS_NS16550_COM1		NV_PA_APB_UARTA_BASE
 
@@ -17,7 +17,7 @@ diff --git a/include/configs/colibri_t20.h b/include/configs/colibri_t20.h
  	"setup=setenv setupargs asix_mac=${ethaddr} " \
  		"consoleblank=0 no_console_suspend=1 console=tty1 " \
 -		"console=${console},${baudrate}n8 debug_uartport=lsport,0 " \
-+		"console=${console},${baudrate}n8 debug_uartport=lsport,3 " \
++		"console=${console},${baudrate}n8 debug_uartport=lsport,0 " \
  		"${memargs}\0" \
  	"setupdate=run setsdupdate || run setusbupdate || run setethupdate\0" \
  	"setusbupdate=usb start && setenv interface usb; setenv drive 0; " \
