@@ -27,7 +27,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  /* active low interrupt (MCP2515 nINT) */
 -#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
 +#ifdef EVAL_BOARD
-+#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PS0
++#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
 +#else
 +#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PW5
 +#endif
