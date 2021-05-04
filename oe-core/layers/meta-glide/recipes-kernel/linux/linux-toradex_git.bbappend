@@ -15,15 +15,13 @@ config_script () {
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
 
-              echo "CONFIG_BACKLIGHT_LCD_SUPPORT=n" >> ${B}/.config
-              echo "CONFIG_LCD_CLASS_DEVICE=n" >> ${B}/.config
-              echo "CONFIG_BACKLIGHT_CLASS_DEVICE=n" >> ${B}/.config
-              echo "CONFIG_BACKLIGHT_GENERIC=n" >> ${B}/.config
-              echo "CONFIG_BACKLIGHT_PWM=n" >> ${B}/.config
-              echo "CONFIG_BACKLIGHT_GPIO=n" >> ${B}/.config
-
-              echo "CONFIG_RTC_DRV_ISL12022=y" >> ${B}/.config
-              echo "CONFIG_TOUCHSCREEN_ATMEL_MXT=m" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_LCD_SUPPORT='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_LCD_CLASS_DEVICE='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_CLASS_DEVICE='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_GENERIC='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_PWM='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_BACKLIGHT_GPIO='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
+     echo "CONFIG_RTC_DRV_ISL12022='y' if d.getVar('EVAL_BOARD') == 'n' else 'n'" >> ${B}/.config
 
      echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
      echo "CONFIG_R8188EU=m" >> ${B}/.config
@@ -49,4 +47,3 @@ SRC_URI_append_${MACHINE} += "${@'file://0005-rtc-isl12022.patch' if d.getVar('E
 SRC_URI_append_${MACHINE} += "${@'file://0006-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append_${MACHINE} += "${@'file://0007-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
 SRC_URI_append_${MACHINE} += "${@'file://0009-mcp2515_oscillator_frequency-displayl.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-
