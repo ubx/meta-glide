@@ -1,14 +1,5 @@
 #!/bin/sh
 
-### Ugly workaround to get wifi to work.
-modprobe rtl8xxxu -r
-modprobe rtl8xxxu
-modprobe rtl8xxxu -r
-modprobe rtl8xxxu
-
-cpufreq-set -g userspace
-cpufreq-set -f 760
-
 ### start can device
 ip link set can0 type can bitrate 500000
 ip link set can0 txqueuelen 1000
