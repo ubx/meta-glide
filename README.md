@@ -20,7 +20,9 @@ Features:
 | Rotary knobs | Good | |
 | Buttons | Good | |
 | XCSoar | Need Improvements | Key assignment, proper shutdown |
-| Touch screen | not implemented yet | |
+| Touch screen | wip | Implement as a Kernel Modul |
+| Colibri T30 | Works on eval. board | Power up issue on Display L|
+| Colibri T20 | wip | |
 | Config. menu | not defined yet | |
 
 [Here a short video (with NMEA input via serial port)](https://youtu.be/IahGqsdgllc)
