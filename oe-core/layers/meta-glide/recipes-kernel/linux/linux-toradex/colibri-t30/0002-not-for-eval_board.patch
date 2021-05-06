@@ -1,17 +1,14 @@
 diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board-colibri_t30.c
-index 269a083e221e..119b15ea41d6 100644
 --- a/arch/arm/mach-tegra/board-colibri_t30.c
 +++ b/arch/arm/mach-tegra/board-colibri_t30.c
-@@ -49,7 +49,8 @@
+@@ -49,8 +49,8 @@
  #include "gpio-names.h"
  #include "pm.h"
- 
+
+-// This build is for the Evaluation Board !!
 -#define EVAL_BOARD
 +// This build is NOT for the Evaluation Board !!
 +//#define EVAL_BOARD
- 
+
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
--- 
-2.17.1
-

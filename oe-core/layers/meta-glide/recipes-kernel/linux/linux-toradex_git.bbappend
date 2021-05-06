@@ -38,12 +38,7 @@ do_configure_prepend () {
 ## Patches for Evaluation and Display-L boards
 SRC_URI_append_${MACHINE} += " \
 	file://0001-logo.patch \
-	file://0001-button-and-rotary_encoder.patch \
-	file://0004-mcp2515_setup-displayl.patch \
+	file://0001-displayl.patch \
 "
 ## Patches only for Display-L board
-SRC_URI_append_${MACHINE} += "${@'file://0002-no-eval_board.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-SRC_URI_append_${MACHINE} += "${@'file://0005-rtc-isl12022.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-SRC_URI_append_${MACHINE} += "${@'file://0006-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-SRC_URI_append_${MACHINE} += "${@'file://0007-touch-controller.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
-SRC_URI_append_${MACHINE} += "${@'file://0009-mcp2515_oscillator_frequency-displayl.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"
+SRC_URI_append_${MACHINE} += "${@'file://0002-not-for-eval_board.patch' if d.getVar('EVAL_BOARD') == 'n' else ''}"

@@ -4,44 +4,98 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 @@ -44,8 +44,8 @@
  #include <mach/usb_phy.h>
  #include <mach/w1.h>
- 
+
 -#include <media/soc_camera.h>
 -#include <media/tegra_v4l2_camera.h>
 +#include <linux/input.h>
 +#include <linux/rotary_encoder.h>
- 
+
  #include "board-colibri_t20.h"
  #include "board.h"
-@@ -56,6 +56,8 @@
+@@ -55,6 +55,9 @@
+ #include "gpio-names.h"
  #include "pm.h"
  #include "wakeups-t2.h"
- 
-+#define EVAL_BOARD
 +
++// This build is for the Evaluation Board !!
++#define EVAL_BOARD
+
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
- #define TEGRA_GMI_BASE			IO_TO_VIRT(TEGRA_GMI_PHYS)
-@@ -338,7 +340,11 @@ static struct platform_device soc_camera_tvp5150soc = {
+@@ -338,13 +341,18 @@
  #define CAN_RESET_GPIO		TEGRA_GPIO_PK2
  #else
  /* active low interrupt (MCP2515 nINT) */
--#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
 +#ifdef EVAL_BOARD
-+#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
+ #define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
 +#else
 +#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PW5
 +#endif
  #ifdef MECS_TELLURIUM
  /* active high reset (not MCP2515 nRESET) */
  #define CAN_RESET_GPIO		TEGRA_GPIO_PK4
-@@ -580,12 +586,12 @@ static struct gpio colibri_t20_gpios[] = {
+ #endif
+ #endif
+
++#ifdef EVAL_BOARD
+ static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
+ {
+ #ifdef MECS_TELLURIUM
+@@ -373,6 +381,34 @@
+
+ 	return 0;
+ }
++#else
++#define CAN_RESET_GPIO		TEGRA_GPIO_PT4
++static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
++{
++	int gpio_status;
++	printk("Display-L CAN Initialisation\n");
++
++	/* configure MCP2515 reset line as output and pull high into reset */
++	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO");
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO FAILED\n");
++	gpio_status = gpio_direction_output(CAN_RESET_GPIO, 0);
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO DIRECTION FAILED\n");
++
++	udelay(2);
++
++	/* pull out of reset */
++	gpio_set_value(CAN_RESET_GPIO, 1);
++
++	printk("Display-L CAN STB set\n");
++   gpio_request(TEGRA_GPIO_PS0, "CAN_STB_GPIO");
++   gpio_direction_output(TEGRA_GPIO_PA0, 1);
++	return 0;
++}
++#endif
++
++
+
+ #ifndef MECS_TELLURIUM_XPOD2
+ static struct tegra_spi_device_controller_data mcp251x_controller_data = {
+@@ -384,7 +420,11 @@
+
+ static struct mcp251x_platform_data mcp251x_pdata = {
+ 	.board_specific_setup	= colibri_t20_mcp2515_setup,
++#ifdef EVAL_BOARD
+ 	.oscillator_frequency	= 16000000,
++#else
++	.oscillator_frequency	= 20000000,
++#endif
+ 	.power_enable		= NULL,
+ 	.transceiver_enable	= NULL
+ };
+@@ -580,12 +620,12 @@
  	{TEGRA_GPIO_PU6,	GPIOF_IN,	"SODIMM pin 118"},
  #ifndef CONFIG_KEYBOARD_GPIO
  //conflicts with power key (WAKE1)
 -	{TEGRA_GPIO_PV3,	GPIOF_IN,	"SODI-45, Iris X16-20"},
 +//	{TEGRA_GPIO_PV3,	GPIOF_IN,	"SODI-45, Iris X16-20"},
  #endif
- 
+
  	{TEGRA_GPIO_PX4,	GPIOF_IN,	"SODIMM pin 134"},
 -	{TEGRA_GPIO_PX6,	GPIOF_IN,	"102, I X13 ForceOFF#"},
 -	{TEGRA_GPIO_PX7,	GPIOF_IN,	"104, I X14 ForceOFF#"},
@@ -50,7 +104,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  	{TEGRA_GPIO_PZ2,	GPIOF_IN,	"SODIMM pin 156"},
  	{TEGRA_GPIO_PZ4,	GPIOF_IN,	"SODIMM pin 164"},
  #if !defined(GMI_32BIT) && !defined SDHCI_8BIT
-@@ -596,7 +602,7 @@ static struct gpio colibri_t20_gpios[] = {
+@@ -596,7 +636,7 @@
  #endif
  #ifndef CONFIG_KEYBOARD_GPIO
  //conflicts with back key
@@ -59,10 +113,11 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  //conflicts with home key
  	{TEGRA_GPIO_PBB3,	GPIOF_IN,	"SODIMM pin 127"},
  //conflicts with volume up key
-@@ -605,6 +611,128 @@ static struct gpio colibri_t20_gpios[] = {
+@@ -604,6 +644,128 @@
+ //conflicts with volume down key
  	{TEGRA_GPIO_PBB5,	GPIOF_IN,	"SODIMM pin 24"},
  #endif
- };
++};
 +/* Rotary encoder */
 +#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
@@ -70,7 +125,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +#ifdef EVAL_BOARD
 +#define GPIO_ROTARY1_B TEGRA_GPIO_PCC2
 +#else
-+#define GPIO_ROTARY1_B TEGRA_GPIO_PZ1
++#define GPIO_ROTARY1_B TEGRA_GPIO_PD5
 +#endif
 +static struct rotary_encoder_platform_data my_rotary_encoder_info0 = {
 +        .steps         = 16,
@@ -117,7 +172,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +#define GPIO_KEY_1  TEGRA_GPIO_PK3
 +#define GPIO_KEY_2  TEGRA_GPIO_PK2
 +#define GPIO_KEY_3  TEGRA_GPIO_PK7
-+#define GPIO_KEY_4  TEGRA_GPIO_PV1
++#define GPIO_KEY_4  TEGRA_GPIO_PV3
 +#ifdef EVAL_BOARD
 +#define ACTIVE_LOW 1
 +#else
@@ -184,20 +239,72 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +        .dev 	= {
 +                .platform_data	= &gpio_keys_platform_data,
 +        }
-+};
- 
- static void colibri_t20_gpio_init(void)
- {
-@@ -651,7 +779,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
- #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
- 	.gpio_reset = TEGRA_GPIO_PA6,
- #else
--	.gpio_reset = TEGRA_GPIO_PK4,
-+//	.gpio_reset = TEGRA_GPIO_PK4,
- #endif
  };
- 
-@@ -1760,6 +1888,9 @@ static struct platform_device *colibri_t20_devices[] __initdata = {
+
+ static void colibri_t20_gpio_init(void)
+@@ -626,58 +788,14 @@
+ 	}
+ }
+
+-/*
+- * Fusion touch screen GPIOs (using Toradex display/touch adapater)
+- * Iris X16-38, SODIMM pin 28 (PWM B), pen down interrupt
+- * Iris X16-39, SODIMM pin 30 (PWM C), reset
+- * gpio_request muxes the GPIO function automatically, we only have to make
+- * sure input/output muxing is done here...
+- */
+-static struct fusion_f0710a_init_data colibri_fusion_pdata = {
+-	.pinmux_fusion_pins = NULL,
+-	.gpio_int = TEGRA_GPIO_PB5, 	/* SO-DIMM 28: Pen down interrupt */
+-	.gpio_reset = TEGRA_GPIO_PA6,	/* SO-DIMM 30: Reset interrupt */
+-};
+-
+-/*
+- * Atmel touch screen GPIOs (using Toradex display/touch adapter)
+- * Aster X3-4, SODIMM pin 107 , pen down interrupt
+- * gpio_request muxes the GPIO function automatically, we only have to make
+- * sure input/output muxing is done and the GPIO is freed here.
+- */
+-static struct mxt_platform_data colibri_atmel_pdata = {
+-	.suspend_mode = MXT_SUSPEND_T9_CTRL,
+-	.irqflags = IRQF_TRIGGER_FALLING,
+-#ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+-	.gpio_reset = TEGRA_GPIO_PA6,
+-#else
+-	.gpio_reset = TEGRA_GPIO_PK4,
+-#endif
+-};
+-
+ /* I2C */
+
+ /* GEN1_I2C: I2C_SDA/SCL on SODIMM pin 194/196 (e.g. RTC on carrier board) */
+ static struct i2c_board_info colibri_t20_i2c_bus1_board_info[] __initdata = {
+ 	{
+-		/* M41T0M6 real time clock on Iris carrier board */
+-		I2C_BOARD_INFO("rtc-ds1307", 0x68),
+-			.type = "m41t00",
+-	},
+-	{
+-		/* TouchRevolution Fusion 7 and 10 multi-touch controller */
+-		I2C_BOARD_INFO("fusion_F0710A", 0x10),
+-		.platform_data = &colibri_fusion_pdata,
+-	},
+-	{
+-		/* Atmel MAX TS 7 multi-touch controller */
+-		I2C_BOARD_INFO("atmel_mxt_ts", 0x4a),
+-		.platform_data = &colibri_atmel_pdata,
+-#ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+-		.irq = TEGRA_GPIO_TO_IRQ( TEGRA_GPIO_PB5 ),
+-#else
+-		.irq = TEGRA_GPIO_TO_IRQ( TEGRA_GPIO_PK3 ),
+-#endif
++		/* ISL12022 real time clock on Display-L board */
++		I2C_BOARD_INFO("rtc-isl12022", 0x6f),
++			.type = "isl12022",
+ 	},
+ };
+
+@@ -1760,6 +1878,9 @@
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -205,5 +312,5 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +        &rotary_encoder_device1,
 +        &displayl_gpio_keys_device,
  };
- 
+
  static void __init colibri_t20_init(void)

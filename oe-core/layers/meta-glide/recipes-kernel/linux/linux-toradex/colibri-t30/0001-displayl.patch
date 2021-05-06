@@ -4,40 +4,87 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 @@ -39,8 +39,8 @@
  #include <mach/usb_phy.h>
  #include <mach/w1.h>
- 
+
 -#include <media/soc_camera.h>
 -#include <media/tegra_v4l2_camera.h>
 + #include <linux/input.h>
 + #include <linux/rotary_encoder.h>
- 
+
  #include "board-colibri_t30.h"
  #include "board.h"
-@@ -49,6 +49,8 @@
+@@ -48,6 +48,9 @@
+ #include "devices.h"
  #include "gpio-names.h"
  #include "pm.h"
- 
-+#define EVAL_BOARD
 +
++// This build is for the Evaluation Board !!
++#define EVAL_BOARD
+
  //from former drivers/mtd/maps/tegra_nor.h
  #define TEGRA_GMI_PHYS			0x70009000
- #define TEGRA_GMI_BASE			IO_TO_VIRT(TEGRA_GMI_PHYS)
-@@ -355,7 +357,15 @@ static struct platform_device soc_camera_s2d13p04 = {
+@@ -355,8 +358,13 @@
  /* Colibri EvalBoard V3.1a */
- 
+
  /* active low interrupt (MCP2515 nINT) */
 +#ifdef EVAL_BOARD
  #define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PS0
-+//
-+//
+-
 +#else
 +#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PW5
-+//
-+//
 +#endif
- 
++
++#ifdef EVAL_BOARD
  static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
  {
-@@ -519,17 +529,17 @@ static struct gpio colibri_t30_gpios[] = {
+ 	printk("Colibri EvalBoard V3.1a CAN Initialisation\n");
+@@ -366,6 +374,32 @@
+
+ 	return 0;
+ }
++#else
++#define CAN_RESET_GPIO		TEGRA_GPIO_PV2
++static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
++{
++	int gpio_status;
++	printk("Display-L CAN Initialisation\n");
++
++	/* configure MCP2515 reset line as output and pull high into reset */
++	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO");
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO FAILED\n");
++	gpio_status = gpio_direction_output(CAN_RESET_GPIO, 0);
++	if (gpio_status < 0)
++		pr_warning("CAN_RESET_GPIO request GPIO DIRECTION FAILED\n");
++
++	udelay(2);
++
++	/* pull out of reset */
++	gpio_set_value(CAN_RESET_GPIO, 1);
++
++	printk("Display-L CAN STB set\n");
++        gpio_request(TEGRA_GPIO_PS0, "CAN_STB_GPIO");
++        gpio_direction_output(TEGRA_GPIO_PS0, 1);
++	return 0;
++}
++#endif
+
+ static struct tegra_spi_device_controller_data mcp251x_controller_data = {
+ 	.cs_hold_clk_count	= 1,	/* at least 50 ns */
+@@ -375,7 +409,12 @@
+
+ static struct mcp251x_platform_data mcp251x_pdata = {
+ 	.board_specific_setup	= colibri_t20_mcp2515_setup,
+-	.oscillator_frequency	= 16000000,
++#ifdef EVAL_BOARD
++ 	.oscillator_frequency	= 16000000,
++#else
++	.oscillator_frequency	= 20000000,
++#endif
++
+ 	.power_enable		= NULL,
+ 	.transceiver_enable	= NULL
+ };
+@@ -519,17 +558,17 @@
  #endif
  #ifndef CONFIG_KEYBOARD_GPIO
  //conflicts with back key
@@ -46,8 +93,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  //conflicts with home key
  	{TEGRA_GPIO_PT6,	GPIOF_IN,	"SODIMM pin 127"},
  //conflicts with power key (WAKE1)
--	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
-+	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
+ 	{TEGRA_GPIO_PV1,	GPIOF_IN,	"SODI-45, Iris X16-20"},
  #endif
  #ifndef COLIBRI_T30_VI
 -	{TEGRA_GPIO_PW5,	GPIOF_IN,	"SODIMM pin 75"},
@@ -59,7 +105,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #endif
  //conflicts with ADDRESS12
  //	{TEGRA_GPIO_PU6,	GPIOF_IN,	"SODIMM pin 118"},
-@@ -542,8 +552,8 @@ static struct gpio colibri_t30_gpios[] = {
+@@ -542,8 +581,8 @@
  //multiplexed LCD_D18
  //	{TEGRA_GPIO_PX3,	GPIOF_IN,	"SODIMM pin 136"},
  	{TEGRA_GPIO_PX4,	GPIOF_IN,	"SODIMM pin 134"},
@@ -70,10 +116,10 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  #ifndef COLIBRI_T30_VI
  //	{TEGRA_GPIO_PY4,	GPIOF_IN,	"SODI-97, Iris X16-17"},
  //	{TEGRA_GPIO_PY5,	GPIOF_IN,	"SODI-79, Iris X16-19"},
-@@ -575,6 +585,129 @@ static struct gpio colibri_t30_gpios[] = {
- 
+@@ -575,6 +614,129 @@
+
  };
- 
+
 +/* Rotary encoder */
 +#define GPIO_ROTARY0_A TEGRA_GPIO_PK4
 +#define GPIO_ROTARY0_B TEGRA_GPIO_PX7
@@ -200,29 +246,82 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
  static void colibri_t30_gpio_init(void)
  {
  	int i = 0;
-@@ -620,7 +753,7 @@ static struct mxt_platform_data colibri_atmel_pdata = {
- #ifdef USE_CAPACITIVE_TOUCH_ADAPTER
- 	.gpio_reset = TEGRA_GPIO_PA6,
- #else
+@@ -595,35 +757,6 @@
+ 	}
+ }
+
+-/*
+- * Fusion touch screen GPIOs (using Toradex display/touch adapater)
+- * Iris X16-38, SODIMM pin 28 (PWM B), pen down interrupt
+- * Iris X16-39, SODIMM pin 30 (PWM C), reset
+- * gpio_request muxes the GPIO function automatically, we only have to make
+- * sure input/output muxing is done here...
+- */
+-static struct fusion_f0710a_init_data colibri_fusion_pdata = {
+-	.pinmux_fusion_pins = NULL,
+-	.gpio_int = TEGRA_GPIO_PB5, 	/* SO-DIMM 28: Pen down interrupt */
+-	.gpio_reset = TEGRA_GPIO_PA6,	/* SO-DIMM 30: Reset interrupt */
+-};
+-
+-/*
+- * Atmel touch screen GPIOs (using Toradex display/touch adapter)
+- * Aster X3-4, SODIMM pin 107 , pen down interrupt
+- * gpio_request muxes the GPIO function automatically, we only have to make
+- * sure input/output muxing is done and the GPIO is freed here.
+- */
+-static struct mxt_platform_data colibri_atmel_pdata = {
+-	.suspend_mode = MXT_SUSPEND_T9_CTRL,
+-	.irqflags = IRQF_TRIGGER_FALLING,
+-#ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+-	.gpio_reset = TEGRA_GPIO_PA6,
+-#else
 -	.gpio_reset = TEGRA_GPIO_PK4,
-+//	.gpio_reset = TEGRA_GPIO_PK4,
- #endif
+-#endif
+-};
+-
+ /* I2C */
+
+ /* Make sure that the pinmuxing enable the 'open drain' feature for pins used
+@@ -632,24 +765,11 @@
+ /* GEN1_I2C: I2C_SDA/SCL on SODIMM pin 194/196 (e.g. RTC on carrier board) */
+ static struct i2c_board_info colibri_t30_i2c_bus1_board_info[] __initdata = {
+ 	{
+-		/* M41T0M6 real time clock on Iris carrier board */
+-		I2C_BOARD_INFO("rtc-ds1307", 0x68),
+-			.type = "m41t00",
++		/* ISL12022 real time clock on Display-L board */
++		I2C_BOARD_INFO("rtc-isl12022", 0x6f),
++			.type = "isl12022",
+ 	},
+ 	{
+-		/* TouchRevolution Fusion 7 and 10 multi-touch controller */
+-		I2C_BOARD_INFO("fusion_F0710A", 0x10),
+-		.platform_data = &colibri_fusion_pdata,
+-	},
+-	{
+-		/* Atmel MAX TS 7 multi-touch controller */
+-		I2C_BOARD_INFO("atmel_mxt_ts", 0x4a),
+-			.platform_data = &colibri_atmel_pdata,
+-#ifdef USE_CAPACITIVE_TOUCH_ADAPTER
+-			.irq = TEGRA_GPIO_TO_IRQ( TEGRA_GPIO_PB5 ),
+-#else
+-			 .irq = TEGRA_GPIO_TO_IRQ( TEGRA_GPIO_PK3 ),
+-#endif
+ 	},
  };
- 
-@@ -798,9 +931,9 @@ static struct gpio_keys_button colibri_t30_keys[] = {
+
+@@ -798,8 +918,8 @@
  						   Iris X16-14 */
  	GPIO_KEY(KEY_VOLUMEUP, PDD7, 1, 0),	/* SODIMM pin 22 */
  	GPIO_KEY(KEY_VOLUMEDOWN, PCC6, 1, 0),	/* SODIMM pin 24 */
 -	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
 -						   Iris X16-20 */
--	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
 +//	GPIO_KEY(KEY_POWER, PV1, 0, 1),		/* SODIMM pin 45,
 +//						   Iris X16-20 */
-+	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
+ 	GPIO_KEY(KEY_MENU, PK6, 1, 0),		/* SODIMM pin 135 */
  };
- 
- static struct gpio_keys_platform_data colibri_t30_keys_platform_data = {
-@@ -1718,6 +1851,9 @@ static struct platform_device *colibri_t30_devices[] __initdata = {
+
+@@ -1718,6 +1838,9 @@
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -230,13 +329,5 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +    &rotary_encoder_device1,
 +    &displayl_gpio_keys_device,
  };
- 
+
  static void __init colibri_t30_init(void)
-@@ -1818,6 +1954,7 @@ static const char *colibri_t30_dt_board_compat[] = {
- 	NULL
- };
- 
-+
- #ifdef CONFIG_ANDROID
- MACHINE_START(COLIBRI_T30, "cardhu")
- #else
