@@ -29,7 +29,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +#ifdef EVAL_BOARD
  #define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PA0
 +#else
-+#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PW5
++#define CAN_INTERRUPT_GPIO	TEGRA_GPIO_PT1
 +#endif
  #ifdef MECS_TELLURIUM
  /* active high reset (not MCP2515 nRESET) */
@@ -41,6 +41,15 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  static int __init colibri_t20_mcp2515_setup(struct spi_device *spi)
  {
  #ifdef MECS_TELLURIUM
+@@ -355,7 +363,7 @@
+
+ #ifdef MECS_TELLURIUM
+ 	/* configure MCP2515 reset line as output and pull high into reset */
+-	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO");
++	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO (MECS_TELLURIUM)");
+ 	if (gpio_status < 0)
+ 		pr_warning("CAN_RESET_GPIO request GPIO FAILED\n");
+ 	gpio_status = gpio_direction_output(CAN_RESET_GPIO, 1);
 @@ -373,6 +381,34 @@
 
  	return 0;
@@ -53,7 +62,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +	printk("Display-L CAN Initialisation\n");
 +
 +	/* configure MCP2515 reset line as output and pull high into reset */
-+	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO");
++	gpio_status = gpio_request(CAN_RESET_GPIO, "CAN_RESET_GPIO (Display-L)");
 +	if (gpio_status < 0)
 +		pr_warning("CAN_RESET_GPIO request GPIO FAILED\n");
 +	gpio_status = gpio_direction_output(CAN_RESET_GPIO, 0);
@@ -66,8 +75,8 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +	gpio_set_value(CAN_RESET_GPIO, 1);
 +
 +	printk("Display-L CAN STB set\n");
-+   gpio_request(TEGRA_GPIO_PS0, "CAN_STB_GPIO");
-+   gpio_direction_output(TEGRA_GPIO_PA0, 1);
++   gpio_request(CAN_INTERRUPT_GPIO, "CAN_STB_GPIO");
++   gpio_direction_output(CAN_INTERRUPT_GPIO, 1);
 +	return 0;
 +}
 +#endif
@@ -88,6 +97,50 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  	.power_enable		= NULL,
  	.transceiver_enable	= NULL
  };
+@@ -394,7 +434,7 @@
+ #ifndef MECS_TELLURIUM_XPOD2
+ 		.bus_num		= 3,
+ #else
+-		.bus_num		= 4,
++		.bus_num		= 4,  // todo -- check!! (was 4)
+ #endif
+ 		.chip_select		= 0,
+ #ifdef MECS_TELLURIUM_XPOD2
+@@ -504,14 +544,14 @@
+ 	{TEGRA_GPIO_PB2,	GPIOF_IN,	"SODIMM pin 154"},
+ #if !defined(CONFIG_SPI_GPIO) && !defined(CONFIG_SPI_GPIO_MODULE)
+ //conflicts with MECS Tellurium xPOD2 SSPCLK2
+-	{TEGRA_GPIO_PB6,	GPIOF_IN,	"SODIMM pin 55"},
++//	{TEGRA_GPIO_PB6,	GPIOF_IN,	"SODIMM pin 55"},
+ #endif
+ #ifndef MECS_TELLURIUM_XPOD2
+ //conflicts with MECS Tellurium xPOD2 SSPFRM2
+ 	{TEGRA_GPIO_PB7,	GPIOF_IN,	"SODIMM pin 63"},
+ #endif
+ #ifndef COLIBRI_T20_VI
+-	{TEGRA_GPIO_PD5,	GPIOF_IN,	"SODI-98, Iris X16-13"},
++//	{TEGRA_GPIO_PD5,	GPIOF_IN,	"SODI-98, Iris X16-13"},
+ 	{TEGRA_GPIO_PD6,	GPIOF_IN,	"SODIMM pin 81"},
+ 	{TEGRA_GPIO_PD7,	GPIOF_IN,	"SODIMM pin 94"},
+ #endif
+@@ -526,7 +566,7 @@
+ 	(!defined(CONFIG_TOUCHSCREEN_ATMEL_MXT) && \
+ 	!defined(CONFIG_TOUCHSCREEN_ATMEL_MXT_MODULE))
+ //conflicts with CAN reset on MECS Tellurium xPOD1 CAN
+-	{TEGRA_GPIO_PK4,	GPIOF_IN,	"SODIMM pin 106"},
++//	{TEGRA_GPIO_PK4,	GPIOF_IN,	"SODIMM pin 106"},
+ #endif
+ //	{TEGRA_GPIO_PK5,	GPIOF_IN,	"USBC_DET"},
+ #ifndef CONFIG_KEYBOARD_GPIO
+@@ -567,7 +607,7 @@
+ 	{TEGRA_GPIO_PP7,	GPIOF_IN,	"SODIMM pin 188"},
+ #ifndef COLIBRI_T20_VI
+ 	{TEGRA_GPIO_PT0,	GPIOF_IN,	"SODIMM pin 96"},
+-	{TEGRA_GPIO_PT1,	GPIOF_IN,	"SODIMM pin 75"},
++//	{TEGRA_GPIO_PT1,	GPIOF_IN,	"SODIMM pin 75"},
+ #endif
+ 	{TEGRA_GPIO_PT2,	GPIOF_IN,	"SODIMM pin 69"},
+ #ifndef CONFIG_KEYBOARD_GPIO
 @@ -580,12 +620,12 @@
  	{TEGRA_GPIO_PU6,	GPIOF_IN,	"SODIMM pin 118"},
  #ifndef CONFIG_KEYBOARD_GPIO
@@ -304,6 +357,17 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  	},
  };
 
+@@ -774,8 +892,8 @@
+ 						   Iris X16-14 */
+ 	GPIO_KEY(KEY_VOLUMEUP, PBB4, 1, 0),	/* SODIMM pin 22 */
+ 	GPIO_KEY(KEY_VOLUMEDOWN, PBB5, 1, 0),	/* SODIMM pin 24 */
+-	GPIO_KEY(KEY_POWER, PV3, 0, 1),		/* SODIMM pin 45,
+-						   Iris X16-20 */
++//	GPIO_KEY(KEY_POWER, PV3, 0, 1),		/* SODIMM pin 45,
++//						   Iris X16-20 */
+ 	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
+ };
+
 @@ -1760,6 +1878,9 @@
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
@@ -314,3 +378,17 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  };
 
  static void __init colibri_t20_init(void)
+
+
+diff --git a/arch/arm/mach-tegra/board-colibri_t20-panel.c b/arch/arm/mach-tegra/board-colibri_t20-panel.c
+--- a/arch/arm/mach-tegra/board-colibri_t20-panel.c
++++ b/arch/arm/mach-tegra/board-colibri_t20-panel.c
+@@ -41,6 +41,8 @@
+ #include "gpio-names.h"
+ #include "tegra2_host1x_devices.h"
+
++#define COLIBRI_T20_VI
++
+ #ifndef COLIBRI_T20_VI
+ #define colibri_t20_bl_enb	TEGRA_GPIO_PT4	/* BL_ON */
+ #endif
