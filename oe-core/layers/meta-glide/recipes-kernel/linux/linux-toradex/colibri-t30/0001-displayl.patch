@@ -62,8 +62,8 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t30.c b/arch/arm/mach-tegra/board
 +	gpio_set_value(CAN_RESET_GPIO, 1);
 +
 +	printk("Display-L CAN STB set\n");
-+        gpio_request(TEGRA_GPIO_PS0, "CAN_STB_GPIO");
-+        gpio_direction_output(TEGRA_GPIO_PS0, 1);
++   gpio_request(CAN_INTERRUPT_GPIO, "CAN_STB_GPIO");
++   gpio_direction_output(CAN_INTERRUPT_GPIO, 1);
 +	return 0;
 +}
 +#endif
