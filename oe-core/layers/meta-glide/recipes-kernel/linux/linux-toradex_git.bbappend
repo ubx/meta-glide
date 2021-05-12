@@ -14,6 +14,7 @@ config_script () {
      echo "CONFIG_FRAMEBUFFER_CONSOLE=y"  >> ${B}/.config
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
+     echo "CONFIG_RTC_DRV_ISL12022=y" >> ${B}/.config
 
      echo "CONFIG_BACKLIGHT_LCD_SUPPORT='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
      echo "CONFIG_LCD_CLASS_DEVICE='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
@@ -21,7 +22,6 @@ config_script () {
      echo "CONFIG_BACKLIGHT_GENERIC='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
      echo "CONFIG_BACKLIGHT_PWM='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
      echo "CONFIG_BACKLIGHT_GPIO='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
-     echo "CONFIG_RTC_DRV_ISL12022='y' if d.getVar('EVAL_BOARD') == 'n' else 'n'" >> ${B}/.config
 
      echo "CONFIG_LOGO_CUSTOM_CLUT224=y" >> ${B}/.config
      echo "CONFIG_R8188EU=m" >> ${B}/.config
