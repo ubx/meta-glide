@@ -136,7 +136,6 @@ static struct input_handler gpio_keys_handler = {
 
 static int __init shutdown_keyhold_init(void) {
     int error;
-    int i;
 
     if (input_register_handler(&gpio_keys_handler) == 0) {
         printk(KERN_INFO pr_fmt("loaded.\n"));
@@ -160,11 +159,6 @@ static int __init shutdown_keyhold_init(void) {
         printk(KERN_ERR pr_fmt("Failed to register device\n"));
         goto err_free_dev;
     }
-
-//    printk("Display-L LED.GREEN value 1\n");
-//    gpio_request(13, "LED.GREEN");  //TEGRA_GPIO_PB5
-//    gpio_direction_output(13, 1);
-
     return 0;
 
     err_free_dev:
