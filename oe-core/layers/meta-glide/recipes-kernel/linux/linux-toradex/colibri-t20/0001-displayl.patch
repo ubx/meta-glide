@@ -295,7 +295,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  };
 
  static void colibri_t20_gpio_init(void)
-@@ -626,59 +788,17 @@
+@@ -626,59 +788,22 @@
  	}
  }
 
@@ -357,12 +357,17 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
 +                I2C_BOARD_INFO("rtc-isl12022", 0x6f),
 +                .type = "isl12022",
 +        },
++       {
++                /* easy I2C mXT224S Driver (from DATA MODUL) on Display-L board */
++                I2C_BOARD_INFO("ts_easy_mXT224S", 0x09),
++                .type = "easy_mXT224S",
++        },
 +        {
 +        },
  };
 
  static struct tegra_i2c_platform_data colibri_t20_i2c1_platform_data = {
-@@ -774,8 +894,8 @@
+@@ -774,8 +899,8 @@
  						   Iris X16-14 */
  	GPIO_KEY(KEY_VOLUMEUP, PBB4, 1, 0),	/* SODIMM pin 22 */
  	GPIO_KEY(KEY_VOLUMEDOWN, PBB5, 1, 0),	/* SODIMM pin 24 */
@@ -373,7 +378,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
  };
 
-@@ -1760,6 +1880,9 @@
+@@ -1760,6 +1885,9 @@
  #ifdef CONFIG_W1_MASTER_TEGRA
  	&tegra_w1_device,
  #endif
@@ -383,7 +388,6 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board
  };
 
  static void __init colibri_t20_init(void)
-
 
 
 
@@ -400,6 +404,7 @@ diff --git a/arch/arm/mach-tegra/board-colibri_t20-panel.c b/arch/arm/mach-tegra
  #ifndef COLIBRI_T20_VI
  #define colibri_t20_bl_enb	TEGRA_GPIO_PT4	/* BL_ON */
  #endif
+
 
 
 
