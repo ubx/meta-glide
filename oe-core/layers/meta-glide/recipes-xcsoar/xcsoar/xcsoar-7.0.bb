@@ -42,6 +42,7 @@ RDEPENDS_${PN} = "\
 		fbida \
 		xinput \
 		xinput-calibrator \
+		unclutter \
 "
 
 S = "${WORKDIR}/git"

@@ -11,7 +11,7 @@ sleep 1
 
 export DISPLAY=:0
 xrandr -o left
-
+unclutter -idle 0.5 &
 
 ### run xcsoar
 sts=-1
