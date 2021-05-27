@@ -17,10 +17,11 @@ Features:
 --- | --- | ---
 | Embedded Linux | Good |  |
 | CAN | Good |  |
-| Rotary knobs | Good | |
+| Rotary knobs | Good | change to zoom if pushed else menu |
 | Buttons | Good | |
-| XCSoar | Need Improvements | Key assignment, proper shutdown |
-| Touch screen | wip | Implement as a Kernel Modul |
+| XCSoar | Good | some button are to small for TS |
+| Touch screen | Good |  |
+| Backlight  | wip, isl29003 driver exists | Need doku (LCD.BKL.PWM) |
 | Colibri T30 | Works on eval. board | Power up issue on Display L|
 | Colibri T20 | Good | |
 | Config. menu | not defined yet | |
