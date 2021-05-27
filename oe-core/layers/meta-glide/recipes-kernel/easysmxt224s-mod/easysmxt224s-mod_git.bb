@@ -8,7 +8,7 @@ PV .= "+git${SRCPV}"
 inherit module
 
 SRC_URI = " \
-    git://github.com/ubx/easy_mXT224S_i2c.git;protocol=git;branch=master;tag=v1.0.1 \
+    git://github.com/ubx/easy_mXT224S_i2c.git;protocol=git;branch=master;tag=x1.0.1 \
     "
 
 S = "${WORKDIR}/git"
