@@ -15,6 +15,7 @@ config_script () {
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
      echo "CONFIG_RTC_DRV_ISL12022=y" >> ${B}/.config
+     echo "CONFIG_ISL29003=y" >> ${B}/.config
 
      echo "CONFIG_BACKLIGHT_LCD_SUPPORT='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
      echo "CONFIG_LCD_CLASS_DEVICE='y' if d.getVar('EVAL_BOARD') == 'y' else 'n'" >> ${B}/.config
