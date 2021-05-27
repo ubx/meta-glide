@@ -40,6 +40,8 @@ RDEPENDS_${PN} = "\
 		ttf-dejavu-sans-condensed \
 		xrandr \
 		fbida \
+		xinput \
+		xinput-calibrator \
 "
 
 S = "${WORKDIR}/git"
