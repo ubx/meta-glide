@@ -6,12 +6,11 @@ ip link set can0 txqueuelen 1000
 ip link set can0 up
 
 echo "Run X, rotate -90 and start XCSoar"
-X &
+X -nocursor &
 sleep 1
 
 export DISPLAY=:0
 xrandr -o left
-unclutter -idle 0.5 &
 
 ### run xcsoar
 sts=-1
