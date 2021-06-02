@@ -67,8 +67,11 @@ SRC_URI = " \
     file://default.prf \
     file://Switzerland.cup \
     file://Switzerland_Airspace.txt \
-    file://ALPS_HighRes.xcm \
+    http://download.xcsoar.org/maps/ALPS_HighRes.xcm;name=alpsmap \
 "
+
+SRC_URI[alpsmap.md5sum] = "1216ad8222dad27024f77e799ceb9b67"
+SRC_URI[alpsmap.sha256sum] = "851ec5a90fb4b32b991b79293faaf087419c0d790c44aa202cb12a726fbf9c8f"
 
 inherit pkgconfig update-alternatives
 
