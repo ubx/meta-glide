@@ -52,7 +52,7 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-43 \
+	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-44 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
     file://0001-Disable-warnings-as-errors.patch \
 	file://0001_no_version_lua.patch \
@@ -65,6 +65,7 @@ SRC_URI = " \
     file://keys.lua \
     https://www.flarmnet.org/static/files/wfn/data.fln \
     file://default.prf \
+    file://user1.prf \
     file://Switzerland.cup \
     file://Switzerland_Airspace.txt \
     http://download.xcsoar.org/maps/ALPS_HighRes.xcm;name=alpsmap \
@@ -113,6 +114,7 @@ do_install() {
 	install -d ${D}/home/root/.xcsoar/
 	install -m 0755 ${WORKDIR}/data.fln ${D}/home/root/.xcsoar/data.fln
 	install -m 0755 ${WORKDIR}/default.prf ${D}/home/root/.xcsoar/default.prf
+	install -m 0755 ${WORKDIR}/user1.prf ${D}/home/root/.xcsoar/user1.prf
 	install -m 0755 ${WORKDIR}/Switzerland.cup ${D}/home/root/.xcsoar/Switzerland.cup
 	install -m 0755 ${WORKDIR}/Switzerland_Airspace.txt ${D}/home/root/.xcsoar/Switzerland_Airspace.txt
 	install -m 0755 ${WORKDIR}/ALPS_HighRes.xcm ${D}/home/root/.xcsoar/ALPS_HighRes.xcm
@@ -220,6 +222,7 @@ FILES_${PN} += " \
 FILES_${PN} += " \
 	/home/root/.xcsoar/data.fln \
 	/home/root/.xcsoar/default.prf \
+	/home/root/.xcsoar/user1.prf \
 	/home/root/.xcsoar/Switzerland.cup \
 	/home/root/.xcsoar/Switzerland_Airspace.txt \
 	/home/root/.xcsoar/ALPS_HighRes.xcm \
