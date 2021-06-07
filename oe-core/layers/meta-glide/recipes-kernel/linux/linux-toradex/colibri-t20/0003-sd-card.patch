@@ -1,0 +1,55 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+index ee509ef0e5fc..e56ee61519c7 100644
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -572,13 +572,13 @@ static struct gpio colibri_t20_gpios[] = {
+ //	{TEGRA_GPIO_PK5,	GPIOF_IN,	"USBC_DET"},
+ #ifndef CONFIG_KEYBOARD_GPIO
+ //conflicts with menu key
+-	{TEGRA_GPIO_PK6,	GPIOF_IN,	"SODIMM pin 135"},
++//	{TEGRA_GPIO_PK6,	GPIOF_IN,	"SODIMM pin 135"},
+ #endif
+ #ifndef COLIBRI_T20_VI
+ 	{TEGRA_GPIO_PL0,	GPIOF_IN,	"SOD-101, Iris X16-16"},
+ 	{TEGRA_GPIO_PL1,	GPIOF_IN,	"SOD-103, Iris X16-15"},
+ //conflicts with Ethernet interrupt on Protea
+-	{TEGRA_GPIO_PL2,	GPIOF_IN,	"SODI-79, Iris X16-19"},
++//	{TEGRA_GPIO_PL2,	GPIOF_IN,	"SODI-79, Iris X16-19"},
+ 	{TEGRA_GPIO_PL3,	GPIOF_IN,	"SODI-97, Iris X16-17"},
+ 	{TEGRA_GPIO_PL6,	GPIOF_IN,	"SODI-85, Iris X16-18"},
+ 	{TEGRA_GPIO_PL7,	GPIOF_IN,	"SODIMM pin 65"},
+@@ -902,7 +902,7 @@ static struct gpio_keys_button colibri_t20_keys[] = {
+ 	GPIO_KEY(KEY_VOLUMEDOWN, PBB5, 1, 0),	/* SODIMM pin 24 */
+ //	GPIO_KEY(KEY_POWER, PV3, 0, 1),		/* SODIMM pin 45,
+ //						   Iris X16-20 */
+-	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
++//	GPIO_KEY(KEY_MENU, PK6, 0, 0),		/* SODIMM pin 135 */
+ };
+
+ #define PMC_WAKE_STATUS 0x14
+@@ -951,6 +951,9 @@ int __init colibri_t20_sdhci_init(void)
+ 			&colibri_t20_sdhci_platform_data;
+ 	platform_device_register(&tegra_sdhci_device4);
+
++    gpio_request(TEGRA_GPIO_PK6, "SC_VCC_DISABLE");
++    gpio_direction_output(TEGRA_GPIO_PK6, 0);
++
+ 	return 0;
+ }
+ #endif /* !GMI_32BIT */
+
+
+
+
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.h b/arch/arm/mach-tegra/board-colibri_t20.h
+index 68ca5fdd348b..532b4ed6690e 100644
+--- a/arch/arm/mach-tegra/board-colibri_t20.h
++++ b/arch/arm/mach-tegra/board-colibri_t20.h
+@@ -41,7 +41,7 @@
+
+ #define MECS_USB_HUB_RESET	TEGRA_GPIO_PBB3	/* SODIMM 127 */
+
+-#define MMC_CD		TEGRA_GPIO_PC7	/* SODIMM 43 */
++#define MMC_CD		TEGRA_GPIO_PL2	/* SODIMM 79 */
+
+ #define NAND_WP_N	TEGRA_GPIO_PS0
