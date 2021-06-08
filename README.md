@@ -143,5 +143,5 @@ devtool reset arrowkey-mod
 ``````
 > After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.comf
 ## Problems
-### CAN on Display-L Board
+
 
