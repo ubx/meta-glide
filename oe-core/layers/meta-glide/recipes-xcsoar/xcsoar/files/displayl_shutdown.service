@@ -1,0 +1,14 @@
+[Unit]
+Description=poweroff the Display L
+After=getty@tty1.service display-manager.service plymouth-start.service
+Before=systemd-poweroff.service systemd-reboot.service systemd-halt.service
+DefaultDependencies=no
+ 
+[Service]
+ExecStart=/home/root/poweroff.sh
+Type=forking
+ 
+[Install]
+WantedBy=poweroff.target
+WantedBy=reboot.target
+WantedBy=halt.target
