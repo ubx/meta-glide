@@ -95,7 +95,7 @@ class Menu:
         self.loop.screen.stop()
 
         with open(os.devnull, 'w') as fp:
-            subprocess.run(['/opt/XCSoar/bin/xcsoar', '-portrait', '-fly', '-datapath=/home/root/.xcsoar/'],
+            subprocess.run(['/opt/XCSoar/bin/xcsoar', '-portrait', '-fly', '-datapath=$DATAPATH'],
                            shell=False, stdout=fp, stderr=fp)
 
             # subprocess.run(['xcsoar', '-portrait', '-fly', '-datapath=/home/root/.xcsoar/'],
