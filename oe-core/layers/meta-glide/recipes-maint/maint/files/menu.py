@@ -1,5 +1,4 @@
-#!/home/maluethi/bin/miniconda3/envs/xc-menu/bin/python
-
+#!/usr/bin/python3
 import urwid
 import subprocess
 import os
