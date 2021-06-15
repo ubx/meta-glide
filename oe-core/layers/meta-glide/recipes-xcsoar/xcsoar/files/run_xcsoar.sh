@@ -31,20 +31,9 @@ if mount | grep $SD_MEDIA > /dev/null; then
       echo "*** Use .xcsoar foe XCSoar Data "
    fi
 fi
-export DATAPATH
 
-### run xcsoar
-sts=-1
-while [ $sts -ne 0 ]
-do
-    xterm -e /home/root/menu.py
-    ###/opt/XCSoar/bin/xcsoar -portrait -fly -datapath=$DATAPATH
-    echo $?
-    sts=$?
-    sleep 1
-done
+### run menu/xcsoar
+xterm -geometry 48x30+0+0 -fn -misc-fixed-medium-r-normal--20-*-*-*-*-*-*-* -e /home/root/menu.py $DATAPATH
 
 ### shutdown and power off
-fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
-sleep 3
 poweroff
