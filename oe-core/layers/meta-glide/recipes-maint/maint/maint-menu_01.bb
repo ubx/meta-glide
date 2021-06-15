@@ -8,6 +8,11 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6
 SECTION = "base/app"
 PR = "r1"
 
+RDEPENDS_${PN} = "\
+        xterm \
+		font-misc-misc \
+"
+
 S = "${WORKDIR}"
 
 SRC_URI = " \
