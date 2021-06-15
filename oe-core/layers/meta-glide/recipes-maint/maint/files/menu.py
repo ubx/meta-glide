@@ -3,6 +3,8 @@ import urwid
 import subprocess
 import os
 import shutil
+import sys
+import time
 from collections import OrderedDict
 
 
@@ -38,10 +40,10 @@ def get_usb_mount(dev):
 class Menu:
     def __init__(self):
         self.menu_items = OrderedDict([('Start XCSoar', self.start_xcsoar),
-                                      ('Shutdown', self.shutdown)])
+                                       ('Shutdown', self.shutdown)])
 
         self.menu_items_usb = OrderedDict([('Update XCSoar', self.update_xcsoar),
-                                          ('Copy Files', self.copy_files)])
+                                           ('Copy Files', self.copy_files)])
 
         self.title = 'Glide Menu'
         self.view = None
@@ -79,7 +81,7 @@ class Menu:
     def main(self):
         self.creat_view()
         self.loop = urwid.MainLoop(
-            self.view, palette=[('body', 'dark cyan', '')])
+            self.view, palette=[('body', 'dark cyan', '')], )
         self.loop.set_alarm_in(1, self.check_usb)
         self.loop.run()
 
@@ -93,19 +95,29 @@ class Menu:
 
     def start_xcsoar(self, args):
         self.loop.screen.stop()
-
         with open(os.devnull, 'w') as fp:
-            subprocess.run(['/opt/XCSoar/bin/xcsoar', '-portrait', '-fly', '-datapath=$DATAPATH'],
+            ## todo -- pass datapath as program parameter
+            subprocess.run(
+                ['/opt/XCSoar/bin/xcsoar', '-portrait', '-fly', '-datapath=' + sys.argv[1]],
+                shell=False, stdout=fp, stderr=fp)
+            ##subprocess.run(['/media/andreas/data/ClionProjects/XCSoar/output/UNIX/bin/xcsoar', '-portrait', '-fly', '-datapath=/home/root/.xcsoar/'],
+            ##                shell=False, stdout=fp, stderr=fp)
+        ##self.loop.screen.start()
+        with open(os.devnull, 'w') as fp:
+            ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
+            subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
                            shell=False, stdout=fp, stderr=fp)
-
-            # subprocess.run(['xcsoar', '-portrait', '-fly', '-datapath=/home/root/.xcsoar/'],
-            #                 shell=False, stdout=fp, stderr=fp)
-
-        self.loop.screen.start()
+        time.sleep(3)
+        sys.exit()
 
     def shutdown(self, args):
-        os.system("shutdown  now")
-        #raise urwid.ExitMainLoop()
+        ##raise urwid.ExitMainLoop()
+        with open(os.devnull, 'w') as fp:
+            ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
+            subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
+                           shell=False, stdout=fp, stderr=fp)
+        time.sleep(3)
+        sys.exit()
 
     def update_xcsoar(self, args):
         dev = self.usb_device.split('/')[-1]
