@@ -36,4 +36,5 @@ fi
 xterm -geometry 48x30+0+0 -fn -misc-fixed-medium-r-normal--20-*-*-*-*-*-*-* -e /home/root/menu.py $DATAPATH
 
 ### shutdown and power off
+sync
 poweroff
