@@ -6,7 +6,7 @@ HOMEPAGE = "www.xcsoar.org"
 LICENSE = "GPL-2.0"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6425610833a22dbe6"
 SECTION = "base/app"
-PR = "r47"
+PR = "r48"
 
 DEPENDS = "	\
 		gcc \
@@ -52,7 +52,7 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-47 \
+	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t30-test-48 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
     file://0001-Disable-warnings-as-errors.patch \
 	file://0001_no_version_lua.patch \
