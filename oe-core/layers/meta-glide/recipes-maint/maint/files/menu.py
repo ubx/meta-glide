@@ -4,7 +4,6 @@ import subprocess
 import os
 import shutil
 import sys
-import time
 from collections import OrderedDict
 
 
@@ -107,7 +106,6 @@ class Menu:
             ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
             subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
                            shell=False, stdout=fp, stderr=fp)
-        time.sleep(3)
         sys.exit()
 
     def shutdown(self, args):
@@ -116,7 +114,6 @@ class Menu:
             ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
             subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
                            shell=False, stdout=fp, stderr=fp)
-        time.sleep(3)
         sys.exit()
 
     def update_xcsoar(self, args):
