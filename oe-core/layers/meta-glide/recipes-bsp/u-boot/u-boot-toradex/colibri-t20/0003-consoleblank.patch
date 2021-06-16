@@ -1,0 +1,12 @@
+diff --git a/include/configs/colibri_t20.h b/include/configs/colibri_t20.h
+--- a/include/configs/colibri_t20.h
++++ b/include/configs/colibri_t20.h
+@@ -167,7 +167,7 @@
+ 		"load ${interface} ${drive}:1 ${loadaddr} flash_blk.img && " \
+ 		"source ${loadaddr}\0" \
+ 	"setup=setenv setupargs asix_mac=${ethaddr} " \
+-		"consoleblank=0 no_console_suspend=1 console=tty1 " \
++		"consoleblank=1 no_console_suspend=1 console=tty1 " \
+ 		"console=${console},${baudrate}n8 debug_uartport=lsport,3 " \
+ 		"${memargs}\0" \
+ 	"setupdate=run setsdupdate || run setusbupdate || run setethupdate\0" \
