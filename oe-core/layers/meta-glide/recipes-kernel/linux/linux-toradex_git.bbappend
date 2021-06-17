@@ -11,7 +11,6 @@ config_script () {
      echo "CONFIG_CAN_DEV=m" >> ${B}/.config
      echo "CONFIG_CAN_MCP251X=m"  >> ${B}/.config
      echo "CONFIG_CAN_MCP251X_MODULE=m"  >> ${B}/.config
-     echo "CONFIG_FRAMEBUFFER_CONSOLE=y"  >> ${B}/.config
      echo "CONFIG_INPUT_GPIO_ROTARY_ENCODER=y" >> ${B}/.config
      echo "CONFIG_TEGRA_CAMERA=n" >> ${B}/.config
      echo "CONFIG_RTC_DRV_ISL12022=y" >> ${B}/.config

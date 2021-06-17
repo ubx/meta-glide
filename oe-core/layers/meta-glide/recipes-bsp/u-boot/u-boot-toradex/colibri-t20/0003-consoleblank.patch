@@ -6,7 +6,7 @@ diff --git a/include/configs/colibri_t20.h b/include/configs/colibri_t20.h
  		"source ${loadaddr}\0" \
  	"setup=setenv setupargs asix_mac=${ethaddr} " \
 -		"consoleblank=0 no_console_suspend=1 console=tty1 " \
-+		"consoleblank=0 no_console_suspend=1 console=tty1 " \
++		"consoleblank=0 no_console_suspend=1 vt.global_cursor_default=0 " \
  		"console=${console},${baudrate}n8 debug_uartport=lsport,3 " \
  		"${memargs}\0" \
  	"setupdate=run setsdupdate || run setusbupdate || run setethupdate\0" \
