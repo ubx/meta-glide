@@ -34,6 +34,9 @@ fi
 
 ### run menu/xcsoar
 xterm -geometry 48x30+0+0 -fn -misc-fixed-medium-r-normal--20-*-*-*-*-*-*-* -e /home/root/menu.py $DATAPATH
+sleep 3
+fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
+sleep 3
 
 ### shutdown and power off
 sync

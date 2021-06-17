@@ -95,25 +95,12 @@ class Menu:
     def start_xcsoar(self, args):
         self.loop.screen.stop()
         with open(os.devnull, 'w') as fp:
-            ## todo -- pass datapath as program parameter
             subprocess.run(
                 ['/opt/XCSoar/bin/xcsoar', '-portrait', '-fly', '-datapath=' + sys.argv[1]],
                 shell=False, stdout=fp, stderr=fp)
-            ##subprocess.run(['/media/andreas/data/ClionProjects/XCSoar/output/UNIX/bin/xcsoar', '-portrait', '-fly', '-datapath=/home/root/.xcsoar/'],
-            ##                shell=False, stdout=fp, stderr=fp)
-        ##self.loop.screen.start()
-        with open(os.devnull, 'w') as fp:
-            ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
-            subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
-                           shell=False, stdout=fp, stderr=fp)
         sys.exit()
 
     def shutdown(self, args):
-        ##raise urwid.ExitMainLoop()
-        with open(os.devnull, 'w') as fp:
-            ## fbi -vt 1 /home/root/xcsoar-640x480-shutdown.ppm
-            subprocess.run(['fbi', '-vt', '1', '/home/root/xcsoar-640x480-shutdown.ppm'],
-                           shell=False, stdout=fp, stderr=fp)
         sys.exit()
 
     def update_xcsoar(self, args):
