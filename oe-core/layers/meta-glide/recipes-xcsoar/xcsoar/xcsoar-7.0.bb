@@ -58,6 +58,7 @@ SRC_URI = " \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
+	file://0008-Track-up.patch \
 	file://xcsoar.service \
 	file://shutdown.service \
 	file://run_xcsoar.sh \

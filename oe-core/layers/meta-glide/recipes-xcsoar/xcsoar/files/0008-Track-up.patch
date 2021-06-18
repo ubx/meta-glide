@@ -1,0 +1,20 @@
+Index: src/Terrain/RasterBuffer.cpp
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/Terrain/RasterBuffer.cpp b/src/Terrain/RasterBuffer.cpp
+--- a/src/Terrain/RasterBuffer.cpp	(revision d329b936cc77e41c847e5acdff30df2a74852d0a)
++++ b/src/Terrain/RasterBuffer.cpp	(date 1624031306109)
+@@ -217,8 +217,9 @@
+      pixels in our buffer; the factor of two should account for the Y
+      axis, which can have a different scale, making the factor some
+      sort of ugly kludge to avoid horizontal shading stripes */
+-  if (interpolate &&
+-      (unsigned)(abs(d.x) + abs(d.y)) < (2 * size << RasterTraits::SUBPIXEL_BITS)) {
++//  if (interpolate &&
++//      (unsigned)(abs(d.x) + abs(d.y)) < (2 * size << RasterTraits::SUBPIXEL_BITS)) {
++  if (interpolate) {
+     /* interpolate */
+
+     for (int i = 0; (unsigned)i <= size; ++i) {
