@@ -1,0 +1,20 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -798,10 +798,15 @@
+                 I2C_BOARD_INFO("rtc-isl12022", 0x6f),
+                 .type = "isl12022",
+         },
+-       {
++        {
+                 /* easy I2C mXT224S Driver (from DATA MODUL) on Display-L board */
+                 I2C_BOARD_INFO("ts_easy_mXT224S", 0x09),
+                 .type = "easy_mXT224S",
++        },
++        {
++                /* ISL29003 Light-to-Digital Output Sensor */
++                I2C_BOARD_INFO("isl29003", 0x44),
++                .type = "isl29003",
+         },
+         {
+         },
