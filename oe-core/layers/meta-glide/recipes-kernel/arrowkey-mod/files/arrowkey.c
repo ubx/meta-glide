@@ -16,8 +16,8 @@ MODULE_DESCRIPTION("rotary encoder as arrow key module");
 MODULE_ALIAS("rotary-arrowkey");
 MODULE_LICENSE("GPL");
 
-static char *devicename = "rotary-encoder";
 static struct input_dev *button_dev;
+static char enter_key_pressed;
 
 static void send_key(int key) {
     input_report_key(button_dev, key, 1);
@@ -27,12 +27,28 @@ static void send_key(int key) {
 }
 
 static void rotary_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
-    // printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
+
+    static char enter_key_pressed = 0;
+
+    //printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
     if (type == EV_REL) {
         if (code == REL_X) {
-            send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
+            if (enter_key_pressed == 0) {
+                send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
+            } else {
+                send_key((value > 0) ? KEY_DOWN : KEY_UP);
+            }
         } else if (code == REL_Y) {
-            send_key((value > 0) ? KEY_DOWN : KEY_UP);
+            if (enter_key_pressed == 0) {
+                send_key((value > 0) ? KEY_DOWN : KEY_UP);
+            } else {
+                send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
+            }
+        }
+    } else if (type == EV_KEY) {
+        if (code == KEY_ENTER) {
+            // todo -- avoid power off of display-l if pushed to long!!
+            enter_key_pressed = (value == 1);
         }
     }
 }
@@ -78,7 +94,7 @@ bool startsWith(const char *pre, const char *str) {
 }
 
 static bool rotary_match(struct input_handler *handler, struct input_dev *dev) {
-    return startsWith(devicename, dev->name);
+    return startsWith("rotary-encoder", dev->name) || startsWith("gpio-keys", dev->name);
 }
 
 static void rotary_disconnect(struct input_handle *handle) {
