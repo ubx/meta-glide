@@ -17,7 +17,7 @@ MODULE_ALIAS("rotary-arrowkey");
 MODULE_LICENSE("GPL");
 
 static struct input_dev *button_dev;
-static char enter_key_pressed;
+static bool enter_key_pressed = false;
 
 static void send_key(int key) {
     input_report_key(button_dev, key, 1);
@@ -26,29 +26,26 @@ static void send_key(int key) {
     input_sync(button_dev);
 }
 
-static void rotary_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
+extern void power_reset_hard_power_off(bool reset);
 
-    static char enter_key_pressed = 0;
+static void rotary_event(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
 
     //printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
     if (type == EV_REL) {
         if (code == REL_X) {
-            if (enter_key_pressed == 0) {
-                send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
-            } else {
+            if (enter_key_pressed) {
                 send_key((value > 0) ? KEY_DOWN : KEY_UP);
+                power_reset_hard_power_off(true);
+            } else {
+                send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
             }
         } else if (code == REL_Y) {
-            if (enter_key_pressed == 0) {
-                send_key((value > 0) ? KEY_DOWN : KEY_UP);
-            } else {
-                send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
-            }
+            send_key((value > 0) ? KEY_DOWN : KEY_UP);
         }
     } else if (type == EV_KEY) {
         if (code == KEY_ENTER) {
-            // todo -- avoid power off of display-l if pushed to long!!
             enter_key_pressed = (value == 1);
+            power_reset_hard_power_off(false);
         }
     }
 }
@@ -73,7 +70,8 @@ static int rotary_connect(struct input_handler *handler, struct input_dev *dev, 
     if (error)
         goto err_unregister_handle;
 
-    printk(KERN_DEBUG pr_fmt("Connected device: %s (%s at %s)\n"),
+    printk(KERN_DEBUG
+    pr_fmt("Connected device: %s (%s at %s)\n"),
             dev_name(&dev->dev),
             dev->name ?: "unknown",
             dev->phys ?: "unknown");
@@ -98,35 +96,40 @@ static bool rotary_match(struct input_handler *handler, struct input_dev *dev) {
 }
 
 static void rotary_disconnect(struct input_handle *handle) {
-    printk(KERN_DEBUG pr_fmt("Disconnected device: %s\n"), dev_name(&handle->dev->dev));
+    printk(KERN_DEBUG
+    pr_fmt("Disconnected device: %s\n"), dev_name(&handle->dev->dev));
     input_close_device(handle);
     input_unregister_handle(handle);
     kfree(handle);
 }
 
 static const struct input_device_id rotary_ids[] = {
-        { .driver_info = 1 },	/* Matches all devices */
-        { },			        /* Terminating zero entry */
+        {.driver_info = 1},    /* Matches all devices */
+        {},                    /* Terminating zero entry */
 };
 
-MODULE_DEVICE_TABLE(input, rotary_ids);
+MODULE_DEVICE_TABLE(input, rotary_ids
+);
 
 static struct input_handler rotary_handler = {
-        .event =	rotary_event,
-        .match =	rotary_match,
-        .connect =	rotary_connect,
-        .disconnect =	rotary_disconnect,
-        .name =		"rotary_arrowkey",
-        .id_table =	rotary_ids,
+        .event =    rotary_event,
+        .match =    rotary_match,
+        .connect =    rotary_connect,
+        .disconnect =    rotary_disconnect,
+        .name =        "rotary_arrowkey",
+        .id_table =    rotary_ids,
 };
 
-static int __init button_init(void) {
+static int __init
+
+button_init(void) {
     int error;
     int i;
 
     button_dev = input_allocate_device();
     if (!button_dev) {
-        printk(KERN_ERR pr_fmt("Not enough memory\n"));
+        printk(KERN_ERR
+        pr_fmt("Not enough memory\n"));
         error = -ENOMEM;
         return error;
     }
@@ -138,13 +141,14 @@ static int __init button_init(void) {
     set_bit(KEY_UP, button_dev->keybit);
     set_bit(KEY_DOWN, button_dev->keybit);
 
-    for (i=KEY_ESC; i<=KEY_KPDOT; i++) { // add a load of extra keys
+    for (i = KEY_ESC; i <= KEY_KPDOT; i++) { // add a load of extra keys
         set_bit(i, button_dev->keybit);
     }
 
     error = input_register_device(button_dev);
     if (error) {
-        printk(KERN_ERR pr_fmt("Failed to register device\n"));
+        printk(KERN_ERR
+        pr_fmt("Failed to register device\n"));
         goto err_free_dev;
     }
     return 0;
@@ -153,11 +157,14 @@ static int __init button_init(void) {
     return error;
 }
 
-static int __init rotary_arrowkey_init(void) {
+static int __init
+
+rotary_arrowkey_init(void) {
     int error = button_init();
     if (error == 0) {
-        if (input_register_handler(&rotary_handler)==0) {
-            printk(KERN_INFO pr_fmt("loaded.\n"));
+        if (input_register_handler(&rotary_handler) == 0) {
+            printk(KERN_INFO
+            pr_fmt("loaded.\n"));
             return 0;
         } else {
             input_unregister_device(button_dev);
@@ -167,7 +174,9 @@ static int __init rotary_arrowkey_init(void) {
     return error;
 }
 
-static void __exit rotary_arrowkey_exit(void) {
+static void __exit
+
+rotary_arrowkey_exit(void) {
     input_unregister_device(button_dev);
     input_free_device(button_dev);
     input_unregister_handler(&rotary_handler);
