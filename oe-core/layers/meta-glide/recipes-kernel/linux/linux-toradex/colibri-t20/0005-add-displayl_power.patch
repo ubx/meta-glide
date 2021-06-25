@@ -1,0 +1,15 @@
+diff --git a/arch/arm/mach-tegra/board-colibri_t20.c b/arch/arm/mach-tegra/board-colibri_t20.c
+--- a/arch/arm/mach-tegra/board-colibri_t20.c
++++ b/arch/arm/mach-tegra/board-colibri_t20.c
+@@ -809,6 +809,11 @@
+                 .type = "isl29003",
+         },
+         {
++                /* Display-L power and backlight driver (ATiny55MU) */
++                I2C_BOARD_INFO("displayl_power", 0x10),
++                .type = "displayl_power",
++        },
++        {
+         },
+ };
+

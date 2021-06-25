@@ -1,4 +1,4 @@
-obj-m := arrowkey.o
+obj-m := arrowkey.o displayl-power.o
 
 SRC := $(shell pwd)
 

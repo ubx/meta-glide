@@ -8,6 +8,7 @@ inherit module
 
 SRC_URI = "file://Makefile \
            file://arrowkey.c \
+           file://displayl-power.c \
            file://COPYING \
           "
 S = "${WORKDIR}"
