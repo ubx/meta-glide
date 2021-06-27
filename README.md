@@ -22,9 +22,11 @@ Features:
 | XCSoar | Good | some button are to small for TS |
 | Touch screen | Good |  |
 | Backlight  | wip, isl29003 driver exists | Need doku (LCD.BKL.PWM) |
+| Power Off  | Implemented |  |
+| Real Time Clock  | Good |  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L|
 | Colibri T20 | Good | |
-| Config. menu | not defined yet | |
+| Config. menu | Minimal Version | |
 
 [Here a short video (with NMEA input via serial port)](https://youtu.be/IahGqsdgllc)
 
