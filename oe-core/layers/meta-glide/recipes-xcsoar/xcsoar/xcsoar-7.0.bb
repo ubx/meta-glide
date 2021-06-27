@@ -60,9 +60,7 @@ SRC_URI = " \
 	file://0001-Increase-refresh-intervall.patch \
 	file://0008-Track-up.patch \
 	file://xcsoar.service \
-	file://shutdown.service \
 	file://run_xcsoar.sh \
-	file://poweroff.sh \
 	file://xcsoar-640x480-shutdown.ppm \
     file://init.lua \
     file://keys.lua \
@@ -81,7 +79,6 @@ inherit pkgconfig update-alternatives
 
 inherit systemd
 SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE_${PN} = "xcsoar.service shutdown.service"
 
 addtask do_package_write_ipk after do_package after do_install
 
@@ -109,11 +106,9 @@ do_install() {
 
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/run_xcsoar.sh ${D}/home/root/run_xcsoar.sh
-	install -m u+x ${WORKDIR}/poweroff.sh ${D}/home/root/poweroff.sh
 	install -m u+x ${WORKDIR}/xcsoar-640x480-shutdown.ppm ${D}/home/root/xcsoar-640x480-shutdown.ppm
 	install -d ${D}${systemd_system_unitdir}
 	install -m 644 ${WORKDIR}/xcsoar.service ${D}${systemd_system_unitdir}/xcsoar.service
-	install -m 644 ${WORKDIR}/shutdown.service ${D}${systemd_system_unitdir}/shutdown.service
 
     ## todo -- move to another layer
 	install -d ${D}/home/root/.xcsoar/
@@ -218,7 +213,6 @@ FILES_${PN} += " \
 	/home/root/run_xcsoar.sh \
 	/home/root/poweroff.sh \
 	${systemd_system_unitdir}/xcsoar.service \
-	${systemd_system_unitdir}/shutdown.service \
 	/home/root/xcsoar-640x480-shutdown.ppm \
 "
 
