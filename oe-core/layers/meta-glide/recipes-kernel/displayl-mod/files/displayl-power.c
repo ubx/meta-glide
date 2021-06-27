@@ -10,6 +10,7 @@
 #include <linux/slab.h>
 #include <linux/i2c.h>
 #include <linux/delay.h>
+#include <linux/syscalls.h>
 
 #define DISPLAYL_POWER_NAME      "displayl_power"
 
@@ -25,6 +26,8 @@
 #define RMO 7 // reset hard power OFF
 
 #define LCD_BKL_PWR 0x01 //lcd backlight power, 2 bytes, u16
+
+#define ISL29003_EXPORT_PATH "/sys/class/i2c-dev/i2c-0/device/0-0044/lux"
 
 /* Polling Rate */
 static int scan_rate = 1;
@@ -48,10 +51,15 @@ struct backlight_power {
 };
 
 static volatile bool do_rmo = false;
+static struct file *file;
 
-static int displayl_power_read_lux() {
-    //todo -- read lux from isl12022
-    return 4713;
+static long displayl_power_read_lux() {
+    char buf[8] = {0};
+    long lux = 0;
+    kernel_read(file, 0, buf, sizeof(buf));
+    kstrtol(buf, 10, &lux);
+    //pr_debug("displayl_power_read_lux: lux=%u\n", lux);
+    return lux;
 }
 
 static void displayl_power_schedule(struct displayl_power_data *displayl_power) {
@@ -59,28 +67,16 @@ static void displayl_power_schedule(struct displayl_power_data *displayl_power) 
 }
 
 static int displayl_power_set_backlight(struct displayl_power_data *displayl_power) {
-//    struct backlight_power blp;
-//    u8 cmd;
-//    int ret;
-//
-//    pr_debug("displayl_power_set_backlight");
-//    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
-//    pr_debug("displayl_power_set_backlight, ret=%u\n", ret);
-//    pr_debug("displayl_power_set_backlight, cmd=%u\n", ret);
-//
-//    msleep(10);
-//
-//    blp.cmd = cmd;
-//    blp.pwr = displayl_power_read_lux();
-//    ret = i2c_master_send(displayl_power->client, &blp, sizeof (blp));
-//    pr_debug("displayl_power_set_backlight, ret=%u\n", ret);
-//
-//    msleep(10);
-//
-//    ret = i2c_master_recv(displayl_power->client, &blp, sizeof (blp));
-//    pr_debug("displayl_power_set_backlight, recv ret=%u\n", ret);
-//    pr_debug("displayl_power_set_backlight, recv pwr=%u\n", blp.pwr);
-
+    struct backlight_power blp;
+    u8 cmd;
+    int ret;
+    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
+    blp.cmd = cmd;
+    /* todo -- calculate power */
+    blp.pwr = displayl_power_read_lux()  * 30;
+    ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
+    ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
+    pr_debug("%s, new pwr=%u\n", __func__, blp.pwr);
     return 0;
 }
 
@@ -159,6 +155,13 @@ static int displayl_power_probe(struct i2c_client *client,
     displayl_power = kzalloc(sizeof(struct displayl_power_data), GFP_KERNEL);
     displayl_power->client = client;
 
+
+    /* open /sys/class/i2c-dev/i2c-0/device/0-0044/lux */
+    file = filp_open(ISL29003_EXPORT_PATH, O_RDONLY, 0);
+    if (IS_ERR(file)) {
+        dev_err(&client->dev, "%s: error open 'sys/class/i2c-dev/i2c-0/device/0-0044/lux'\n", __func__);
+    }
+
     if (pm_power_off != NULL) {
         dev_err(&client->dev,
                 "%s: pm_power_off function was already registered\n", __func__);
@@ -177,7 +180,7 @@ static int displayl_power_probe(struct i2c_client *client,
 
     error = displayl_power_information(displayl_power);
     if (error) {
-        dev_err(&client->dev, "%s: failed to read information: %d\n",  __func__, error);
+        dev_err(&client->dev, "%s: failed to read information: %d\n", __func__, error);
         return error;
     }
 
