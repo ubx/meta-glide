@@ -39,6 +39,7 @@ struct displayl_power_data {
     struct i2c_client *client;
     struct delayed_work dwork;
 };
+static struct displayl_power_data *displayl_power_gbl;
 
 struct backlight_power {
     u8 cmd;
@@ -83,16 +84,16 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
     return 0;
 }
 
-static int displayl_power_reset_hard_power_off(struct displayl_power_data *displayl_power) {
+static void displayl_power_reset_hard_power_off(struct displayl_power_data *displayl_power) {
     u8 cmd;
-    int ret;
-    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
-    if (ret == 1) {
+    int sts;
+    sts = i2c_master_recv(displayl_power->client, &cmd, 1);
+    if (sts == 1) {
         //pr_debug("displayl_power_reset_hard_power_off: cmd-0=%u\n", cmd);
         cmd |= (1 << RMO);
-        ret = i2c_master_send(displayl_power->client, &cmd, 1);
+        i2c_master_send(displayl_power->client, &cmd, 1);
         cmd &= ~(1 << RMO);
-        ret = i2c_master_send(displayl_power->client, &cmd, 1);
+        i2c_master_send(displayl_power->client, &cmd, 1);
     }
 }
 
@@ -135,6 +136,14 @@ static int displayl_power_setup(struct displayl_power_data *displayl_power) {
     return ret;
 }
 
+static void displayl_power_do_poweroff(void) {
+    u8 cmd;
+    i2c_master_recv(displayl_power_gbl->client, &cmd, 1);
+    pr_debug("displayl_power_do_poweroff: cmd-0=%u\n", cmd);
+    cmd |= (1 << POF);
+    i2c_master_send(displayl_power_gbl->client, &cmd, 1);
+}
+
 static int displayl_power_probe(struct i2c_client *client,
                                 const struct i2c_device_id *id) {
     struct displayl_power_data *displayl_power;
@@ -149,17 +158,26 @@ static int displayl_power_probe(struct i2c_client *client,
 
     displayl_power = kzalloc(sizeof(struct displayl_power_data), GFP_KERNEL);
     displayl_power->client = client;
+
+    if (pm_power_off != NULL) {
+        dev_err(&client->dev,
+                "%s: pm_power_off function was already registered\n", __func__);
+    }
+    pm_power_off = &displayl_power_do_poweroff;
+    displayl_power_gbl = displayl_power;
+
+
     i2c_set_clientdata(client, displayl_power);
 
     error = displayl_power_setup(displayl_power);
     if (error) {
-        dev_err(&client->dev, "failed to setup: %d\n", error);
+        dev_err(&client->dev, "%s: failed to setup: %d\n", __func__, error);
         return error;
     }
 
     error = displayl_power_information(displayl_power);
     if (error) {
-        dev_err(&client->dev, "failed to read information: %d\n", error);
+        dev_err(&client->dev, "%s: failed to read information: %d\n",  __func__, error);
         return error;
     }
 
