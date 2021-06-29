@@ -1,0 +1,16 @@
+diff --git a/drivers/misc/isl29003.c b/drivers/misc/isl29003.c
+--- a/drivers/misc/isl29003.c
++++ b/drivers/misc/isl29003.c
+@@ -353,10 +353,10 @@
+ 	}
+
+ 	/* set defaults */
+-	isl29003_set_range(client, 0);
++	isl29003_set_range(client, 3);  // 0 lux to 64,000 lux
+ 	isl29003_set_resolution(client, 0);
+ 	isl29003_set_mode(client, 0);
+-	isl29003_set_power_state(client, 0);
++	isl29003_set_power_state(client, 1);  // power on
+
+ 	return 0;
+ }
