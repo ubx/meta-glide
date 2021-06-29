@@ -25,6 +25,9 @@
 #define SAV 6 // save CPC and TGR to eeprom
 #define RMO 7 // reset hard power OFF
 
+#define AUTO_MAX 0xFFF
+#define AUTO_MIN 0x400
+
 /* Polling Rate */
 static int scan_rate = 1;
 module_param(scan_rate,
@@ -36,7 +39,7 @@ static char *isl29003_path = "/sys/class/i2c-dev/i2c-0/device/0-0044/lux";
 module_param(isl29003_path, charp,
 0660);
 MODULE_PARM_DESC(isl29003_path,
-"sysfs (lux) for isl29003 ambient sensor");
+"sysfs (lux) for isl29003 ambient light sensor");
 
 static unsigned long delay;
 
@@ -55,13 +58,15 @@ struct backlight_power {
 static volatile bool do_rmo = false;
 static struct file *file;
 
-static long displayl_power_read_lux() {
+static int lux = 200; // todo -- good enough ??
+
+static int displayl_power_read_lux() {
     char buf[8] = {0};
-    long lux = 0;
+    int x = 0;
     kernel_read(file, 0, buf, sizeof(buf));
-    kstrtol(buf, 10, &lux);
-    //pr_debug("displayl_power_read_lux: lux=%u\n", lux);
-    return lux;
+    kstrtol(buf, 10, &x);
+    //pr_debug("%s: lux=%d\n", __func__, x);
+    return x;
 }
 
 static void displayl_power_schedule(struct displayl_power_data *displayl_power) {
@@ -72,13 +77,32 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
     struct backlight_power blp;
     u8 cmd;
     int ret;
+    int x;
     ret = i2c_master_recv(displayl_power->client, &cmd, 1);
     blp.cmd = cmd;
-    /* todo -- calculate power */
-    blp.pwr = displayl_power_read_lux() * 30;
+
+    x = displayl_power_read_lux();
+    if (x < 0) {
+        pr_debug("%s, skip negative lux=%d\n", __func__, x);
+        return 0;
+    }
+    pr_debug("%s, new lux0=%d\n", __func__, x);
+    lux = (lux + x) / 2; // small lowpass filter
+    pr_debug("%s, new lux1=%d\n", __func__, lux);
+
+    if (abs(lux - x) > 20) {
+        delay = msecs_to_jiffies(50);
+    } else {
+        delay = msecs_to_jiffies(240);
+    }
+
+    /* todo -- implement manual adjustment */
+
+    /* auto adjustment */
+    blp.pwr = min(max((lux * 1000) / 8000, AUTO_MIN), AUTO_MAX); // todo -- simplify!
     ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
     ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
-    pr_debug("%s, new pwr=%u\n", __func__, blp.pwr);
+    pr_debug("%s, new pwr=%x\n", __func__, blp.pwr);
     return 0;
 }
 
