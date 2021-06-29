@@ -25,16 +25,18 @@
 #define SAV 6 // save CPC and TGR to eeprom
 #define RMO 7 // reset hard power OFF
 
-#define LCD_BKL_PWR 0x01 //lcd backlight power, 2 bytes, u16
-
-#define ISL29003_EXPORT_PATH "/sys/class/i2c-dev/i2c-0/device/0-0044/lux"
-
 /* Polling Rate */
 static int scan_rate = 1;
 module_param(scan_rate,
 int, 0644);
 MODULE_PARM_DESC(scan_rate,
 "Polling rate in times/sec. Default = 1");
+
+static char *isl29003_path = "/sys/class/i2c-dev/i2c-0/device/0-0044/lux";
+module_param(isl29003_path, charp,
+0660);
+MODULE_PARM_DESC(isl29003_path,
+"sysfs (lux) for isl29003 ambient sensor");
 
 static unsigned long delay;
 
@@ -73,7 +75,7 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
     ret = i2c_master_recv(displayl_power->client, &cmd, 1);
     blp.cmd = cmd;
     /* todo -- calculate power */
-    blp.pwr = displayl_power_read_lux()  * 30;
+    blp.pwr = displayl_power_read_lux() * 30;
     ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
     ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
     pr_debug("%s, new pwr=%u\n", __func__, blp.pwr);
@@ -94,7 +96,6 @@ static void displayl_power_reset_hard_power_off(struct displayl_power_data *disp
 }
 
 static void displayl_power_worker(struct work_struct *work) {
-    //pr_debug("displayl_power_worker");
     struct displayl_power_data *displayl_power = container_of(work,
     struct displayl_power_data, dwork.work);
     if (do_rmo) {
@@ -105,7 +106,6 @@ static void displayl_power_worker(struct work_struct *work) {
 }
 
 static int displayl_power_information(struct displayl_power_data *displayl_power) {
-    // todo -- pr_debug register
     u8 cmd;
     int ret;
     pr_debug("displayl_power_information");
@@ -155,11 +155,10 @@ static int displayl_power_probe(struct i2c_client *client,
     displayl_power = kzalloc(sizeof(struct displayl_power_data), GFP_KERNEL);
     displayl_power->client = client;
 
-
-    /* open /sys/class/i2c-dev/i2c-0/device/0-0044/lux */
-    file = filp_open(ISL29003_EXPORT_PATH, O_RDONLY, 0);
+    /* open isl29003 ambient lux sensor */
+    file = filp_open(isl29003_path, O_RDONLY, 0);
     if (IS_ERR(file)) {
-        dev_err(&client->dev, "%s: error open 'sys/class/i2c-dev/i2c-0/device/0-0044/lux'\n", __func__);
+        dev_err(&client->dev, "%s: error open '%s'\n", __func__, isl29003_path);
     }
 
     if (pm_power_off != NULL) {
@@ -168,7 +167,6 @@ static int displayl_power_probe(struct i2c_client *client,
     }
     pm_power_off = &displayl_power_do_poweroff;
     displayl_power_gbl = displayl_power;
-
 
     i2c_set_clientdata(client, displayl_power);
 
