@@ -38,6 +38,7 @@ do_configure_prepend () {
 ## Patches for Evaluation and Display-L boards
 SRC_URI_append_${MACHINE} += " \
 	file://0001-logo.patch \
+	file://0002-isl29003-power-on-start.patch \
 	file://0001-displayl.patch \
 	file://0003-sd-card.patch \
 	file://0004-add-isl29003.patch \

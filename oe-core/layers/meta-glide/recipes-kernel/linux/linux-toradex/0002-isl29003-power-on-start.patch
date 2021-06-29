@@ -1,0 +1,25 @@
+From 4d0abe0adbb3e8e52b08f2d318e321b3e2bd5a41 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Andreas=20L=C3=BCthi?= <andreas.luethi@gmx.net>
+Date: Tue, 29 Jun 2021 13:15:52 +0200
+Subject: [PATCH] isl29003 power on on start
+
+---
+ drivers/misc/isl29003.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/misc/isl29003.c b/drivers/misc/isl29003.c
+index a71e245801ee..de761498f4af 100644
+--- a/drivers/misc/isl29003.c
++++ b/drivers/misc/isl29003.c
+@@ -356,7 +356,7 @@ static int isl29003_init_client(struct i2c_client *client)
+ 	isl29003_set_range(client, 0);
+ 	isl29003_set_resolution(client, 0);
+ 	isl29003_set_mode(client, 0);
+-	isl29003_set_power_state(client, 0);
++	isl29003_set_power_state(client, 1);
+
+ 	return 0;
+ }
+--
+2.17.1
+
