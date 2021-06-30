@@ -54,6 +54,7 @@ struct backlight_power {
     u16 pwr;
     u8 filler;
 };
+static struct backlight_power blp;
 
 static volatile bool do_rmo = false;
 static struct file *file;
@@ -73,8 +74,11 @@ static void displayl_power_schedule(struct displayl_power_data *displayl_power) 
     schedule_delayed_work(&displayl_power->dwork, delay);
 }
 
+static u16 lux_to_pwr(int lux) {
+    return (lux * 1000) / 8000;
+}
+
 static int displayl_power_set_backlight(struct displayl_power_data *displayl_power) {
-    struct backlight_power blp;
     u8 cmd;
     int ret;
     int x;
@@ -86,9 +90,7 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
         pr_debug("%s, skip negative lux=%d\n", __func__, x);
         return 0;
     }
-    pr_debug("%s, new lux0=%d\n", __func__, x);
     lux = (lux + x) / 2; // small lowpass filter
-    pr_debug("%s, new lux1=%d\n", __func__, lux);
 
     if (abs(lux - x) > 20) {
         delay = msecs_to_jiffies(50);
@@ -99,10 +101,13 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
     /* todo -- implement manual adjustment */
 
     /* auto adjustment */
-    blp.pwr = min(max((lux * 1000) / 8000, AUTO_MIN), AUTO_MAX); // todo -- simplify!
-    ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
-    ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
-    pr_debug("%s, new pwr=%x\n", __func__, blp.pwr);
+    u16 pwr = min(max(lux_to_pwr(lux), AUTO_MIN), AUTO_MAX);
+    if (blp.pwr != pwr) {
+        blp.pwr = pwr;
+        ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
+        ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
+        pr_debug("%s, new blp.pwr=%x\n", __func__, blp.pwr);
+    }
     return 0;
 }
 
@@ -183,6 +188,7 @@ static int displayl_power_probe(struct i2c_client *client,
     file = filp_open(isl29003_path, O_RDONLY, 0);
     if (IS_ERR(file)) {
         dev_err(&client->dev, "%s: error open '%s'\n", __func__, isl29003_path);
+        file = NULL;
     }
 
     if (pm_power_off != NULL) {
@@ -215,6 +221,9 @@ static int displayl_power_probe(struct i2c_client *client,
 static int displayl_power_remove(struct i2c_client *client) {
     struct displayl_power_data *displayl_power = i2c_get_clientdata(client);
     cancel_delayed_work_sync(&displayl_power->dwork);
+    if (file != NULL) {
+        filp_close(file, NULL);
+    }
     kfree(displayl_power);
     return 0;
 }
