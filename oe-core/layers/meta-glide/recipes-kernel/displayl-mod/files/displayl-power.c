@@ -49,12 +49,21 @@ struct displayl_power_data {
 };
 static struct displayl_power_data *displayl_power_gbl;
 
-struct backlight_power {
-    u8 cmd;
-    u16 pwr;
-    u8 filler;
+#pragma pack(push, 1)
+struct attiny_register_set {
+    u8 command;
+    u16 lcd_backlight_pwm;
+    u16 lcd_backlight_pwm_offset;
+    u16 lcd_backlight_pwm_slope;
+    u8 version;
+    u16 temperatur;
+    u16 eeprom_write_cnt;
+    u16 tmp_adc_read_cnt;
+    u8 spare[4];
 };
-static struct backlight_power blp;
+#pragma pack(pop)
+
+static struct attiny_register_set attiny_regs;
 
 static volatile bool do_rmo = false;
 static struct file *file;
@@ -66,7 +75,6 @@ static int displayl_power_read_lux() {
     int x = 0;
     kernel_read(file, 0, buf, sizeof(buf));
     kstrtol(buf, 10, &x);
-    //pr_debug("%s: lux=%d\n", __func__, x);
     return x;
 }
 
@@ -74,53 +82,42 @@ static void displayl_power_schedule(struct displayl_power_data *displayl_power) 
     schedule_delayed_work(&displayl_power->dwork, delay);
 }
 
-static u16 lux_to_pwr(int lux) {
+static u16 lux_to_lcd_backlight_pwm(int lux) {
     return (lux * 1000) / 8000;
 }
 
 static int displayl_power_set_backlight(struct displayl_power_data *displayl_power) {
-    u8 cmd;
-    int ret;
     int x;
-    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
-    blp.cmd = cmd;
 
     x = displayl_power_read_lux();
-    if (x < 0) {
-        pr_debug("%s, skip negative lux=%d\n", __func__, x);
-        return 0;
-    }
     lux = (lux + x) / 2; // small lowpass filter
-
     if (abs(lux - x) > 20) {
         delay = msecs_to_jiffies(50);
     } else {
-        delay = msecs_to_jiffies(240);
+        delay = msecs_to_jiffies(250);
     }
 
     /* todo -- implement manual adjustment */
 
     /* auto adjustment */
-    u16 pwr = min(max(lux_to_pwr(lux), AUTO_MIN), AUTO_MAX);
-    if (blp.pwr != pwr) {
-        blp.pwr = pwr;
-        ret = i2c_master_send(displayl_power->client, &blp, sizeof(blp));
-        ret = i2c_master_recv(displayl_power->client, &blp, sizeof(blp));
-        pr_debug("%s, new blp.pwr=%x\n", __func__, blp.pwr);
+    u16 lcd_backlight_pwm = min(max(lux_to_lcd_backlight_pwm(lux), AUTO_MIN), AUTO_MAX);
+    if (attiny_regs.lcd_backlight_pwm != lcd_backlight_pwm) {
+        attiny_regs.lcd_backlight_pwm = lcd_backlight_pwm;
+        i2c_master_send(displayl_power->client, &attiny_regs,
+                        sizeof(attiny_regs.command) + sizeof(attiny_regs.lcd_backlight_pwm));
+        //pr_debug("%s, new attiny_regs.lcd_backlight_pwm=0x%x\n", __func__, attiny_regs.lcd_backlight_pwm);
     }
     return 0;
 }
 
 static void displayl_power_reset_hard_power_off(struct displayl_power_data *displayl_power) {
-    u8 cmd;
     int sts;
-    sts = i2c_master_recv(displayl_power->client, &cmd, 1);
+    sts = i2c_master_recv(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
     if (sts == 1) {
-        //pr_debug("displayl_power_reset_hard_power_off: cmd-0=%u\n", cmd);
-        cmd |= (1 << RMO);
-        i2c_master_send(displayl_power->client, &cmd, 1);
-        cmd &= ~(1 << RMO);
-        i2c_master_send(displayl_power->client, &cmd, 1);
+        attiny_regs.command |= (1 << RMO);
+        i2c_master_send(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
+        attiny_regs.command &= ~(1 << RMO);
+        i2c_master_send(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
     }
 }
 
@@ -135,38 +132,39 @@ static void displayl_power_worker(struct work_struct *work) {
 }
 
 static int displayl_power_information(struct displayl_power_data *displayl_power) {
-    u8 cmd;
     int ret;
-    pr_debug("displayl_power_information");
-    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
+    ret = i2c_master_recv(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
     if (ret == 1) {
-        pr_debug("displayl_power_information: command=%u\n", cmd);
+        pr_debug("displayl_power_information: attiny_regs.command=%u\n", attiny_regs.command);
         ret = 0;
     }
     return ret;
 }
 
 static int displayl_power_setup(struct displayl_power_data *displayl_power) {
-    u8 cmd;
     int ret;
-    pr_debug("displayl_power_setup");
-    ret = i2c_master_recv(displayl_power->client, &cmd, 1);
+    u8 last_command;
+    ret = i2c_master_recv(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
     if (ret == 1) {
-        cmd |= (1 << TGR);
-        ret = i2c_master_send(displayl_power->client, &cmd, 1);
-        if (ret == 1) {
-            ret = 0;
+        last_command = attiny_regs.command;
+        attiny_regs.command |= (1 << TGR);
+        if (last_command != attiny_regs.command) {
+            attiny_regs.command |= (1 << SAV);
+            ret = i2c_master_send(displayl_power->client, &attiny_regs.command, sizeof(attiny_regs.command));
+            if (ret == 1) {
+                ret = 0;
+            }
         }
+        ret = 0;
     }
     return ret;
 }
 
+
 static void displayl_power_do_poweroff(void) {
-    u8 cmd;
-    i2c_master_recv(displayl_power_gbl->client, &cmd, 1);
-    pr_debug("displayl_power_do_poweroff: cmd-0=%u\n", cmd);
-    cmd |= (1 << POF);
-    i2c_master_send(displayl_power_gbl->client, &cmd, 1);
+    i2c_master_recv(displayl_power_gbl->client, &attiny_regs.command, sizeof(attiny_regs.command));
+    attiny_regs.command |= (1 << POF);
+    i2c_master_send(displayl_power_gbl->client, &attiny_regs.command, sizeof(attiny_regs.command));
 }
 
 static int displayl_power_probe(struct i2c_client *client,
