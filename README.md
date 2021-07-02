@@ -21,7 +21,7 @@ Features:
 | Buttons | Good | |
 | XCSoar | Good | some button are to small for TS |
 | Touch screen | Good |  |
-| Backlight  | Implemented | Has to be tested |
+| Backlight  | Good |  |
 | Power Off  | Good |  |
 | Real Time Clock  | Good |  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L|
