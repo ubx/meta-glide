@@ -1,0 +1,23 @@
+Index: Data/Input/default.xci
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Data/Input/default.xci b/Data/Input/default.xci
+--- a/Data/Input/default.xci	(revision b1a71aa5289babb4247675379b2f08b0687d3b45)
++++ b/Data/Input/default.xci	(date 1625489024502)
+@@ -220,12 +220,12 @@
+
+ mode=default
+ type=key
+-data=DOWN
++data=UP
+ event=Zoom out
+
+ mode=default
+ type=key
+-data=UP
++data=DOWN
+ event=Zoom in
+
+ mode=default
