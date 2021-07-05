@@ -25,8 +25,10 @@
 #define SAV 6 // save CPC and TGR to eeprom
 #define RMO 7 // reset hard power OFF
 
+/* defile brightness */
 #define AUTO_MAX 0xFFF
 #define AUTO_MIN 0x400
+#define IDLE     0x0A0
 
 /* Polling Rate */
 static int scan_rate = 1;
@@ -68,7 +70,7 @@ static struct attiny_register_set attiny_regs;
 static volatile bool do_rmo = false;
 static struct file *file;
 
-static int lux = 200; // todo -- good enough ??
+static int lux = AUTO_MIN;
 
 static int displayl_power_read_lux() {
     char buf[8] = {0};
