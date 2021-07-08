@@ -27,7 +27,7 @@
 
 /* defile brightness */
 #define AUTO_MAX 0xFFF
-#define AUTO_MIN 0x400
+#define AUTO_MIN 0x200
 #define IDLE     0x0A0
 
 /* Polling Rate */
