@@ -19,9 +19,10 @@ Features:
 | CAN | Good |  |
 | Rotary knobs | Good |  |
 | Buttons | Good | |
-| XCSoar | Good | some button are to small for TS |
+| XCSoar | Good | Some button are to small for TS |
 | Touch screen | Good |  |
 | Backlight  | Good |  |
+| Idle screen |not yet implemented  | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
 | Power Off  | Good |  |
 | Real Time Clock  | Good |  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L|
