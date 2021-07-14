@@ -11,6 +11,7 @@ PR = "r1"
 RDEPENDS_${PN} = "\
         xterm \
 		font-misc-misc \
+		rsync \
 "
 
 S = "${WORKDIR}"
