@@ -12,11 +12,6 @@ sleep 1
 export DISPLAY=:0
 xrandr -o left
 
-if [ -f /etc/systemd/system/getty.target.wants/getty@tty1.service ]; then
-  echo "*** disable getty@tty1.service"
-  systemctl disable getty@tty1.service
-fi
-
 ### If inserted, copy XCSoar data to the sd card
 SD_MEDIA=/media/mmcblk0p2
 DATAPATH=/home/root/.xcsoar
