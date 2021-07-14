@@ -41,8 +41,9 @@ class Menu:
                                        ('Shutdown', self.shutdown)])
 
         self.menu_items_usb = OrderedDict([('Update XCSoar', self.update_xcsoar),
+                                           ('Sync from USB-Stick', self.sync_from_usb_stick),
                                            ('Sync to USB-Stick', self.sync_to_usb_stick),
-                                           ('Sync from USB-Stick', self.sync_from_usb_stick)])
+                                           ('Update Linux', self.update_linux)])
 
         self.title = 'Glide Menu'
         self.view = None
@@ -124,6 +125,15 @@ class Menu:
         with open(os.devnull, 'w') as fp:
             subprocess.run(
                 ['rsync', '-a', mount_point + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
+                shell=False, stdout=fp, stderr=fp)
+        sys.exit()
+
+    def update_linux(self, args):
+        dev = self.usb_device.split('/')[-1]
+        mount_point = get_usb_mount(dev)
+        with open(os.devnull, 'w') as fp:
+            subprocess.run(
+                ['rsync', '-rtR', mount_point + '/rootfs/./', '/'],
                 shell=False, stdout=fp, stderr=fp)
         sys.exit()
 
