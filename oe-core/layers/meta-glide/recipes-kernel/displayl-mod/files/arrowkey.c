@@ -18,6 +18,7 @@ MODULE_LICENSE("GPL");
 
 static struct input_dev *button_dev;
 static bool enter_key_pressed = false;
+static bool esc_key_pressed = false;
 
 static void send_key(int key) {
     input_report_key(button_dev, key, 1);
@@ -40,12 +41,18 @@ static void rotary_event(struct input_handle *handle, unsigned int type, unsigne
                 send_key((value > 0) ? KEY_RIGHT : KEY_LEFT);
             }
         } else if (code == REL_Y) {
-            send_key((value > 0) ? KEY_DOWN : KEY_UP);
+            if (esc_key_pressed) {
+                send_key((value > 0) ? KEY_BRIGHTNESSUP : KEY_BRIGHTNESSDOWN);
+            } else {
+                send_key((value > 0) ? KEY_DOWN : KEY_UP);
+            }
         }
     } else if (type == EV_KEY) {
         if (code == KEY_ENTER) {
             enter_key_pressed = (value == 1);
             power_reset_hard_power_off(false);
+        } else if (code == KEY_ESC){
+            esc_key_pressed = (value == 1);
         }
     }
 }
@@ -140,6 +147,8 @@ button_init(void) {
     set_bit(KEY_RIGHT, button_dev->keybit);
     set_bit(KEY_UP, button_dev->keybit);
     set_bit(KEY_DOWN, button_dev->keybit);
+    set_bit(KEY_BRIGHTNESSUP, button_dev->keybit);
+    set_bit(KEY_BRIGHTNESSDOWN, button_dev->keybit);
 
     for (i = KEY_ESC; i <= KEY_KPDOT; i++) { // add a load of extra keys
         set_bit(i, button_dev->keybit);

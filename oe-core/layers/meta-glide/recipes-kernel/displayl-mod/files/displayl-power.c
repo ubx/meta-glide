@@ -5,12 +5,16 @@
 
 #define DEBUG
 
+#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/slab.h>
 #include <linux/i2c.h>
 #include <linux/delay.h>
 #include <linux/syscalls.h>
+#include <linux/device.h>
+#include <linux/input.h>
 
 #define DISPLAYL_POWER_NAME      "displayl_power"
 
@@ -27,7 +31,8 @@
 
 /* defile brightness */
 #define AUTO_MAX 0xFFF
-#define AUTO_MIN 0x200
+#define AUTO_MIN 0x100
+#define MAN_INC  0x040
 #define IDLE     0x0A0
 
 /* Polling Rate */
@@ -71,6 +76,8 @@ static volatile bool do_rmo = false;
 static struct file *file;
 
 static int lux = AUTO_MIN;
+static u16 lcd_backlight_pwm;
+static u16 lcd_backlight_manual_pwm = AUTO_MIN;
 
 static int displayl_power_read_lux() {
     char buf[8] = {0};
@@ -99,10 +106,8 @@ static int displayl_power_set_backlight(struct displayl_power_data *displayl_pow
         delay = msecs_to_jiffies(250);
     }
 
-    /* todo -- implement manual adjustment */
-
     /* auto adjustment */
-    u16 lcd_backlight_pwm = min(max(lux_to_lcd_backlight_pwm(lux), AUTO_MIN), AUTO_MAX);
+    lcd_backlight_pwm = max(min(max(lux_to_lcd_backlight_pwm(lux), AUTO_MIN), AUTO_MAX), lcd_backlight_manual_pwm);
     if (attiny_regs.lcd_backlight_pwm != lcd_backlight_pwm) {
         attiny_regs.lcd_backlight_pwm = lcd_backlight_pwm;
         i2c_master_send(displayl_power->client, &attiny_regs,
@@ -162,12 +167,87 @@ static int displayl_power_setup(struct displayl_power_data *displayl_power) {
     return ret;
 }
 
-
 static void displayl_power_do_poweroff(void) {
     i2c_master_recv(displayl_power_gbl->client, &attiny_regs.command, sizeof(attiny_regs.command));
     attiny_regs.command |= (1 << POF);
     i2c_master_send(displayl_power_gbl->client, &attiny_regs.command, sizeof(attiny_regs.command));
 }
+
+static const struct input_device_id input_event_ids[] = {
+        {.driver_info = 1},    /* Matches all devices */
+        {},                    /* Terminating zero entry */
+};
+
+MODULE_DEVICE_TABLE(input, input_event_ids
+);
+
+static void input_event5(struct input_handle *handle, unsigned int type, unsigned int code, int value) {
+    //printk(KERN_DEBUG pr_fmt("Event. Dev: %s, Type: %d, Code: %d, Value: %d\n"), dev_name(&handle->dev->dev), type, code, value);
+    if (type == EV_KEY) {
+        if (code == KEY_BRIGHTNESSUP && value == 1) {
+            lcd_backlight_manual_pwm = min(lcd_backlight_manual_pwm + MAN_INC, AUTO_MAX);
+        } else if (code == KEY_BRIGHTNESSDOWN && value == 1) {
+            lcd_backlight_manual_pwm = max(lcd_backlight_manual_pwm - MAN_INC, AUTO_MIN);
+        }
+    }
+}
+
+static bool input_event_match(struct input_handler *handler, struct input_dev *dev) {
+    return true;
+}
+
+
+static int input_event_connect(struct input_handler *handler, struct input_dev *dev, const struct input_device_id *id) {
+    struct input_handle *handle;
+    int error;
+
+    handle = kzalloc(sizeof(struct input_handle), GFP_KERNEL);
+    if (!handle)
+        return -ENOMEM;
+
+    handle->dev = dev;
+    handle->handler = handler;
+    handle->name = "input_events";
+
+    error = input_register_handle(handle);
+    if (error)
+        goto err_free_handle;
+
+    error = input_open_device(handle);
+    if (error)
+        goto err_unregister_handle;
+
+    printk(KERN_DEBUG
+    pr_fmt("Connected device: %s (%s at %s)\n"),
+            dev_name(&dev->dev),
+            dev->name ?: "unknown",
+            dev->phys ?: "unknown");
+
+    return 0;
+
+    err_unregister_handle:
+    input_unregister_handle(handle);
+    err_free_handle:
+    kfree(handle);
+    return error;
+}
+
+static void input_event_disconnect(struct input_handle *handle) {
+    printk(KERN_DEBUG
+    pr_fmt("Disconnected device: %s\n"), dev_name(&handle->dev->dev));
+    input_close_device(handle);
+    input_unregister_handle(handle);
+    kfree(handle);
+}
+
+static struct input_handler input_event_handler = {
+        .event =    input_event5,
+        .match =    input_event_match,
+        .connect =    input_event_connect,
+        .disconnect =    input_event_disconnect,
+        .name =        "input_events",
+        .id_table =    input_event_ids,
+};
 
 static int displayl_power_probe(struct i2c_client *client,
                                 const struct i2c_device_id *id) {
@@ -176,6 +256,13 @@ static int displayl_power_probe(struct i2c_client *client,
 
     dev_dbg(&client->dev, "adapter=%d, client irq: %d\n",
             client->adapter->nr, client->irq);
+
+    error = input_register_handler(&input_event_handler);
+    if (error == 0) {
+        printk(KERN_INFO pr_fmt("loaded.\n"));
+    } else {
+        return error;
+    }
 
     /* Check if the I2C function is ok in this adaptor */
     if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
@@ -224,6 +311,7 @@ static int displayl_power_remove(struct i2c_client *client) {
     if (file != NULL) {
         filp_close(file, NULL);
     }
+    input_unregister_handler(&input_event_handler);
     kfree(displayl_power);
     return 0;
 }
@@ -233,8 +321,6 @@ static void power_reset_hard_power_off(bool reset) {
     //pr_debug("power_reset_hard_power_off: reset=%u\n", reset);
     do_rmo = reset;
 }
-
-EXPORT_SYMBOL(power_reset_hard_power_off);
 
 static const struct i2c_device_id displayl_powerdev_id[] = {
         {DISPLAYL_POWER_NAME, 0,},
@@ -252,6 +338,8 @@ static struct i2c_driver displayl_powerdriver = {
         .probe       = displayl_power_probe,
         .remove      = displayl_power_remove,
 };
+
+EXPORT_SYMBOL(power_reset_hard_power_off);
 
 module_i2c_driver(displayl_powerdriver);
 
