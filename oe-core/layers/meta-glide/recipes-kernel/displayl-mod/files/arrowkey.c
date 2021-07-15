@@ -150,10 +150,6 @@ button_init(void) {
     set_bit(KEY_BRIGHTNESSUP, button_dev->keybit);
     set_bit(KEY_BRIGHTNESSDOWN, button_dev->keybit);
 
-    for (i = KEY_ESC; i <= KEY_KPDOT; i++) { // add a load of extra keys
-        set_bit(i, button_dev->keybit);
-    }
-
     error = input_register_device(button_dev);
     if (error) {
         printk(KERN_ERR
