@@ -29,7 +29,7 @@ Features:
 | Colibri T20 | Good | |
 | Config. menu | Minimal Version | |
 
-[Here a short video (with NMEA input via serial port)](https://youtu.be/IahGqsdgllc)
+[Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
