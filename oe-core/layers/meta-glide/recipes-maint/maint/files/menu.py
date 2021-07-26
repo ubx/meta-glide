@@ -116,7 +116,6 @@ class Menu:
             subprocess.run(
                 ['rsync', '-a', sys.argv[1], mount_point],
                 shell=False, stdout=fp, stderr=fp)
-        sys.exit()
 
     def sync_from_usb_stick(self, args):
         dev = self.usb_device.split('/')[-1]
@@ -126,7 +125,6 @@ class Menu:
             subprocess.run(
                 ['rsync', '-a', mount_point + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
                 shell=False, stdout=fp, stderr=fp)
-        sys.exit()
 
     def update_linux(self, args):
         dev = self.usb_device.split('/')[-1]
@@ -135,7 +133,6 @@ class Menu:
             subprocess.run(
                 ['rsync', '-rtR', mount_point + '/rootfs/./', '/'],
                 shell=False, stdout=fp, stderr=fp)
-        sys.exit()
 
 if __name__ == '__main__':
     menu = Menu()
