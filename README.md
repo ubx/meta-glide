@@ -34,7 +34,7 @@ Features:
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
-[Picture  of first flight](https://photos.app.goo.gl/6fqJ9KvoVbb1jNCu7)
+[Picture of first flight](https://photos.app.goo.gl/6fqJ9KvoVbb1jNCu7)
 
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
