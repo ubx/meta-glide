@@ -25,11 +25,16 @@ Features:
 | Idle screen |not yet implemented  | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
 | Power Off  | Good |  |
 | Real Time Clock  | Good |  |
-| Colibri T30 | Works on eval. board | Power up issue on Display L|
+| Colibri T30 | Works on eval. board | Power up issue on Display L |
 | Colibri T20 | Good | |
-| Config. menu | Minimal Version | |
+| Config menu | Minimal Version | |
+| Landscape Display | Not tested | |
+| Sierial NMEA Port | Not tested | |
+| CAN Logger | Not integrated in Config menu | Use Linux *candump* |
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
+
+[Picture  of first flight](https://photos.app.goo.gl/6fqJ9KvoVbb1jNCu7)
 
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
