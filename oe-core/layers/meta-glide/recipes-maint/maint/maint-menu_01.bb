@@ -18,6 +18,7 @@ S = "${WORKDIR}"
 
 SRC_URI = " \
 	file://menu.py \
+	file://run_canlogger.sh \
 "
 
 ## do nothing
@@ -31,9 +32,11 @@ do_package_qa() {
 do_install() {
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/menu.py ${D}/home/root/menu.py
+	install -m u+x ${WORKDIR}/run_canlogger.sh ${D}/home/root/run_canlogger.sh
 }
 
 PACKAGES = "${PN}"
 FILES_${PN} = " \
 	/home/root/menu.py \
+	/home/root/run_canlogger.sh \
 "

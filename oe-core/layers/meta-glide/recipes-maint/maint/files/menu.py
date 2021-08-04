@@ -43,7 +43,8 @@ class Menu:
         self.menu_items_usb = OrderedDict([('Update XCSoar', self.update_xcsoar),
                                            ('Sync from USB-Stick', self.sync_from_usb_stick),
                                            ('Sync to USB-Stick', self.sync_to_usb_stick),
-                                           ('Update Linux', self.update_linux)])
+                                           ('Update Linux', self.update_linux),
+                                           ('Start CAN Logger', self.start_canlogger)])
 
         self.title = 'Glide Menu'
         self.view = None
@@ -132,6 +133,12 @@ class Menu:
         with open(os.devnull, 'w') as fp:
             subprocess.run(
                 ['rsync', '-rtR', mount_point + '/rootfs/./', '/'],
+                shell=False, stdout=fp, stderr=fp)
+
+    def start_canlogger(self, args):
+        with open(os.devnull, 'w') as fp:
+            subprocess.run(
+                ['sh', '/home/root/run_canlogger.sh'],
                 shell=False, stdout=fp, stderr=fp)
 
 if __name__ == '__main__':
