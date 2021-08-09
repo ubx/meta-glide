@@ -52,7 +52,7 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t20-test-55 \
+	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t20-test-v7.11 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
     file://0001-Disable-warnings-as-errors.patch \
 	file://0001_no_version_lua.patch \
@@ -60,6 +60,7 @@ SRC_URI = " \
 	file://0001-Increase-refresh-intervall.patch \
 	file://0008-Zoom-in-out.patch \
 	file://0009-Max-alternates.patch \
+	file://0010-Enable-touch-screen.patch \
 	file://xcsoar.service \
 	file://run_xcsoar.sh \
 	file://xcsoar-640x480-shutdown.ppm \
