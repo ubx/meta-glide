@@ -1,0 +1,11 @@
+diff --git a/src/Asset.hpp b/src/Asset.hpp
+--- a/src/Asset.hpp	(revision 1921747e6ae94c9fd614dadefeabd1399264cfd1)
++++ b/src/Asset.hpp	(date 1628081599644)
+@@ -221,7 +221,7 @@
+ static inline bool
+ HasTouchScreen() noexcept
+ {
+-  return IsAndroid() || IsKobo() || IsIOS();
++  return true;
+ }
+ #endif
