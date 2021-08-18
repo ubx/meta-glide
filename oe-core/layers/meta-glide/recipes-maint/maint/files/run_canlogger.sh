@@ -1,6 +1,6 @@
 ### Start CAN Logger
 
-LOG_MEDIA=/media/sda1
+LOG_MEDIA=$1
 
 if  mount | grep $LOG_MEDIA > /dev/null; then
    DATAPATH=$LOG_MEDIA/canlogs

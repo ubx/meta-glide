@@ -44,7 +44,8 @@ class Menu:
                                            ('Sync from USB-Stick', self.sync_from_usb_stick),
                                            ('Sync to USB-Stick', self.sync_to_usb_stick),
                                            ('Update Linux', self.update_linux),
-                                           ('Start CAN Logger', self.start_canlogger)])
+                                           ('Start CAN Logger', self.start_canlogger),
+                                           ('Save Linux journal', self.save_linux_journal)])
 
         self.title = 'Glide Menu'
         self.view = None
@@ -57,6 +58,11 @@ class Menu:
         else:
             self.usb_device = None
         self.usb_present = any(get_usb_devices())
+
+    def eval_mount_point(self):
+        dev = self.usb_device.split('/')[-1]
+        mount_point = get_usb_mount(dev)
+        return mount_point
 
     def creat_view(self):
         body = [urwid.Text(self.title), urwid.Divider()]
@@ -106,39 +112,37 @@ class Menu:
         sys.exit()
 
     def update_xcsoar(self, args):
-        dev = self.usb_device.split('/')[-1]
-        mount_point = get_usb_mount(dev)
-        shutil.copyfile(mount_point + '/xcsoar', '/opt/XCSoar/bin/xcsoar')
+        shutil.copyfile(self.eval_mount_point() + '/xcsoar', '/opt/XCSoar/bin/xcsoar')
 
     def sync_to_usb_stick(self, args):
-        dev = self.usb_device.split('/')[-1]
-        mount_point = get_usb_mount(dev)
         with open(os.devnull, 'w') as fp:
             subprocess.run(
-                ['rsync', '-a', sys.argv[1], mount_point],
+                ['rsync', '-a', sys.argv[1], (self.eval_mount_point())],
                 shell=False, stdout=fp, stderr=fp)
 
     def sync_from_usb_stick(self, args):
-        dev = self.usb_device.split('/')[-1]
-        mount_point = get_usb_mount(dev)
         sp = sys.argv[1].split('/')
         with open(os.devnull, 'w') as fp:
             subprocess.run(
-                ['rsync', '-a', mount_point + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
+                ['rsync', '-a', self.eval_mount_point() + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
                 shell=False, stdout=fp, stderr=fp)
 
     def update_linux(self, args):
-        dev = self.usb_device.split('/')[-1]
-        mount_point = get_usb_mount(dev)
         with open(os.devnull, 'w') as fp:
             subprocess.run(
-                ['rsync', '-rtR', mount_point + '/rootfs/./', '/'],
+                ['rsync', '-rtR', self.eval_mount_point() + '/rootfs/./', '/'],
                 shell=False, stdout=fp, stderr=fp)
 
     def start_canlogger(self, args):
         with open(os.devnull, 'w') as fp:
             subprocess.run(
-                ['sh', '/home/root/run_canlogger.sh'],
+                ['sh', '/home/root/run_canlogger.sh', (self.eval_mount_point())],
+                shell=False, stdout=fp, stderr=fp)
+
+    def save_linux_journal(self, args):
+        with open(os.devnull, 'w') as fp:
+            subprocess.run(
+                ['sh', '/home/root/save_journalctl.sh', (self.eval_mount_point())],
                 shell=False, stdout=fp, stderr=fp)
 
 if __name__ == '__main__':
