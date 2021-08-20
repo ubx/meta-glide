@@ -139,6 +139,8 @@ class Menu:
                 ['sh', '/home/root/run_canlogger.sh', (self.eval_mount_point())],
                 shell=False, stdout=fp, stderr=fp)
 
+    ### To copy files to USB stick (as an example):
+    ###    "sudo rsync -rtR rootfs/home/root/menu.py   /media/andreas/FLARM/"
     def save_linux_journal(self, args):
         with open(os.devnull, 'w') as fp:
             subprocess.run(
