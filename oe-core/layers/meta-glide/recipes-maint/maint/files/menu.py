@@ -43,7 +43,7 @@ class Menu:
         self.menu_items_usb = OrderedDict([('Update XCSoar', self.update_xcsoar),
                                            ('Sync from USB-Stick', self.sync_from_usb_stick),
                                            ('Sync to USB-Stick', self.sync_to_usb_stick),
-                                           ('Update System', self.update_linux),
+                                           ('Update System', self.update_system),
                                            ('Start CAN Logger', self.start_canlogger),
                                            ('Save Linux journal', self.save_linux_journal)])
 
@@ -127,7 +127,7 @@ class Menu:
                 ['rsync', '-a', self.eval_mount_point() + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
                 shell=False, stdout=fp, stderr=fp)
 
-    def update_linux(self, args):
+    def update_system(self, args):
         with open(os.devnull, 'w') as fp:
             subprocess.run(
                 ['rsync', '-rtR', self.eval_mount_point() + '/rootfs/./', '/'],
