@@ -19,6 +19,7 @@ S = "${WORKDIR}"
 SRC_URI = " \
 	file://menu.py \
 	file://run_canlogger.sh \
+	file://save_journalctl.sh \
 "
 
 ## do nothing
@@ -33,10 +34,12 @@ do_install() {
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/menu.py ${D}/home/root/menu.py
 	install -m u+x ${WORKDIR}/run_canlogger.sh ${D}/home/root/run_canlogger.sh
+	install -m u+x ${WORKDIR}/run_canlogger.sh ${D}/home/root/save_journalctl.sh
 }
 
 PACKAGES = "${PN}"
 FILES_${PN} = " \
 	/home/root/menu.py \
 	/home/root/run_canlogger.sh \
+	/home/root/save_journalctl.sh \
 "
