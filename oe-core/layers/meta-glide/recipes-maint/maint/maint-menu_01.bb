@@ -34,7 +34,7 @@ do_install() {
 	install -d ${D}/home/root
 	install -m u+x ${WORKDIR}/menu.py ${D}/home/root/menu.py
 	install -m u+x ${WORKDIR}/run_canlogger.sh ${D}/home/root/run_canlogger.sh
-	install -m u+x ${WORKDIR}/run_canlogger.sh ${D}/home/root/save_journalctl.sh
+	install -m u+x ${WORKDIR}/save_journalctl.sh ${D}/home/root/save_journalctl.sh
 }
 
 PACKAGES = "${PN}"
