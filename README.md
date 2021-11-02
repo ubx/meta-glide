@@ -36,6 +36,8 @@ Features:
 
 [Picture of first flight](https://photos.app.goo.gl/6fqJ9KvoVbb1jNCu7)
 
+[Short video showing XCSoar in action](https://youtu.be/S9IR2dNmBZQ)
+
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
 #### Build the docker image:
