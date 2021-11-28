@@ -30,7 +30,7 @@ Features:
 | Config menu | Minimal Version | |
 | Landscape Display | Not tested | |
 | Sierial NMEA Port | Not tested | |
-| CAN Logger | Not integrated in Config menu | Use Linux *candump* |
+| CAN Logger | Good | Use Linux *candump* <sup>1</sup>|
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
@@ -84,7 +84,7 @@ or build only xcsoar:
 > 2. the webinars found within the above page
 > 3. <https://github.com/Openvario/meta-openvario>
 
-> ####Use can-utils instead of (old) canutils
+####<sup>1</sup> Use can-utils instead of (old) canutils
 >`sed -i s/canutils/can-utils/g  oe-core/layers/meta-toradex-demos/recipes-images/images/tdx-extra.inc`
 > 
 > Then you can use a newer version of *candump*
@@ -157,5 +157,6 @@ devtool reset arrowkey-mod
 ``````
 > After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.comf
 ## Problems
+* [Can't compile with C++20 feature](https://github.com/ubx/meta-glide/issues/10)
 
 
