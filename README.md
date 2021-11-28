@@ -84,7 +84,7 @@ or build only xcsoar:
 > 2. the webinars found within the above page
 > 3. <https://github.com/Openvario/meta-openvario>
 
-####<sup>1</sup> Use can-utils instead of (old) canutils
+#### <sup>1</sup> Use can-utils instead of (old) canutils
 >`sed -i s/canutils/can-utils/g  oe-core/layers/meta-toradex-demos/recipes-images/images/tdx-extra.inc`
 > 
 > Then you can use a newer version of *candump*
