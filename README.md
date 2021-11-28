@@ -157,6 +157,6 @@ devtool reset arrowkey-mod
 ``````
 > After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.comf
 ## Problems
-* [Can't compile with C++20 feature](https://github.com/ubx/meta-glide/issues/10)
+* [Can't compile XCSoar with C++20 feature](https://github.com/ubx/meta-glide/issues/10)
 
 
