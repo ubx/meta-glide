@@ -131,7 +131,6 @@ static int __init
 
 button_init(void) {
     int error;
-    int i;
 
     button_dev = input_allocate_device();
     if (!button_dev) {
