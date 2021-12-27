@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Unknow User <unknow@user.org>
+# Copyright (C) 2021 Andreas Lüthi <andreas.luethi@gmx.net>
 # Released under the MIT license (see COPYING.MIT for the terms)
 
 DESCRIPTION = "meta-glide maintenance menu"
