@@ -52,9 +52,8 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus;tag=t20-v7.13_rc \
+	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus-gcc8;tag=t20-v7.13_rc02 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
-    file://0001-Disable-warnings-as-errors.patch \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
 	file://0001-Increase-refresh-intervall.patch \
@@ -96,7 +95,7 @@ do_compile() {
 	echo "Making .."
 	echo '${WORKDIR}'
 	cd ${WORKDIR}/git
-	make -j$(nproc) TARGET=UNIX OPENGL=n ENABLE_SDL=y USE_SDL2=y GEOTIFF=n
+	make -j$(nproc) TARGET=UNIX OPENGL=n ENABLE_SDL=y USE_SDL2=y GEOTIFF=n WERROR=n
 }
 
 
