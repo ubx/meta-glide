@@ -31,6 +31,8 @@ Features:
 | Landscape Display | Not tested | |
 | Sierial NMEA Port | Not tested | |
 | CAN Logger | Good | Use Linux *candump* <sup>1</sup>|
+| SteFly Remote-Knüppelgriff | In progress | |
+
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
