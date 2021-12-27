@@ -32,6 +32,9 @@ if mount | grep $SD_MEDIA > /dev/null; then
    fi
 fi
 
+### run SteFly Remote-Knüppelgriff speed command switch handler
+/home/root/speed-control-handler.py &
+
 ### run menu/xcsoar
 xterm -geometry 48x30+0+0 -fn -misc-fixed-medium-r-normal--20-*-*-*-*-*-*-* -e /home/root/menu.py $DATAPATH
 sleep 3

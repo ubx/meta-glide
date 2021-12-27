@@ -22,7 +22,7 @@ Features:
 | XCSoar | Good | Some button are to small for TS |
 | Touch screen | Good |  |
 | Backlight  | Good |  |
-| Idle screen |not yet implemented  | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
+| Idle screen |not yet implemented | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
 | Power Off  | Good |  |
 | Real Time Clock  | Good |  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L |
@@ -31,8 +31,7 @@ Features:
 | Landscape Display | Not tested | |
 | Sierial NMEA Port | Not tested | |
 | CAN Logger | Good | Use Linux *candump* <sup>1</sup>|
-| SteFly Remote-Knüppelgriff | In progress | |
-
+| SteFly Remote-Knüppelgriff | Good | Integrate in XCSoar as LUA script <sup>2</sup> |
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
@@ -90,6 +89,8 @@ or build only xcsoar:
 >`sed -i s/canutils/can-utils/g  oe-core/layers/meta-toradex-demos/recipes-images/images/tdx-extra.inc`
 > 
 > Then you can use a newer version of *candump*
+
+#### <sup>2</sup> We should use a LUA script in XCSoar to handle flap position, speed control, mass, bugs etc
 
 #### Then you can populate the sdk, so one can cross-compile by hand (I think):
 
