@@ -52,7 +52,7 @@ LC_LOCALE_PATH = "/usr/share/locale"
 BB_STRICT_CHECKSUM = "0"
 
 SRC_URI = " \
-	git://github.com/ubx/XCSoar.git;protocol=git;branch=can-bus-gcc8;tag=t20-v7.13_rc03 \
+	git://github.com/ubx/XCSoar.git;protocol=https;branch=can-bus-gcc8;tag=t20-v7.13_rc03 \
     file://0005-Adapted-toolchain-prefixes-for-cross-compile.patch \
 	file://0001_no_version_lua.patch \
 	file://0001-avoid-tail-cut.patch \
