@@ -193,14 +193,7 @@ FILES_${PN} = " \
 	${LC_LOCALE_PATH}/hr/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/hu/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/it/LC_MESSAGES/xcsoar.mo \
-	${LC_LOCALE_PATH}/ja/LC_MESSAGES/xcsoar.mo \Salut Frank
-
-Nochmals ein grosses Merci für die perfekte Organisation vom gestrigen IG Treffen.
-Ich bin optimistischer auch schon!
-
-Gruss und schöne Woche
-Andreas Lüthi
-
+	${LC_LOCALE_PATH}/ja/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/ko/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/lt/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/nb/LC_MESSAGES/xcsoar.mo \

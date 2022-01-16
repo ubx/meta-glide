@@ -158,7 +158,7 @@ bitbake arrowkey-mod
 devtool deploy-target -s arrowkey-mod root@192.168.1.116
 devtool reset arrowkey-mod
 ``````
-> After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.comf
+> After that, don't forgett to remove */home/yocto/oe-core/build/workspace* in bblayers.conf
 ## Problems
 * [Can't compile XCSoar with C++20 feature](https://github.com/ubx/meta-glide/issues/10)
 

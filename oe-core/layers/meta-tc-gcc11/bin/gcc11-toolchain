@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "`date`: " "$@" >> /tmp/gcc10-toolchain.log
+
+exec "$@"
