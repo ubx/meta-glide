@@ -6,10 +6,9 @@ HOMEPAGE = "www.xcsoar.org"
 LICENSE = "GPL-2.0"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/${LICENSE};md5=801f80980d171dd6425610833a22dbe6"
 SECTION = "base/app"
-PR = "r50"
+PR = "r51"
 
 DEPENDS = "	\
-		gcc \
 		boost \
 		curlpp \
 		pkgconfig \
@@ -194,7 +193,14 @@ FILES_${PN} = " \
 	${LC_LOCALE_PATH}/hr/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/hu/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/it/LC_MESSAGES/xcsoar.mo \
-	${LC_LOCALE_PATH}/ja/LC_MESSAGES/xcsoar.mo \
+	${LC_LOCALE_PATH}/ja/LC_MESSAGES/xcsoar.mo \Salut Frank
+
+Nochmals ein grosses Merci für die perfekte Organisation vom gestrigen IG Treffen.
+Ich bin optimistischer auch schon!
+
+Gruss und schöne Woche
+Andreas Lüthi
+
 	${LC_LOCALE_PATH}/ko/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/lt/LC_MESSAGES/xcsoar.mo \
 	${LC_LOCALE_PATH}/nb/LC_MESSAGES/xcsoar.mo \
