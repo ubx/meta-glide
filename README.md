@@ -69,7 +69,7 @@ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 `. export`
 
 ##### Fix qt4-layer not in repo:
-`sed '/qt4-layer/d' oe-core/layers/meta-toradex-demos/conf/layer.conf`
+`sed -i '/qt4-layer/d' ../../oe-core/layers/meta-toradex-demos/conf/layer.conf`
 
 
 #### Now one can build the toradex colibri t30 image:
