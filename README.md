@@ -76,9 +76,9 @@ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 
 `bitbake console-tdx-image`
 
-or for colibri t20 image:
+or for colibri t30 image:
 
-`MACHINE="colibri-t20" bitbake console-tdx-image`
+`MACHINE="colibri-t30" bitbake console-tdx-image`
 
 or build only xcsoar:
 
