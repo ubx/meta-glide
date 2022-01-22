@@ -4,10 +4,10 @@ This is a layer for OpenEmbedded to support the AIR Glide Display L hardware.
 ![img.png](documents/images/displayL.png)
 
 Features:
-* Run Embedded Linux (Colibri-T30_Console-Image 2.8b7)
+* Run Embedded Linux (Colibri-T20_Console-Image 2.8)
 * Support for CAN Bus
 * Run XCSoar with CANaerospce Device (https://github.com/ubx/XCSoar/tree/can-bus)
-* Support for rotary knobs and buttons. 
+* Support for rotary knobs and buttons.
 * Support backlight adjustment.
 * Support for touch screen.
 * Configuration menu.
@@ -22,7 +22,7 @@ Features:
 | XCSoar | Good | Some button are to small for TS |
 | Touch screen | Good |  |
 | Backlight  | Good |  |
-| Idle screen |not yet implemented | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
+| Idle screen |not yet implemented | No button actions and GPS Groundspeed < 1 m/s : set min brightness
 | Power Off  | Good |  |
 | Real Time Clock  | Good |  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L |
@@ -49,9 +49,9 @@ The generated Embedded Linux contains also a ready to run XCSoar.
  ``````
 #### Run docker:
 
- ``````./run_dock.sh``````
+``````./run_dock.sh``````
 
-#### Get the toradex configurations in the docker 
+#### Get the toradex configurations in the docker
 image at /home/yocto/oe-core, this is the mounted folder if you run with ``````./run_dock.sh``````):
 
 ``````
@@ -68,18 +68,22 @@ repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 
 `. export`
 
-#### Now one can build the toradex colibri t30 image:
+##### Fix qt4-layer not in repo (Cannot fetch meta-qt4 from https://git.yoctoproject.org/git/meta-qt4):
+`sed -i '/qt4-layer/d' ../../oe-core/layers/meta-toradex-demos/conf/layer.conf`
+
+
+#### Now one can build the toradex colibri t20 image:
 
 `bitbake console-tdx-image`
 
-or for colibri t20 image:
+or for colibri t30 image:
 
-`MACHINE="colibri-t20" bitbake console-tdx-image`
+`MACHINE="colibri-t30" bitbake console-tdx-image`
 
 or build only xcsoar:
 
 `bitbake xcsoar-7.0`
- 
+
 >This is all heavily inspired / copy and pasted from:
 > 1. <https://developer.toradex.com/knowledge-base/board-support-package/openembedded-(core)>
 > 2. the webinars found within the above page
@@ -87,7 +91,7 @@ or build only xcsoar:
 
 #### <sup>1</sup> Use can-utils instead of (old) canutils
 >`sed -i s/canutils/can-utils/g  oe-core/layers/meta-toradex-demos/recipes-images/images/tdx-extra.inc`
-> 
+>
 > Then you can use a newer version of *candump*
 
 #### <sup>2</sup> We should use a LUA script in XCSoar to handle flap position, speed control, mass, bugs etc
@@ -98,7 +102,7 @@ or build only xcsoar:
 
 #### You can now also generate a SD Card or a USB stick to deploy onto the board:
 1. unpack the generated image found here (as sudo to maintain the folder structure)
-  $BASEDIR/oe-core/deploy/images/colibri-t30/
+   $BASEDIR/oe-core/deploy/images/colibri-t20/
 2. go to the directory you unpacked it and run the update script:
 ``````
 ./update.sh -o <sdcard>
@@ -109,7 +113,7 @@ or build only xcsoar:
 #### Or if your target HW has an Ethernet connection, and you have an TFTP Server on the development machine:
 you can deploy the generated image via TFTP:
 1. unpack the generated image found here (as sudo to maintain the folder structure)
-   $BASEDIR/oe-core/deploy/images/colibri-t30/
+   $BASEDIR/oe-core/deploy/images/colibri-t20/
 2. go to the directory you unpacked it and run the update script:
 ``````
 ./update.sh -o /tftp
@@ -138,8 +142,8 @@ run update
 > 1. Connect the serial port UART_B. (normally it is UART_A, but we use UART_B)
 > 2. Open a terminal on your host computer (115200 baud, 8 data bits, no parity, one stop, no hardware/software flow control).
 > 3. Power cycle the board and immediately press [space] on the terminal
-> 
->For a detailed description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t30)
+>
+>For a detailed description see [Txx Recovery Mode](https://developer.toradex.com/knowledge-base/txx-recovery-mode#1-colibri-t20)
 
 [flashViaSDCard.log](documents/logs/flashViaSDCard.log)
 
