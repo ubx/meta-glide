@@ -136,7 +136,7 @@ inherit chrpath
 
 python gcc_stash_builddir_fixrpaths() {
     # rewrite rpaths, breaking hardlinks as required
-    process_dir("/", d.getVar("BUILDDIRSTASH"), d, break_hardlinks = True)
+    process_dir("/", d.getVar("BUILDDIRSTASH"), d)
 }
 
 BUILDDIRSTASH = "${WORKDIR}/stashed-builddir/build"
