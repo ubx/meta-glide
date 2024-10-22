@@ -70,7 +70,7 @@ SRC_URI = " \
     file://Switzerland.cup \
     file://Switzerland_Airspace.txt \
     https://www.flarmnet.org/static/files/wfn/data.fln \
-    https://download.xcsoar.org/maps/ALPS_HighRes.xcm;name=alpsmap \
+    https://download.xcsoar.org/source/map/region/ALPS_HighRes.xcm;name=alpsmap \
 "
 inherit pkgconfig update-alternatives
 
