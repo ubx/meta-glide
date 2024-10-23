@@ -42,48 +42,45 @@ Features:
 ## Embedded Linux
 The generated Embedded Linux contains also a ready to run XCSoar.
 #### Build the docker image:
-
  ``````
  cd docker
  docker build -f Dockerfile . -t toradex-yotco
  ``````
 #### Run docker:
-
-``````./run_dock.sh``````
-
+``````
+./run_dock.sh
+``````
 #### Get the toradex configurations in the docker
 image at /home/yocto/oe-core, this is the mounted folder if you run with ``````./run_dock.sh``````):
-
 ``````
 git config --global user.email "you@example.com"
 git config --global user.name "Your Name"
 repo init -u http://git.toradex.com/toradex-bsp-platform.git -b LinuxImageV2.8
 ``````
-
 #### Update/fetch the repos:
-
-`repo sync`
-
+``````
+repo sync
+``````
 #### Setup the bitbake environemnt:
-
-`. export`
-
+``````
+. export
+``````
 ##### Fix qt4-layer not in repo (Cannot fetch meta-qt4 from https://git.yoctoproject.org/git/meta-qt4):
-`sed -i '/qt4-layer/d' ../../oe-core/layers/meta-toradex-demos/conf/layer.conf`
-
-
+``````
+sed -i '/qt4-layer/d' ../../oe-core/layers/meta-toradex-demos/conf/layer.conf
+``````
 #### Now one can build the toradex colibri t20 image:
-
-`bitbake console-tdx-image`
-
+``````
+bitbake console-tdx-image
+``````
 or for colibri t30 image:
-
-`MACHINE="colibri-t30" bitbake console-tdx-image`
-
+``````
+MACHINE="colibri-t30" bitbake console-tdx-image`
+``````
 or build only xcsoar:
-
-`bitbake xcsoar-7.0`
-
+``````
+bitbake xcsoar-7.0
+``````
 >This is all heavily inspired / copy and pasted from:
 > 1. <https://developer.toradex.com/knowledge-base/board-support-package/openembedded-(core)>
 > 2. the webinars found within the above page
@@ -112,8 +109,11 @@ or build only xcsoar:
 
 #### Or if your target HW has an Ethernet connection, and you have an TFTP Server on the development machine:
 you can deploy the generated image via TFTP:
-1. unpack the generated image found here (as sudo to maintain the folder structure)
-   $BASEDIR/oe-core/deploy/images/colibri-t20/
+1. unpack the generated image found here (use sudo to maintain the folder structure):
+``````
+$BASEDIR/oe-core/deploy/images/colibri-t20/Colibri-T20_Console-Image_2.8b8-20241022.tar.bz2
+``````
+
 2. go to the directory you unpacked it and run the update script:
 ``````
 ./update.sh -o /tftp
