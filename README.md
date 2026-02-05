@@ -13,25 +13,25 @@ Features:
 * Configuration menu.
 
 ## Project status
-| Feature | Status | Notes                                                            |
---- | --- |------------------------------------------------------------------
-| Embedded Linux | Good |                                                                  |
-| CAN | Good |                                                                  |
-| Rotary knobs | Good |                                                                  |
-| Buttons | Good |                                                                  |
-| XCSoar | Good | Some button are to small for TS                                  |
-| Touch screen | Good |                                                                  |
-| Backlight  | Good |                                                                  |
+| Feature | Status | Notes                                   |
+--- | --- |-----------------------------------------
+| Embedded Linux | Good |                                         |
+| CAN | Good |                                         |
+| Rotary knobs | Good |                                         |
+| Buttons | Good |                                         |
+| XCSoar | Good | Some button are to small for TS         |
+| Touch screen | Good |                                         |
+| Backlight  | Good |                                         |
 | Idle screen |not yet implemented | No button actions and GPS Groundspeed < 1 m/s : set min brightness 
-| Power Off  | Good |                                                                  |
-| Real Time Clock  | Good |                                                                  |
-| Colibri T30 | Works on eval. board | Power up issue on Display L                                      |
-| Colibri T20 | Good | Now upgradable to XCSoar 7.44. [<sup>3</sup>](#3)                   |
-| Config menu | Minimal Version |                                                                  |
-| Landscape Display | Not tested |                                                                  |
-| Sierial NMEA Port | Not tested |                                                                  |
-| CAN Logger | Good | Use Linux *candump* [<sup>1</sup>](#1)                                 |
-| SteFly Remote-Knüppelgriff | Good | Integrate in XCSoar as LUA script [<sup>2</sup>](#2)                   |
+| Power Off  | Good |                                         |
+| Real Time Clock  | Good |                                         |
+| Colibri T30 | Works on eval. board | Power up issue on Display L             |
+| Colibri T20 | Good | Now upgradable to XCSoar 7.44 [<sup>3</sup>](#3) |
+| Config menu | Minimal Version |                                         |
+| Landscape Display | Not tested |                            |
+| Serial NMEA Port | Not tested | Might work with a USB-to-serial adapter |
+| CAN Logger | Good | Use Linux *candump* [<sup>1</sup>](#1)  |
+| SteFly Remote-Knüppelgriff | Good | Integrate in XCSoar as LUA script [<sup>2</sup>](#2) |
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
