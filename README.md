@@ -26,12 +26,12 @@ Features:
 | Power Off  | Good |                                                                  |
 | Real Time Clock  | Good |                                                                  |
 | Colibri T30 | Works on eval. board | Power up issue on Display L                                      |
-| Colibri T20 | Good | Now upgradable to XCSoar 7.44. <sup>3</sup>                   |
+| Colibri T20 | Good | Now upgradable to XCSoar 7.44. [<sup>3</sup>](#3)                   |
 | Config menu | Minimal Version |                                                                  |
 | Landscape Display | Not tested |                                                                  |
 | Sierial NMEA Port | Not tested |                                                                  |
-| CAN Logger | Good | Use Linux *candump* <sup>1</sup>                                 |
-| SteFly Remote-Knüppelgriff | Good | Integrate in XCSoar as LUA script <sup>2</sup>                   |
+| CAN Logger | Good | Use Linux *candump* [<sup>1</sup>](#1)                                 |
+| SteFly Remote-Knüppelgriff | Good | Integrate in XCSoar as LUA script [<sup>2</sup>](#2)                   |
 
 [Here a short video (replayed via CAN input)](https://www.youtube.com/watch?v=iu_xLZe22ls)
 
@@ -86,14 +86,14 @@ bitbake xcsoar-7.0
 > 2. the webinars found within the above page
 > 3. <https://github.com/Openvario/meta-openvario>
 
-#### <sup>1</sup> Use can-utils instead of (old) canutils
+#### <a name="1"></a><sup>1</sup> Use can-utils instead of (old) canutils
 >`sed -i s/canutils/can-utils/g  oe-core/layers/meta-toradex-demos/recipes-images/images/tdx-extra.inc`
 >
 > Then you can use a newer version of *candump*
 
-#### <sup>2</sup> We should use a LUA script in XCSoar to handle flap position, speed control, mass, bugs etc
+#### <a name="2"></a><sup>2</sup> We should use a LUA script in XCSoar to handle flap position, speed control, mass, bugs etc
 
-#### <sup>3</sup> [How to upgrade see here](https://github.com/ubx/meta-glide/blob/52a0dfa835184c9feef94a7d4c14f1fc6f719545/updates/static-xcsoar/README.md)
+#### <a name="3"></a><sup>3</sup> [How to upgrade see here](https://github.com/ubx/meta-glide/blob/52a0dfa835184c9feef94a7d4c14f1fc6f719545/updates/static-xcsoar/README.md)
 
 #### Then you can populate the sdk, so one can cross-compile by hand (I think):
 
