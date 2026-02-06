@@ -93,7 +93,7 @@ bitbake xcsoar-7.0
 
 #### <a name="2"></a><sup>2</sup> We should use a LUA script in XCSoar to handle flap position, speed control, mass, bugs etc
 
-#### <a name="3"></a><sup>3</sup> [How to upgrade see here](https://github.com/ubx/meta-glide/blob/52a0dfa835184c9feef94a7d4c14f1fc6f719545/updates/static-xcsoar/README.md)
+#### <a name="3"></a><sup>3</sup> [How to upgrade see here](https://github.com/ubx/meta-glide/blob/c094579f58c26e7d5f61e1631ffbd09dff4691e6/updates/static-xcsoar/README.md)
 
 #### Then you can populate the sdk, so one can cross-compile by hand (I think):
 
