@@ -22,7 +22,7 @@ fi
 /home/root/speed-control-handler.py &
 
 ### run XCSoar
-/opt/XCSoar/bin/xcsoar-XXX -datapath=/media/mmcblk0p2/xcsoar-data/ -fly
+/opt/XCSoar/bin/xcsoar -datapath=/media/mmcblk0p2/xcsoar-data/ -fly
 
 fbi -vt 1 -noverbose /home/root/xcsoar-640x480-shutdown.ppm
 sleep 3
