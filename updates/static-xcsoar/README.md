@@ -1,5 +1,8 @@
 # Update to XCSoar Version 7.44-Linux
 
+> [!CAUTION]
+> This XCSoar version is a development snapshot!
+
 Updating the statically linked XCSoar build for Display-L.
 This XCSoar build runs directly on the framebuffer and does not require an X11 server.
 
