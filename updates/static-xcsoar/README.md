@@ -13,9 +13,9 @@ Update Procedure
 1. Start the Display-L device and ensure it is connected to the internet.
 2. Copy all files from this directory to the Display-L system.
 ```
-sftp menu.py root@colibri-t20:/home/root/
-sftp run_xcsoar.sh root@colibri-t20:/home/root/
-sftp xcsoar root@colibri-t20:/opt/XCSoar/bin/xcsoar
+scp menu.py root@colibri-t20:/home/root/
+scp run_xcsoar.sh root@colibri-t20:/home/root/
+scp xcsoar root@colibri-t20:/opt/XCSoar/bin/
 ```
 3. Restart Display-L
 
