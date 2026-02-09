@@ -5,6 +5,8 @@ ip link set can0 type can bitrate 500000
 ip link set can0 txqueuelen 1000
 ip link set can0 up
 
+echo 0 > /sys/class/graphics/fbcon/cursor_blink
+
 if lsblk -o TRAN -nr | grep -q '^usb$'; then
   X &
   sleep 1
