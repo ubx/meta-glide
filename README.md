@@ -133,12 +133,14 @@ run setupdate
 run update
 ``````
 
-4. XXXX
+4. On the running system do:
 ``````
-setenv setup 'setenv setupargs ${memargs} consoleblank=0 console=null'
-saveenv
-
 systemctl disable  getty@tty1.service
+
+fw_setenv bootargs "vmalloc=128M usb_high_speed=0 user_debug=30 ubi.mtd=ubi root=ubi0:rootfs rw rootfstype=ubifs
+ubi.fm_autoconvert=1 mtdparts=tegra_nand:2m(u-boot)ro,1m(u-boot-env),1m(cfgblock)ro,-(ubi) asix_mac=00:14:2d:a3:4f:40
+console=null fbcon=none fbcon=map:off vt.global_cursor_default=0 vt.default_redraw=3 quiet loglevel=0 systemd.show_status=0
+tegrafb.no_cursor=1 mem=372M@0M fbmem=12M@372M nvmem=128M@384M video=tegrafb0:640x480-16@60,novsync,nohwcursor"
 ``````
 
 #### Example Logs
