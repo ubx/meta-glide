@@ -58,6 +58,10 @@ class Menu:
         self.usb_present = any(get_usb_devices())
 
     def eval_mount_point(self):
+        usb_devs = get_usb_devices()
+        if not usb_devs:
+            return None
+        self.usb_device = usb_devs[0]
         dev = self.usb_device.split('/')[-1]
         mount_point = get_usb_mount(dev)
         return mount_point
@@ -91,8 +95,9 @@ class Menu:
         self.loop.run()
 
     def check_usb(self, loop=None, data=None):
-        if self.usb_present != any(get_usb_devices()):
-            self.usb_present = not self.usb_present
+        usb_status = any(get_usb_devices())
+        if self.usb_present != usb_status:
+            self.usb_present = usb_status
             self.creat_view()
             self.loop.widget = self.view
 
@@ -103,40 +108,58 @@ class Menu:
         sys.exit()
 
     def update_xcsoar(self, args):
-        shutil.copyfile(self.eval_mount_point() + '/xcsoar', '/opt/XCSoar/bin/')
+        mount = self.eval_mount_point()
+        if mount:
+            try:
+                shutil.copyfile(os.path.join(mount, 'xcsoar'), '/opt/XCSoar/bin/xcsoar')
+            except Exception:
+                pass
 
     def sync_to_usb_stick(self, args):
-        with open(os.devnull, 'w') as fp:
-            subprocess.run(
-                ['rsync', '-a', sys.argv[1], (self.eval_mount_point())],
-                shell=False, stdout=fp, stderr=fp)
+        mount = self.eval_mount_point()
+        if mount and len(sys.argv) > 1:
+            with open(os.devnull, 'w') as fp:
+                subprocess.run(
+                    ['rsync', '-a', sys.argv[1], mount],
+                    shell=False, stdout=fp, stderr=fp)
 
     def sync_from_usb_stick(self, args):
-        sp = sys.argv[1].split('/')
-        with open(os.devnull, 'w') as fp:
-            subprocess.run(
-                ['rsync', '-a', self.eval_mount_point() + '/' + sp[-1], '/' + sp[-3] + '/' + sp[-2]],
-                shell=False, stdout=fp, stderr=fp)
+        mount = self.eval_mount_point()
+        if mount and len(sys.argv) > 1:
+            data_path = sys.argv[1].rstrip('/')
+            base_name = os.path.basename(data_path)
+            parent_dir = os.path.dirname(data_path)
+            
+            with open(os.devnull, 'w') as fp:
+                subprocess.run(
+                    ['rsync', '-a', os.path.join(mount, base_name), parent_dir],
+                    shell=False, stdout=fp, stderr=fp)
 
     def update_system(self, args):
-        with open(os.devnull, 'w') as fp:
-            subprocess.run(
-                ['rsync', '-rtR', self.eval_mount_point() + '/rootfs/./', '/'],
-                shell=False, stdout=fp, stderr=fp)
+        mount = self.eval_mount_point()
+        if mount:
+            with open(os.devnull, 'w') as fp:
+                subprocess.run(
+                    ['rsync', '-rtR', os.path.join(mount, 'rootfs/./'), '/'],
+                    shell=False, stdout=fp, stderr=fp)
 
     def start_canlogger(self, args):
-        with open(os.devnull, 'w') as fp:
-            subprocess.run(
-                ['sh', '/home/root/run_canlogger.sh', (self.eval_mount_point())],
-                shell=False, stdout=fp, stderr=fp)
+        mount = self.eval_mount_point()
+        if mount:
+            with open(os.devnull, 'w') as fp:
+                subprocess.run(
+                    ['sh', '/home/root/run_canlogger.sh', mount],
+                    shell=False, stdout=fp, stderr=fp)
 
     ### To copy files to USB stick (as an example):
     ### "sudo rsync -rtR rootfs/home/root/menu.py /media/andreas/FLARM/"
     def save_linux_journal(self, args):
-        with open(os.devnull, 'w') as fp:
-            subprocess.run(
-                ['sh', '/home/root/save_journalctl.sh', (self.eval_mount_point())],
-                shell=False, stdout=fp, stderr=fp)
+        mount = self.eval_mount_point()
+        if mount:
+            with open(os.devnull, 'w') as fp:
+                subprocess.run(
+                    ['sh', '/home/root/save_journalctl.sh', mount],
+                    shell=False, stdout=fp, stderr=fp)
 
 
 if __name__ == '__main__':
