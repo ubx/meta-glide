@@ -10,14 +10,26 @@ This XCSoar build runs directly on the framebuffer and does not require an X11 s
 
 Update Procedure
 
-1. Start the Display-L device and ensure it is connected to the internet.
-2. Copy all files from this directory to the Display-L system.
+1. Start the Display-L and ensure it is connected to the internet.
+2. Do not start XCSoar!
+3. Copy all files from this directory to the Display-L:
 ```
 scp menu.py root@colibri-t20:/home/root/
 scp run_xcsoar.sh root@colibri-t20:/home/root/
 scp xcsoar root@colibri-t20:/opt/XCSoar/bin/
 ```
-3. Restart Display-L
+or use tftp to copy the files:
+```
+tftp -g -r menu.py colibri-t20:/home/root/
+tftp -g -r run_xcsoar.sh colibri-t20:/home/root/
+tftp -g -r xcsoar colibri-t20:/opt/XCSoar/bin/
+```
+4. Login with ssh root@colibri-t20
+5. On the running system do:
+```
+systemctl disable getty@tty1.service
+reboot
+```
 
 ## todo
 - cleanup menu.py

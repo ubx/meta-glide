@@ -113,14 +113,18 @@ bitbake xcsoar-7.0
 you can deploy the generated image via TFTP:
 1. unpack the generated image found here (use sudo to maintain the folder structure):
 ``````
-$BASEDIR/oe-core/deploy/images/colibri-t20/Colibri-T20_Console-Image_2.8b8-20241022.tar.bz2
+sudo tar xjvf $BASEDIR/oe-core/deploy/images/colibri-t20/Colibri-T20_Console-Image_2.8b8-20241022.tar.bz2
 ``````
 
 2. go to the directory you unpacked it and run the update script:
 ``````
-./update.sh -o /tftp
+sudo ./update.sh -o /tftp
+or
+sudo ./update.sh -o /media/andreas/T20/
 ``````
-where "/tftp" is your TFTP_DIRECTORY.
+
+> [!CAUTION]
+> do not forget to include special stuff (extras)
 
 3. On the target's HW-console do:
 ``````
@@ -131,16 +135,6 @@ setenv serverip <server-ip address> (setenv serverip 192.168.1.104)
 ping ${serverip}
 run setupdate
 run update
-``````
-
-4. On the running system do:
-``````
-systemctl disable  getty@tty1.service
-
-fw_setenv bootargs "vmalloc=128M usb_high_speed=0 user_debug=30 ubi.mtd=ubi root=ubi0:rootfs rw rootfstype=ubifs
-ubi.fm_autoconvert=1 mtdparts=tegra_nand:2m(u-boot)ro,1m(u-boot-env),1m(cfgblock)ro,-(ubi) asix_mac=00:14:2d:a3:4f:40
-console=null fbcon=none fbcon=map:off vt.global_cursor_default=0 vt.default_redraw=3 quiet loglevel=0 systemd.show_status=0
-tegrafb.no_cursor=1 mem=372M@0M fbmem=12M@372M nvmem=128M@384M video=tegrafb0:640x480-16@60,novsync,nohwcursor"
 ``````
 
 #### Example Logs
