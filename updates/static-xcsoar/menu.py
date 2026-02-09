@@ -39,9 +39,9 @@ class Menu:
         self.menu_items = OrderedDict([('Start XCSoar', self.exit_and_run_xcsoar)])
 
         self.menu_items_usb = OrderedDict([('Update XCSoar', self.update_xcsoar),
-                                           ('Sync from USB-Stick', self.sync_from_usb_stick),
-                                           ('Sync to USB-Stick', self.sync_to_usb_stick),
-                                           ('Update System', self.update_system),
+                                           # ('Sync from USB-Stick', self.sync_from_usb_stick),
+                                           # ('Sync to USB-Stick', self.sync_to_usb_stick),
+                                           # ('Update System', self.update_system),
                                            ('Start CAN Logger', self.start_canlogger),
                                            ('Save Linux journal', self.save_linux_journal)])
 
