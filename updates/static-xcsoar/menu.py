@@ -24,7 +24,6 @@ def get_usb_devices():
 
         return devices
 
-
 def get_usb_mount(dev):
     mount = None
     with open("/proc/mounts", "r") as fin:
@@ -104,7 +103,7 @@ class Menu:
         sys.exit()
 
     def update_xcsoar(self, args):
-        shutil.copyfile(self.eval_mount_point() + '/xcsoar', '/opt/XCSoar/bin/xcsoar')
+        shutil.copyfile(self.eval_mount_point() + '/xcsoar', '/opt/XCSoar/bin/')
 
     def sync_to_usb_stick(self, args):
         with open(os.devnull, 'w') as fp:
@@ -132,12 +131,13 @@ class Menu:
                 shell=False, stdout=fp, stderr=fp)
 
     ### To copy files to USB stick (as an example):
-    ###    "sudo rsync -rtR rootfs/home/root/menu.py   /media/andreas/FLARM/"
+    ### "sudo rsync -rtR rootfs/home/root/menu.py /media/andreas/FLARM/"
     def save_linux_journal(self, args):
         with open(os.devnull, 'w') as fp:
             subprocess.run(
                 ['sh', '/home/root/save_journalctl.sh', (self.eval_mount_point())],
                 shell=False, stdout=fp, stderr=fp)
+
 
 if __name__ == '__main__':
     menu = Menu()

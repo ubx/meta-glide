@@ -133,6 +133,14 @@ run setupdate
 run update
 ``````
 
+4. XXXX
+``````
+setenv setup 'setenv setupargs ${memargs} consoleblank=0 console=null'
+saveenv
+
+systemctl disable  getty@tty1.service
+``````
+
 #### Example Logs
 [build.log](documents/logs/build.log)
 
