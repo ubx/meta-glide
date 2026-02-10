@@ -126,6 +126,9 @@ sudo ./update.sh -o /media/andreas/T20/
 > [!CAUTION]
 > do not forget to include special stuff (extras)
 
+> [!CAUTION]
+> do not forget to include special stuff (extras)
+
 3. On the target's HW-console do:
 ``````
 usb start
