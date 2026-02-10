@@ -28,6 +28,7 @@ tftp -g -r xcsoar colibri-t20:/opt/XCSoar/bin/
 5. On the running system do:
 ```
 systemctl disable getty@tty1.service
+systemctl disable ofono.service
 reboot
 ```
 
